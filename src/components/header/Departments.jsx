@@ -35,7 +35,6 @@ class Departments extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const { fixed, area, open } = this.state;
-
         if (prevState.fixed !== fixed) {
             const root = this.rootRef;
             const content = root.querySelector('.departments__links-wrapper');

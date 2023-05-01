@@ -84,7 +84,7 @@ function HomePageOne() {
                 <title>{`الرئيسية — ${theme.name}`}</title>
             </Helmet>
 
-            {useMemo(() => <BlockSlideShow withDepartments />, [])}
+            {useMemo(() => <BlockSlideShow />, [])}
 
             {useMemo(() => <BlockFeatures />, [])}
 

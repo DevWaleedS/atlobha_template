@@ -38,3 +38,4 @@ export { ReactComponent as Rating13x12Svg } from './rating-13x12.svg';
 export { ReactComponent as Search20Svg } from './search-20.svg';
 export { ReactComponent as Wishlist16Svg } from './wishlist-16.svg';
 export { ReactComponent as ZoomIn24Svg } from './zoom-in-24.svg';
+export { ReactComponent as WhatsappIcon } from './whatsapp.svg';
