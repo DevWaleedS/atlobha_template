@@ -19,15 +19,15 @@ export default function Footer() {
         { title: 'Site Map', url: '' },
     ];
 
-    const accountLinks = [
-        { title: 'Store Location', url: '' },
-        { title: 'Order History', url: '' },
-        { title: 'Wish List', url: '' },
-        { title: 'Newsletter', url: '' },
-        { title: 'Specials', url: '' },
-        { title: 'Gift Certificates', url: '' },
-        { title: 'Affiliate', url: '' },
-    ];
+    // const accountLinks = [
+    //     { title: 'Store Location', url: '' },
+    //     { title: 'Order History', url: '' },
+    //     { title: 'Wish List', url: '' },
+    //     { title: 'Newsletter', url: '' },
+    //     { title: 'Specials', url: '' },
+    //     { title: 'Gift Certificates', url: '' },
+    //     { title: 'Affiliate', url: '' },
+    // ];
 
     return (
         <div className="site-footer">
@@ -37,11 +37,8 @@ export default function Footer() {
                         <div className="col-12 col-md-6 col-lg-4">
                             <FooterContacts />
                         </div>
-                        <div className="col-6 col-md-3 col-lg-2">
+                        <div className="col-12 col-md-6 col-lg-4">
                             <FooterLinks title="معلومات" items={informationLinks} />
-                        </div>
-                        <div className="col-6 col-md-3 col-lg-2">
-                            <FooterLinks title="حسابي" items={accountLinks} />
                         </div>
                         <div className="col-12 col-md-12 col-lg-4">
                             <FooterNewsletter />
@@ -58,8 +55,7 @@ export default function Footer() {
                         <a href="https://google.com" rel="noopener noreferrer" target="_blank">
                             <img src="images/maroof.webp" width="60" alt="maroof" />
                         </a>
-                        <img src="images/cards.png" width="100" alt="cards" />
-                        <img src="images/PayPal.png" width="80" alt="PayPal" />
+                        <img src="images/payments.png" alt="payments" />
                     </div>
                 </div>
             </div>

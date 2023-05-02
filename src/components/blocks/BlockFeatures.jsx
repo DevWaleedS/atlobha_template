@@ -34,7 +34,7 @@ export default function BlockFeatures(props) {
                             <Fi24Hours48Svg />
                         </div>
                         <div className="block-features__content">
-                            <div className="block-features__title">الدعم 24/7</div>
+                            <div className="block-features__title">دعم فني 24/7</div>
                             <div className="block-features__subtitle">تواصل معنا أي وقت</div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ export default function BlockFeatures(props) {
                             <FiPaymentSecurity48Svg />
                         </div>
                         <div className="block-features__content">
-                            <div className="block-features__title">100% آمن</div>
+                            <div className="block-features__title">آمن 100%</div>
                             <div className="block-features__subtitle">طرق دفع آمنه</div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@ export default function BlockFeatures(props) {
                             <FiTag48Svg />
                         </div>
                         <div className="block-features__content">
-                            <div className="block-features__title">عروض ساخنة</div>
+                            <div className="block-features__title">عروض خاصة</div>
                             <div className="block-features__subtitle"> خضم أكثر من 90%</div>
                         </div>
                     </div>

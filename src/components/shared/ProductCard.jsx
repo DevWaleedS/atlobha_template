@@ -118,7 +118,7 @@ function ProductCard(props) {
             </div>
             <div className="product-card__actions">
                 <div className="product-card__availability">
-                    التوفر:
+                    المخزون:
                     <span className="text-success">متوفر</span>
                 </div>
                 {price}

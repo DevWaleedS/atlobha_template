@@ -121,8 +121,7 @@ class Product extends Component {
                         </ul>
                         <ul className="product__meta">
                             <li className="product__meta-availability">
-                                التوفر:
-                                {' '}
+                                المخزون:
                                 <span className="text-success">متوفر</span>
                             </li>
                             <li>
@@ -135,8 +134,7 @@ class Product extends Component {
 
                     <div className="product__sidebar">
                         <div className="product__availability">
-                            التوفر:
-                            {' '}
+                            المخزون:
                             <span className="text-success">متوفر</span>
                         </div>
 

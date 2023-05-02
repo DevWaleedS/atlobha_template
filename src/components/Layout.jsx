@@ -27,14 +27,14 @@ import ShopPageCategory from './shop/ShopPageCategory';
 import ShopPageOrderSuccess from './shop/ShopPageOrderSuccess';
 import ShopPageProduct from './shop/ShopPageProduct';
 import ShopPageTrackOrder from './shop/ShopPageTrackOrder';
-import SitePageAboutUs from './site/SitePageAboutUs';
-import SitePageComponents from './site/SitePageComponents';
+// import SitePageAboutUs from './site/SitePageAboutUs';
+// import SitePageComponents from './site/SitePageComponents';
 import SitePageContactUs from './site/SitePageContactUs';
-import SitePageContactUsAlt from './site/SitePageContactUsAlt';
-import SitePageFaq from './site/SitePageFaq';
+// import SitePageContactUsAlt from './site/SitePageContactUsAlt';
+// import SitePageFaq from './site/SitePageFaq';
 import SitePageNotFound from './site/SitePageNotFound';
-import SitePageTerms from './site/SitePageTerms';
-import SitePageTypography from './site/SitePageTypography';
+// import SitePageTerms from './site/SitePageTerms';
+// import SitePageTypography from './site/SitePageTypography';
 
 // data stubs
 import theme from '../data/theme';
@@ -202,16 +202,17 @@ function Layout(props) {
 
                         {/*
                         // Site
-                        */}
                         <Redirect exact from="/site" to="/site/about-us" />
                         <Route exact path="/site/about-us" component={SitePageAboutUs} />
                         <Route exact path="/site/components" component={SitePageComponents} />
-                        <Route exact path="/site/contact-us" component={SitePageContactUs} />
                         <Route exact path="/site/contact-us-alt" component={SitePageContactUsAlt} />
                         <Route exact path="/site/not-found" component={SitePageNotFound} />
                         <Route exact path="/site/faq" component={SitePageFaq} />
                         <Route exact path="/site/terms" component={SitePageTerms} />
                         <Route exact path="/site/typography" component={SitePageTypography} />
+                        */}
+
+                        <Route exact path="/site/contact-us" component={SitePageContactUs} />
 
                         {/*
                         // Page Not Found

@@ -161,7 +161,7 @@ function ShopPageCompare(props) {
                                     {ratingRow}
                                 </tr>
                                 <tr>
-                                    <th>التوفر</th>
+                                    <th>المخزون</th>
                                     {availabilityRow}
                                 </tr>
                                 <tr>

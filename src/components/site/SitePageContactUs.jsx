@@ -15,19 +15,19 @@ import theme from '../../data/theme';
 
 function SitePageContactUs() {
     const breadcrumb = [
-        { title: 'Home', url: '' },
-        { title: 'Contact Us', url: '' },
+        { title: 'الرئيسية', url: '' },
+        { title: 'تواصل معنا', url: '' },
     ];
 
     return (
         <React.Fragment>
             <Helmet>
-                <title>{`Contact Us — ${theme.name}`}</title>
+                <title>{`تواصل معنا — ${theme.name}`}</title>
             </Helmet>
 
             <BlockMap />
 
-            <PageHeader header="Contact Us" breadcrumb={breadcrumb} />
+            <PageHeader header="تواصل معنا" breadcrumb={breadcrumb} />
 
             <div className="block">
                 <div className="container">
@@ -36,30 +36,30 @@ function SitePageContactUs() {
                             <div className="contact-us__container">
                                 <div className="row">
                                     <div className="col-12 col-lg-6 pb-4 pb-lg-0">
-                                        <h4 className="contact-us__header card-title">Our Address</h4>
+                                        <h4 className="contact-us__header card-title">عنواننا</h4>
 
                                         <div className="contact-us__address">
                                             <p>
                                                 715 Fake Ave, Apt. 34, New York, NY 10021 USA
                                                 <br />
-                                                Email: stroyka@example.com
+                                                البريد الالكتروني: stroyka@example.com
                                                 <br />
-                                                Phone Number: +1 754 000-00-00
+                                                رقم الهاتف: +1 754 000-00-00
                                             </p>
 
                                             <p>
-                                                <strong>Opening Hours</strong>
+                                                <strong>اوقات الدوام</strong>
                                                 <br />
-                                                Monday to Friday: 8am-8pm
+                                                الاثنين الى الجمعة: 8am-8pm
                                                 <br />
-                                                Saturday: 8am-6pm
+                                                السبت: 8am-6pm
                                                 <br />
-                                                Sunday: 10am-4pm
+                                                الأحد: 10am-4pm
                                             </p>
 
                                             <p>
 
-                                                <strong>Comment</strong>
+                                                <strong>ملاحظة</strong>
                                                 <br />
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing
                                                 elit. Curabitur suscipit suscipit mi, non tempor
@@ -70,33 +70,33 @@ function SitePageContactUs() {
                                     </div>
 
                                     <div className="col-12 col-lg-6">
-                                        <h4 className="contact-us__header card-title">Leave us a Message</h4>
+                                        <h4 className="contact-us__header card-title">اترك لنا رسالة</h4>
 
                                         <form>
                                             <div className="form-row">
                                                 <div className="form-group col-md-6">
-                                                    <label htmlFor="form-name">Your Name</label>
-                                                    <input type="text" id="form-name" className="form-control" placeholder="Your Name" />
+                                                    <label htmlFor="form-name">اسمك بالكامل</label>
+                                                    <input type="text" id="form-name" className="form-control" placeholder="اسمك بالكامل" />
                                                 </div>
                                                 <div className="form-group col-md-6">
-                                                    <label htmlFor="form-email">Email</label>
+                                                    <label htmlFor="form-email">البريد الالكتروني</label>
                                                     <input
                                                         type="email"
                                                         id="form-email"
                                                         className="form-control"
-                                                        placeholder="Email Address"
+                                                        placeholder="البريد الالكتروني"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="form-subject">Subject</label>
-                                                <input type="text" id="form-subject" className="form-control" placeholder="Subject" />
+                                                <label htmlFor="form-subject">موضوع الرسالة</label>
+                                                <input type="text" id="form-subject" className="form-control" placeholder="موضوع الرسالة" />
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="form-message">Message</label>
+                                                <label htmlFor="form-message">الرسالة</label>
                                                 <textarea id="form-message" className="form-control" rows="4" />
                                             </div>
-                                            <button type="submit" className="btn btn-primary">Send Message</button>
+                                            <button type="submit" className="btn btn-primary">ارسال</button>
                                         </form>
 
                                     </div>

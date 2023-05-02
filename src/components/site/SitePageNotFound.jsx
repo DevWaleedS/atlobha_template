@@ -18,28 +18,28 @@ function SitePageNotFound() {
             <div className="container">
                 <div className="not-found">
                     <div className="not-found__404">
-                        Oops! Error 404
+                        خطأ 404
                     </div>
 
                     <div className="not-found__content">
-                        <h1 className="not-found__title">Page Not Found</h1>
+                        <h1 className="not-found__title">الصفحة غير موجودة</h1>
 
                         <p className="not-found__text">
-                            We can&apos;t seem to find the page you&apos;re looking for.
+                            لايمكننا العثور على الصفحة التي تبحث عنها
                             <br />
-                            Try to use the search.
+                            يمكنك محاولة البحث عنها بالاسفل
                         </p>
 
                         <form className="not-found__search">
-                            <input type="text" className="not-found__search-input form-control" placeholder="Search Query..." />
-                            <button type="submit" className="not-found__search-button btn btn-primary">Search</button>
+                            <input type="text" className="not-found__search-input form-control" placeholder="ابحث هنا ..." />
+                            <button type="submit" className="not-found__search-button btn btn-primary">بحث</button>
                         </form>
 
                         <p className="not-found__text">
-                            Or go to the home page to start over.
+                            او يمكنك الذهاب الى الصفحة الرئيسية
                         </p>
 
-                        <Link to="/" className="btn btn-secondary btn-sm">Go To Home Page</Link>
+                        <Link to="/" className="btn btn-secondary btn-sm">الصفحة الرئيسية</Link>
                     </div>
                 </div>
             </div>
