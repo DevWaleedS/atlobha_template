@@ -61,10 +61,10 @@ $local-transition-duration: .1s;
     &.focus,
     &:focus,
     &:hover {
-        border-color: $hover-bg;
-        background: $hover-bg;
-        color: $hover-font;
-        fill: $hover-icon;
+        border-color: #02466a;
+        background: #02466a;
+        color: #ffffff;
+        fill: #ffffff;
 
         .fake-svg-icon {
             color: $hover-icon;
@@ -80,8 +80,8 @@ $local-transition-duration: .1s;
     &:not(:disabled):not(.disabled).active {
         border-color: $active-bg;
         background: $active-bg;
-        color: $active-font;
-        fill: $active-icon;
+        color: #ffffff;
+        fill: #ffffff;
 
         .fake-svg-icon {
             color: $active-icon;
@@ -97,7 +97,7 @@ $local-transition-duration: .1s;
     &:disabled {
         border-color: $bg;
         background: $bg;
-        color: $font;
+        color: #ffffff;
         fill: $icon;
 
         .fake-svg-icon {

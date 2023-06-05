@@ -34,7 +34,7 @@ export default class BlogPageCategory extends Component {
 
         const breadcrumb = [
             { title: 'الرئيسية', url: '/' },
-            { title: 'المدونة', url: '' },
+            { title: 'المقالات', url: '' },
         ];
 
         let sidebarStart;
@@ -68,7 +68,7 @@ export default class BlogPageCategory extends Component {
                     <title>{`Blog Category Page — ${theme.name}`}</title>
                 </Helmet>
 
-                <PageHeader header="المدونة" breadcrumb={breadcrumb} />
+                <PageHeader header="المقالات" breadcrumb={breadcrumb} />
 
                 <div className="container">
                     <div className="row">

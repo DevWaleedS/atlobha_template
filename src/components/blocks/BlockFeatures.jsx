@@ -24,8 +24,8 @@ export default function BlockFeatures(props) {
                             <FiFreeDelivery48Svg />
                         </div>
                         <div className="block-features__content">
-                            <div className="block-features__title">شحن مجاني</div>
-                            <div className="block-features__subtitle">للطلبات الأكثر من $50</div>
+                            <div className="block-features__title">خدمة التوصيل</div>
+                            {/* <div className="block-features__subtitle"> </div> */}
                         </div>
                     </div>
                     <div className="block-features__divider" />
@@ -34,8 +34,7 @@ export default function BlockFeatures(props) {
                             <Fi24Hours48Svg />
                         </div>
                         <div className="block-features__content">
-                            <div className="block-features__title">دعم فني 24/7</div>
-                            <div className="block-features__subtitle">تواصل معنا أي وقت</div>
+                            <div className="block-features__title">التواصل معنا 24/7</div>
                         </div>
                     </div>
                     <div className="block-features__divider" />
@@ -44,8 +43,7 @@ export default function BlockFeatures(props) {
                             <FiPaymentSecurity48Svg />
                         </div>
                         <div className="block-features__content">
-                            <div className="block-features__title">آمن 100%</div>
-                            <div className="block-features__subtitle">طرق دفع آمنه</div>
+                            <div className="block-features__title">ضمان الجودة</div>
                         </div>
                     </div>
                     <div className="block-features__divider" />
@@ -55,7 +53,6 @@ export default function BlockFeatures(props) {
                         </div>
                         <div className="block-features__content">
                             <div className="block-features__title">عروض خاصة</div>
-                            <div className="block-features__subtitle"> خضم أكثر من 90%</div>
                         </div>
                     </div>
                 </div>

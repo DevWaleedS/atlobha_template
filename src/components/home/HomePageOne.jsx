@@ -72,7 +72,7 @@ function HomePageOne() {
                 source: () => shopApi.getDiscountedProducts({ limit: 3 }),
             },
             {
-                title: 'الأكثر مبيعاً',
+                title: 'المميزة',
                 source: () => shopApi.getPopularProducts({ limit: 3 }),
             },
         ], []),
@@ -90,7 +90,7 @@ function HomePageOne() {
 
             {useMemo(() => (
                 <BlockProductsCarousel
-                    title="المنتجات المميزة"
+                    title="الجديد"
                     layout="grid-4"
                     products={featuredProducts.data}
                     loading={featuredProducts.isLoading}
@@ -103,7 +103,7 @@ function HomePageOne() {
 
             {useMemo(() => (
                 <BlockProducts
-                    title="الأكثر مبيعاً"
+                    title="المميزة"
                     layout="large-first"
                     featuredProduct={bestsellers.data[0]}
                     products={bestsellers.data.slice(1, 7)}
@@ -120,7 +120,7 @@ function HomePageOne() {
 
             {useMemo(() => (
                 <BlockProductsCarousel
-                    title="وصل مؤخراً"
+                    title="الأكثر طلباً"
                     layout="horizontal"
                     rows={2}
                     products={latestProducts.data}

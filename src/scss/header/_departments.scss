@@ -62,7 +62,7 @@ $local-transition-duration: .25s;
     width: 100%;
     padding-top: $departments-height;
     position: absolute;
-    background: $departments-bg;
+    background: #02466a;
     box-shadow: $departments-shadow;
     border-radius: 2px;
     top: 0;
@@ -81,7 +81,7 @@ $local-transition-duration: .25s;
             visibility: visible;
         }
         &:hover > a {
-            background: $departments-item-hover-bg;
+            background: $accent-color;
         }
     }
     > li > a {
@@ -101,7 +101,7 @@ $local-transition-duration: .25s;
 .departments__link-arrow {
     top: calc(50% - 5px);
     position: absolute;
-    fill: $departments-arrow-color;
+    fill: $light-color;
 
     @include direction {
         #{$inset-inline-end}: 14px;

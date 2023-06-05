@@ -52,8 +52,8 @@ export default function BlogPagePost(props) {
 
     const breadcrumbs = [
         { title: 'الرئيسية', url: '' },
-        { title: 'المدونة', url: '' },
-        { title: 'اخر مدونة', url: '' },
+        { title: 'المقالات', url: '' },
+        { title: 'اخر مقال', url: '' },
     ];
 
     return (
