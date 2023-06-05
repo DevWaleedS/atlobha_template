@@ -41,20 +41,6 @@ export default function AccountPageEditAddress() {
                                 />
                             </div>
                         </div>
-
-                        <div className="form-group">
-                            <label htmlFor="checkout-company-name">
-                                اسم الشركة
-                                {' '}
-                                <span className="text-muted">(اختياري)</span>
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="checkout-company-name"
-                                placeholder="Company Name"
-                            />
-                        </div>
                         <div className="form-group">
                             <label htmlFor="checkout-country">الدولة</label>
                             <select id="checkout-country" className="form-control form-control-select2">
@@ -87,22 +73,6 @@ export default function AccountPageEditAddress() {
                                 type="text"
                                 className="form-control"
                                 id="checkout-address"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="checkout-city">المدينة / القرية</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="checkout-city"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="checkout-state">المحاظة / الدولة</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="checkout-state"
                             />
                         </div>
                         <div className="form-group">

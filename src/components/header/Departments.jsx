@@ -91,7 +91,7 @@ class Departments extends Component {
         this.unsubscribeAria();
     }
 
-    unsubscribeAria = () => {};
+    unsubscribeAria = () => { };
 
     setWrapperRef = (node) => {
         this.rootRef = node;
@@ -129,7 +129,7 @@ class Departments extends Component {
 
                 <button type="button" className="departments__button" onClick={this.handleButtonClick}>
                     <Menu18x14Svg className="departments__button-icon" />
-                    تسوق من خلال التصنيفات
+                    التصنيفات
                     <ArrowRoundedDown9x6Svg className="departments__button-arrow" />
                 </button>
             </div>

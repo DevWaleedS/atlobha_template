@@ -218,6 +218,11 @@
         .product-card__buttons {
             display: none;
         }
+        .product-card__name{
+            .buttons{
+                display: none;
+            }
+        }
 
         &:hover {
             position: relative;
@@ -226,6 +231,11 @@
 
             .product-card__buttons {
                 display: flex;
+            }
+            .product-card__name{
+                .buttons{
+                    display: flex;
+                }
             }
         }
     }
@@ -255,6 +265,11 @@
         .product-card__buttons {
             display: none;
         }
+        .product-card__name{
+            .buttons{
+                display: none;
+            }
+        }
 
         &:hover {
             position: relative;
@@ -263,6 +278,11 @@
 
             .product-card__buttons {
                 display: flex;
+            }
+            .product-card__name{
+                .buttons{
+                    display: flex;
+                }
             }
         }
     }

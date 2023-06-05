@@ -43,6 +43,10 @@
 .site-header__phone {
     line-height: 1;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
 
     @include direction {
         text-align: $inline-end;

@@ -90,7 +90,7 @@ function HomePageTwo() {
 
             {useMemo(() => (
                 <BlockProductsCarousel
-                    title="المنتجات المميزة"
+                    title="الجديد"
                     layout="grid-5"
                     rows={2}
                     products={featuredProducts.data}
@@ -121,7 +121,7 @@ function HomePageTwo() {
 
             {useMemo(() => (
                 <BlockProductsCarousel
-                    title="وصل مؤخراً"
+                    title="الأكثر طلباً"
                     layout="grid-5"
                     products={latestProducts.data}
                     loading={latestProducts.isLoading}

@@ -4,16 +4,29 @@ export default [
         label: 'الرئيسية',
         url: '/',
     },
-
+    {
+        type: 'link',
+        label: 'تواصل معنا',
+        url: '/site/contact-us',
+    },
+    {
+        type: 'link',
+        label: 'الاستبدال والاسترجاع',
+        url: '/',
+    },
+    {
+        type: 'link',
+        label: 'الخصوصية',
+        url: '/',
+    },
     {
         type: 'link',
         label: 'المنتجات',
         url: '/shop/catalog',
     },
-
     {
         type: 'link',
-        label: 'المدونة',
+        label: 'المقالات',
         url: '/blog/category-classic',
     },
 

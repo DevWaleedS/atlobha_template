@@ -4,11 +4,23 @@ export default [
         url: '/',
     },
     {
+        title: 'تواصل معنا',
+        url: '/site/contact-us',
+    },
+    {
+        title: 'الاستبدال والاسترجاع',
+        url: '/',
+    },
+    {
+        title: 'الخصوصية',
+        url: '/',
+    },
+    {
         title: 'المنتجات',
         url: '/shop/catalog',
     },
     {
-        title: 'المدونة',
+        title: 'المقالات',
         url: '/blog/category-classic',
     },
     {

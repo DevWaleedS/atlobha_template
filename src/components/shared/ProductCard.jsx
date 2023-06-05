@@ -109,6 +109,36 @@ function ProductCard(props) {
             <div className="product-card__info">
                 <div className="product-card__name">
                     <Link to={url.product(product)}>{product.name}</Link>
+                    <div className="buttons">
+                        <AsyncAction
+                            action={() => wishlistAddItem(product)}
+                            render={({ run, loading }) => (
+                                <button
+                                    type="button"
+                                    onClick={run}
+                                    className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
+                                        'btn-loading': loading,
+                                    })}
+                                >
+                                    <Wishlist16Svg />
+                                </button>
+                            )}
+                        />
+                        <AsyncAction
+                            action={() => compareAddItem(product)}
+                            render={({ run, loading }) => (
+                                <button
+                                    type="button"
+                                    onClick={run}
+                                    className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
+                                        'btn-loading': loading,
+                                    })}
+                                >
+                                    <Compare16Svg />
+                                </button>
+                            )}
+                        />
+                    </div>
                 </div>
                 <div className="product-card__rating">
                     <Rating value={product.rating} />
@@ -146,34 +176,6 @@ function ProductCard(props) {
                                     اضافة إلى السلة
                                 </button>
                             </React.Fragment>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => wishlistAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Wishlist16Svg />
-                            </button>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => compareAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Compare16Svg />
-                            </button>
                         )}
                     />
                 </div>

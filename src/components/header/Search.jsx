@@ -200,7 +200,7 @@ function Search(props) {
                         value={query}
                         className="search__input"
                         name="search"
-                        placeholder="ابحث في أكثر من 10000 منتج"
+                        placeholder="ابحث في أكثر من منتج"
                         aria-label="Site search"
                         type="text"
                         autoComplete="off"
