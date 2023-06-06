@@ -70,6 +70,7 @@ const productLayouts = [
 function Layout(props) {
     const { match, headerLayout, homeComponent } = props;
     const { fetchedData } = useFetch('https://backend.atlbha.com/api/indexStore/1');
+    
     return (
         <React.Fragment>
             <Helmet>
