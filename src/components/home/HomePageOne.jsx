@@ -3,10 +3,11 @@ import React, { useMemo } from 'react';
 
 // third-party
 import { Helmet } from 'react-helmet-async';
+import useFetch from '../../hooks/useFetch';
 
 // application
 import shopApi from '../../api/shop';
-import { useDeferredData, useProductColumns, useProductTabs } from '../../services/hooks';
+import { useProductColumns, useProductTabs } from '../../services/hooks';
 
 // blocks
 import BlockBanner from '../blocks/BlockBanner';
@@ -20,11 +21,12 @@ import BlockProductsCarousel from '../blocks/BlockProductsCarousel';
 import BlockSlideShow from '../blocks/BlockSlideShow';
 
 // data stubs
-import categories from '../../data/shopBlockCategories';
+// import categories from '../../data/shopBlockCategories';
 import posts from '../../data/blogPosts';
 import theme from '../../data/theme';
 
 function HomePageOne() {
+    const { fetchedData, loading } = useFetch('https://backend.atlbha.com/api/indexStore/1');
     /**
      * Featured products.
      */
@@ -37,13 +39,6 @@ function HomePageOne() {
         ], []),
         (tab) => shopApi.getPopularProducts({ limit: 8, category: tab.categorySlug }),
     );
-
-    /**
-     * Bestsellers.
-     */
-    const bestsellers = useDeferredData(() => (
-        shopApi.getPopularProducts({ limit: 7 })
-    ), []);
 
     /**
      * Latest products.
@@ -99,24 +94,18 @@ function HomePageOne() {
                 />
             ), [featuredProducts])}
 
-            {useMemo(() => <BlockBanner />, [])}
-
-            {useMemo(() => (
-                <BlockProducts
-                    title="المميزة"
-                    layout="large-first"
-                    featuredProduct={bestsellers.data[0]}
-                    products={bestsellers.data.slice(1, 7)}
-                />
-            ), [bestsellers.data])}
-
-            {useMemo(() => (
-                <BlockCategories
-                    title="التصنيفات الشائعة"
-                    layout="classic"
-                    categories={categories}
-                />
-            ), [])}
+            <BlockBanner banar1={!loading && fetchedData?.data?.banar1} />
+            <BlockProducts
+                title="المميزة"
+                layout="large-first"
+                featuredProduct={fetchedData?.data?.specialProducts[0]}
+                products={fetchedData?.data?.specialProducts?.slice(1, 7)}
+            />
+            <BlockCategories
+                title="التصنيفات الشائعة"
+                layout="classic"
+                categories={fetchedData?.data?.PopularCategories}
+            />
 
             {useMemo(() => (
                 <BlockProductsCarousel
