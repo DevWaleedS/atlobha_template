@@ -185,8 +185,8 @@ export default class BlockProductsCarousel extends Component {
             onGroupClick,
             groups,
             loading,
+            activeId,
         } = this.props;
-
         const columns = this.productsColumns().map((column, index) => {
             const products = column.map((product) => (
                 <div key={product.id} className="block-products-carousel__cell">
@@ -219,6 +219,7 @@ export default class BlockProductsCarousel extends Component {
                         onNext={this.handleNextClick}
                         onPrev={this.handlePrevClick}
                         onGroupClick={onGroupClick}
+                        activeId={activeId}
                     />
 
                     <div className="block-products-carousel__slider">

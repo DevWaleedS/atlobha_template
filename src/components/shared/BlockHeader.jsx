@@ -15,6 +15,7 @@ function BlockHeader(props) {
         onPrev,
         onNext,
         onGroupClick,
+        activeId,
     } = props;
     let { arrows } = props;
 
@@ -34,15 +35,15 @@ function BlockHeader(props) {
     let groupsList;
 
     if (groups.length > 0) {
-        groupsList = groups.map((group, index) => {
+        groupsList = groups?.map((group, index) => {
             const classes = classNames('block-header__group', {
-                'block-header__group--active': group.current,
+                'block-header__group--active': group?.id === activeId,
             });
 
             return (
                 <li key={index}>
-                    <button type="button" className={classes} onClick={() => onGroupClick(group)}>
-                        {group.name}
+                    <button type="button" className={classes} onClick={() => onGroupClick(group?.id)}>
+                        {group?.name}
                     </button>
                 </li>
             );
@@ -50,6 +51,11 @@ function BlockHeader(props) {
 
         groupsList = (
             <ul className="block-header__groups-list">
+                <li>
+                    <button type="button" className={activeId === 0 ? 'block-header__group block-header__group--active' : 'block-header__group'} onClick={() => onGroupClick(0)}>
+                        الكل
+                    </button>
+                </li>
                 {groupsList}
             </ul>
         );
@@ -75,7 +81,7 @@ BlockHeader.propTypes = {
 };
 BlockHeader.defaultProps = {
     groups: [],
-    onGroupClick: () => {},
+    onGroupClick: () => { },
 };
 
 export default BlockHeader;

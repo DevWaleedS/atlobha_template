@@ -18,15 +18,15 @@ function PostCard(props) {
             'post-card--size--sm': layout === 'list-sm',
         },
     );
-    const categories = post.categories.map((category, index) => (
-        <Link key={index} to="/">{category}</Link>
+    const categories = post?.pageCategory?.map((category, index) => (
+        <Link key={index} to="/">{category?.name}</Link>
     ));
 
     return (
         <div className={cardClasses}>
             <div className="post-card__image">
                 <Link to="/blog/post-classic">
-                    <img src={post.image} alt="" />
+                    <img src={post?.image} alt="img" />
                 </Link>
             </div>
             <div className="post-card__info">
@@ -34,13 +34,11 @@ function PostCard(props) {
                     {categories}
                 </div>
                 <div className="post-card__name">
-                    <Link to="/blog/post-classic">{post.title}</Link>
+                    <Link to="/blog/post-classic">{post?.title}</Link>
                 </div>
-                <div className="post-card__date">{post.date}</div>
+                <div className="post-card__date">{post?.created_at}</div>
                 <div className="post-card__content">
-                    In one general sense, philosophy is associated with wisdom,
-                    intellectual culture and a search for knowledge.
-                    In that sense, all cultures...
+                    {post?.page_desc}
                 </div>
                 <div className="post-card__read-more">
                     <Link to="/" className="btn btn-secondary btn-sm">إقرأ المزيد</Link>
