@@ -222,7 +222,7 @@ function Layout(props) {
                 </div>
 
                 <footer className="site__footer">
-                    <Footer />
+                    <Footer fetchedData={fetchedData?.data} />
                 </footer>
             </div>
         </React.Fragment>

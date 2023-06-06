@@ -8,16 +8,16 @@ import FooterNewsletter from './FooterNewsletter';
 import ToTop from './ToTop';
 import Whatsapp from './Whatsapp';
 
-export default function Footer() {
-    const informationLinks = [
-        { title: 'About Us', url: '' },
-        { title: 'Delivery Information', url: '' },
-        { title: 'Privacy Policy', url: '' },
-        { title: 'Brands', url: '' },
-        { title: 'Contact Us', url: '' },
-        { title: 'Returns', url: '' },
-        { title: 'Site Map', url: '' },
-    ];
+export default function Footer({ fetchedData }) {
+    // const informationLinks = [
+    //     { title: 'About Us', url: '' },
+    //     { title: 'Delivery Information', url: '' },
+    //     { title: 'Privacy Policy', url: '' },
+    //     { title: 'Brands', url: '' },
+    //     { title: 'Contact Us', url: '' },
+    //     { title: 'Returns', url: '' },
+    //     { title: 'Site Map', url: '' },
+    // ];
 
     // const accountLinks = [
     //     { title: 'Store Location', url: '' },
@@ -35,10 +35,10 @@ export default function Footer() {
                 <div className="site-footer__widgets">
                     <div className="row">
                         <div className="col-12 col-md-6 col-lg-4">
-                            <FooterContacts />
+                            <FooterContacts fetchedData={fetchedData} />
                         </div>
                         <div className="col-12 col-md-6 col-lg-4">
-                            <FooterLinks title="معلومات" items={informationLinks} />
+                            <FooterLinks title="معلومات" items={fetchedData?.pages} />
                         </div>
                         <div className="col-12 col-md-12 col-lg-4">
                             <FooterNewsletter />

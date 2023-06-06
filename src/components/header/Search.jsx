@@ -55,14 +55,16 @@ function Search(props) {
         inputRef,
         onClose,
         location,
+        fetchedData,
     } = props;
-    const [cancelFn, setCancelFn] = useState(() => () => {});
+    const [cancelFn, setCancelFn] = useState(() => () => { });
     const [suggestionsOpen, setSuggestionsOpen] = useState(false);
     const [hasSuggestions, setHasSuggestions] = useState(false);
     const [suggestedProducts, setSuggestedProducts] = useState([]);
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState('[all]');
     const categories = useCategories();
+    console.log(categories);
     const wrapper = useRef(null);
     const close = useCallback(() => {
         if (onClose) {
@@ -169,10 +171,10 @@ function Search(props) {
         </button>
     );
 
-    const categoryOptions = categories.map((category) => (
-        <option key={category.slug} value={category.slug}>
-            {'\u00A0'.repeat(4 * category.depth)}
-            {category.name}
+    const categoryOptions = fetchedData?.data?.category?.map((category) => (
+        <option key={category?.slug} value={category?.slug}>
+            {'\u00A0'.repeat(4 * 1)}
+            {category?.name}
         </option>
     ));
 

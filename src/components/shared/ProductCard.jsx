@@ -68,14 +68,14 @@ function ProductCard(props) {
     if (product.compareAtPrice) {
         price = (
             <div className="product-card__prices">
-                <span className="product-card__new-price">{product?.purchasing_price}</span>
+                <span className="product-card__new-price">{product?.selling_price}</span>
                 <span className="product-card__old-price">{product?.compareAtPrice}</span>
             </div>
         );
     } else {
         price = (
             <div className="product-card__prices">
-                <Currency value={product?.purchasing_price || 0} />
+                <Currency value={product?.selling_price || 0} />
             </div>
         );
     }
@@ -93,7 +93,7 @@ function ProductCard(props) {
     return (
         <div className={containerClasses}>
             <AsyncAction
-                action={() => quickviewOpen(product.slug)}
+                action={() => quickviewOpen(product?.id)}
                 render={({ run, loading }) => (
                     <button
                         type="button"
@@ -113,7 +113,7 @@ function ProductCard(props) {
                 </div>
                 <div className="product-card__rating">
                     <Rating value={product?.productRating} />
-                    <div className=" product-card__rating-legend">{`${product.reviews} تقييم`}</div>
+                    <div className=" product-card__rating-legend">{`${product?.productRatingCount} تقييم`}</div>
                 </div>
                 {features}
             </div>

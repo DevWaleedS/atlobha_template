@@ -1,17 +1,12 @@
 // react
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // third-party
 import { Helmet } from 'react-helmet-async';
 import useFetch from '../../hooks/useFetch';
 
-// application
-import shopApi from '../../api/shop';
-import { useProductColumns, useProductTabs } from '../../services/hooks';
-
 // blocks
 import BlockBanner from '../blocks/BlockBanner';
-import BlockBrands from '../blocks/BlockBrands';
 import BlockCategories from '../blocks/BlockCategories';
 import BlockFeatures from '../blocks/BlockFeatures';
 import BlockPosts from '../blocks/BlockPosts';
@@ -22,56 +17,52 @@ import BlockSlideShow from '../blocks/BlockSlideShow';
 
 // data stubs
 // import categories from '../../data/shopBlockCategories';
-import posts from '../../data/blogPosts';
 import theme from '../../data/theme';
 
 function HomePageOne() {
     const { fetchedData, loading } = useFetch('https://backend.atlbha.com/api/indexStore/1');
-    /**
-     * Featured products.
-     */
-    const featuredProducts = useProductTabs(
-        useMemo(() => [
-            { id: 1, name: 'الكل', categorySlug: undefined },
-            { id: 2, name: 'Power Tools', categorySlug: 'power-tools' },
-            { id: 3, name: 'Hand Tools', categorySlug: 'hand-tools' },
-            { id: 4, name: 'Plumbing', categorySlug: 'plumbing' },
-        ], []),
-        (tab) => shopApi.getPopularProducts({ limit: 8, category: tab.categorySlug }),
-    );
-
-    /**
-     * Latest products.
-     */
-    const latestProducts = useProductTabs(
-        useMemo(() => [
-            { id: 1, name: 'الكل', categorySlug: undefined },
-            { id: 2, name: 'Power Tools', categorySlug: 'power-tools' },
-            { id: 3, name: 'Hand Tools', categorySlug: 'hand-tools' },
-            { id: 4, name: 'Plumbing', categorySlug: 'plumbing' },
-        ], []),
-        (tab) => shopApi.getLatestProducts({ limit: 8, category: tab.categorySlug }),
-    );
-
+    const [activeNewId, setActiveNewId] = useState(0);
+    const [activeMoreSalesId, setActiveMoreSalesId] = useState(0);
+    const [newProducts, setNewProducts] = useState([]);
+    const [newMoreSales, setNewMoreSales] = useState([]);
     /**
      * Product columns.
      */
-    const columns = useProductColumns(
-        useMemo(() => [
-            {
-                title: 'المنتجات الأكثر تقييماً',
-                source: () => shopApi.getTopRatedProducts({ limit: 3 }),
-            },
-            {
-                title: 'العروض الخاصة',
-                source: () => shopApi.getDiscountedProducts({ limit: 3 }),
-            },
-            {
-                title: 'المميزة',
-                source: () => shopApi.getPopularProducts({ limit: 3 }),
-            },
-        ], []),
-    );
+    const columns = [
+        {
+            title: 'المنتجات الأكثر تقييماً',
+            products: fetchedData?.data?.productsRatings?.slice(0, 3) || [],
+        },
+        {
+            title: 'العروض الخاصة',
+            products: fetchedData?.data?.productsOffers?.slice(0, 3) || [],
+        },
+        {
+            title: 'المميزة',
+            products: fetchedData?.data?.specialProducts?.slice(0, 3) || [],
+        },
+    ];
+
+    useEffect(() => {
+        setNewProducts(fetchedData?.data?.resentArrivede);
+        setNewMoreSales(fetchedData?.data?.moreSales);
+    }, [fetchedData?.data?.resentArrivede, fetchedData?.data?.moreSales]);
+
+    const handleTabChange = (id) => {
+        setActiveNewId(id);
+        const resultFilter = id === 0
+            ? fetchedData?.data?.resentArrivede
+            : newProducts?.filter((item) => item?.category?.id === id);
+        setNewProducts(resultFilter);
+    };
+
+    const handleMoreSalesTabChange = (id) => {
+        setActiveMoreSalesId(id);
+        const resultFilter = id === 0
+            ? fetchedData?.data?.moreSales
+            : newMoreSales?.filter((item) => item?.category?.id === id);
+        setNewMoreSales(resultFilter);
+    };
 
     return (
         <React.Fragment>
@@ -79,22 +70,21 @@ function HomePageOne() {
                 <title>{`الرئيسية — ${theme.name}`}</title>
             </Helmet>
 
-            {useMemo(() => <BlockSlideShow />, [])}
+            <BlockSlideShow silders={fetchedData?.data?.sliders} />
 
-            {useMemo(() => <BlockFeatures />, [])}
+            <BlockFeatures />
 
-            {useMemo(() => (
-                <BlockProductsCarousel
-                    title="الجديد"
-                    layout="grid-4"
-                    products={featuredProducts.data}
-                    loading={featuredProducts.isLoading}
-                    groups={featuredProducts.tabs}
-                    onGroupClick={featuredProducts.handleTabChange}
-                />
-            ), [featuredProducts])}
+            <BlockProductsCarousel
+                title="الجديد"
+                layout="grid-4"
+                products={newProducts}
+                loading={loading}
+                groups={fetchedData?.data?.category}
+                onGroupClick={handleTabChange}
+                activeId={activeNewId}
+            />
 
-            <BlockBanner banar1={!loading && fetchedData?.data?.banar1} />
+            <BlockBanner banar1={!loading && fetchedData?.data?.banars[0]} />
             <BlockProducts
                 title="المميزة"
                 layout="large-first"
@@ -107,23 +97,20 @@ function HomePageOne() {
                 categories={fetchedData?.data?.PopularCategories}
             />
 
-            {useMemo(() => (
-                <BlockProductsCarousel
-                    title="الأكثر طلباً"
-                    layout="horizontal"
-                    rows={2}
-                    products={latestProducts.data}
-                    loading={latestProducts.isLoading}
-                    groups={latestProducts.tabs}
-                    onGroupClick={latestProducts.handleTabChange}
-                />
-            ), [latestProducts])}
+            <BlockProductsCarousel
+                title="الأكثر طلباً"
+                layout="horizontal"
+                rows={2}
+                products={newMoreSales}
+                loading={loading}
+                groups={fetchedData?.data?.category}
+                onGroupClick={handleMoreSalesTabChange}
+                activeId={activeMoreSalesId}
+            />
 
-            {useMemo(() => <BlockPosts title="آخر الأخبار" layout="list-sm" posts={posts} />, [])}
+            <BlockPosts title="آخر الأخبار" layout="list-sm" posts={fetchedData?.data?.lastPosts?.slice(0, 6)} />
 
-            {useMemo(() => <BlockBrands />, [])}
-
-            {useMemo(() => <BlockProductColumns columns={columns} />, [columns])}
+            <BlockProductColumns columns={columns} />
         </React.Fragment>
     );
 }

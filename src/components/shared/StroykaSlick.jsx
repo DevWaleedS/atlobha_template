@@ -321,14 +321,14 @@ class StroykaSlickBase extends Component {
         let reversedChildren = React.Children.toArray(children);
 
         if (direction === 'rtl') {
-            reversedChildren = children.slice(0);
-            reversedChildren.reverse();
+            reversedChildren = children?.slice(0);
+            reversedChildren?.reverse();
         }
 
-        reversedChildren = reversedChildren.map((slide, index) => {
+        reversedChildren = reversedChildren?.map((slide, index) => {
             // react-slick incorrectly adds the .slick-active class to slides
             // if the RTL parameter is true so we will do it ourselves
-            const slideClasses = classNames({ 'correct-slick-active': activeSlides.includes(index) });
+            const slideClasses = classNames({ 'correct-slick-active': activeSlides?.includes(index) });
 
             return (
                 <div key={index} dir={direction} className={slideClasses}>

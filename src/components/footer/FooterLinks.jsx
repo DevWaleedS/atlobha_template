@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 export default function FooterLinks(props) {
     const { title, items } = props;
 
-    const linksList = items.map((item, index) => (
+    const linksList = items?.map((item, index) => (
         <li key={index} className="footer-links__item">
-            <Link to={item.url} className="footer-links__link">
-                {item.title}
+            <Link to={item?.seo_link} className="footer-links__link">
+                {item?.title}
             </Link>
         </li>
     ));
