@@ -11,12 +11,12 @@ import BlockHeader from '../shared/BlockHeader';
 export default function BlockCategories(props) {
     const { title, layout, categories } = props;
 
-    const categoriesList = categories.map((category, index) => {
+    const categoriesList = categories?.map((category, index) => {
         const classes = `block-categories__item category-card category-card--layout--${layout}`;
 
-        const subcategories = category.subcategories.map((sub, subIndex) => (
+        const subcategories = category?.subcategories?.map((sub, subIndex) => (
             <li key={subIndex}>
-                <Link to={sub.url}>{sub.title}</Link>
+                <Link to={sub?.url}>{sub?.name}</Link>
             </li>
         ));
 
@@ -24,20 +24,20 @@ export default function BlockCategories(props) {
             <div key={index} className={classes}>
                 <div className=" category-card__body">
                     <div className=" category-card__image">
-                        <Link to={category.url}><img src={category.image} alt="" /></Link>
+                        <Link to={category?.url}><img src={category?.icon} alt="icon" /></Link>
                     </div>
                     <div className=" category-card__content">
                         <div className=" category-card__name">
-                            <Link to={category.url}>{category.title}</Link>
+                            <Link to={category?.url}>{category?.name}</Link>
                         </div>
                         <ul className="category-card__links">
                             {subcategories}
                         </ul>
                         <div className="category-card__all">
-                            <Link to={category.url}>Show All</Link>
+                            <Link to={category?.url}>عرض الكل</Link>
                         </div>
                         <div className="category-card__products">
-                            {`${category.products} Products`}
+                            {`${category?.products} Products`}
                         </div>
                     </div>
                 </div>

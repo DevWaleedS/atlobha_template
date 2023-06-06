@@ -12,11 +12,13 @@
     background: $header-bg;
     color: $header-font-color;
 }
+
 .site-header__middle {
     display: flex;
     align-items: center;
     height: 104px;
 }
+
 .site-header__logo {
     flex-shrink: 0;
     width: 255px;
@@ -31,15 +33,24 @@
 
     a {
         color: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 100px;
+        height: 100px;
     }
 
     svg {
         fill: currentColor;
     }
 }
+
 .site-header__search {
     flex-grow: 1;
 }
+
 .site-header__phone {
     line-height: 1;
     flex-shrink: 0;
@@ -53,15 +64,19 @@
         #{$margin-inline-start}: 80px;
     }
 }
+
 .site-header__phone-title {
     font-size: 14px;
     color: $header-font-muted-color;
-    margin-bottom: 6px;
+    margin-bottom: 0;
+    line-height: 12px;
 }
+
 .site-header__phone-number {
     font-size: 20px;
     font-weight: $font-weight-bold;
 }
+
 .site-header__nav-panel {
     height: $nav-panel-height;
 }

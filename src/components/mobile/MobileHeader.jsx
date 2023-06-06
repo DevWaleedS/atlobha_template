@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import Indicator from '../header/Indicator';
 import {
     Menu18x14Svg,
-    LogoSmallSvg,
     Search20Svg,
     Heart20Svg,
     Cart20Svg,
@@ -45,7 +44,9 @@ class MobileHeader extends Component {
     };
 
     render() {
-        const { openMobileMenu, wishlist, cart } = this.props;
+        const {
+            openMobileMenu, wishlist, cart, fetchedData,
+        } = this.props;
         const { searchOpen } = this.state;
         const searchClasses = classNames('mobile-header__search', {
             'mobile-header__search--open': searchOpen,
@@ -59,7 +60,9 @@ class MobileHeader extends Component {
                             <button type="button" className="mobile-header__menu-button" onClick={openMobileMenu}>
                                 <Menu18x14Svg />
                             </button>
-                            <Link to="/" className="mobile-header__logo"><LogoSmallSvg /></Link>
+                            <Link to="/" className="mobile-header__logo">
+                                <img src={fetchedData?.logo} alt="logo" />
+                            </Link>
                             <Search
                                 context="mobile-header"
                                 className={searchClasses}
