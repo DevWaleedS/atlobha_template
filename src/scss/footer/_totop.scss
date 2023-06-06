@@ -1,16 +1,14 @@
 /*
 // .totop
 */
-@use 'sass:math';
-@import '../variables';
-@import '../mixins/direction';
-
+@use "sass:math";
+@import "../variables";
+@import "../mixins/direction";
 
 $local-size: 39px;
 $local-bottom: 36px;
 $local-margin-start: 80px;
 $local-margin-end: 24px;
-
 
 .totop {
     position: relative;
@@ -18,9 +16,7 @@ $local-margin-end: 24px;
     pointer-events: none;
     visibility: hidden;
     opacity: 0;
-    transition:
-        opacity .3s,
-        visibility 0s .3s;
+    transition: opacity 0.3s, visibility 0s 0.3s;
 }
 .totop__body {
     position: fixed;
@@ -29,7 +25,7 @@ $local-margin-end: 24px;
     top: auto;
     width: 100%;
     display: flex;
-    margin-top: -(math.ceil($local-size * .5));
+    margin-top: -(math.ceil($local-size * 0.5));
 }
 .totop__container {
     margin: 0 -15px;
@@ -47,7 +43,7 @@ $local-margin-end: 24px;
     flex-direction: row-reverse;
 
     &:before {
-        content: '';
+        content: "";
         flex-grow: 1;
     }
 }
@@ -55,20 +51,18 @@ $local-margin-end: 24px;
     pointer-events: auto;
     width: $local-size;
     height: $local-size;
-    border-radius: $local-size * .5;
+    border-radius: $local-size * 0.5;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
     border: none;
     cursor: pointer;
-    color: $btn-primary-font-color;
+    color: $btn-primary-hover-font-color;
     background: $btn-primary-bg-color;
     fill: currentColor;
     flex-shrink: 0;
-    transition:
-        background-color .15s,
-        color .15s;
+    transition: background-color 0.15s, color 0.15s;
 
     @include direction {
         #{$margin-inline-start}: $local-margin-start;
@@ -82,7 +76,7 @@ $local-margin-end: 24px;
     @media (hover: hover) {
         &:hover {
             color: $btn-primary-hover-font-color;
-            background: $btn-primary-hover-bg-color;
+            background: #02466a;
         }
     }
 

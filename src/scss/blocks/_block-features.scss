@@ -1,13 +1,13 @@
 /*
 // .block-features
 */
-@import '../variables';
-@import '../functions';
-@import '../mixins/card';
-@import '../mixins/direction';
+@import "../variables";
+@import "../functions";
+@import "../mixins/card";
+@import "../mixins/direction";
 
-
-.block-features {}
+.block-features {
+}
 .block-features__list {
     @include card();
     display: flex;
@@ -17,6 +17,7 @@
     flex-grow: 1;
     padding: 16px 24px;
     display: flex;
+    align-items: center;
 }
 .block-features__divider {
     flex-shrink: 0;
@@ -46,8 +47,6 @@
 .block-features__subtitle {
     font-size: 14px;
 }
-
-
 
 .block-features--layout--boxed {
     $local-margin: 14px;
@@ -103,7 +102,6 @@
     }
 }
 
-
 .block-features--layout--classic {
     margin-top: -($block-margin-bottom - 30px);
 
@@ -113,7 +111,8 @@
         background: $card-border-color;
     }
 
-    @media (max-width: breakpoint(lg-end)) and (min-width: breakpoint(lg-start)), (max-width: breakpoint(sm-end)) and (min-width: breakpoint(sm-start)){
+    @media (max-width: breakpoint(lg-end)) and (min-width: breakpoint(lg-start)),
+        (max-width: breakpoint(sm-end)) and (min-width: breakpoint(sm-start)) {
         .block-features__item {
             padding: 12px;
         }
