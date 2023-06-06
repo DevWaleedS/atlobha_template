@@ -1,10 +1,9 @@
 /*
 // .site-header
 */
-@import '../variables';
-@import '../functions';
-@import '../mixins/direction';
-
+@import "../variables";
+@import "../functions";
+@import "../mixins/direction";
 
 .site-header {
     position: relative;
@@ -55,8 +54,8 @@
     line-height: 1;
     flex-shrink: 0;
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
 
     @include direction {
@@ -68,8 +67,8 @@
 .site-header__phone-title {
     font-size: 14px;
     color: $header-font-muted-color;
-    margin-bottom: 0;
-    line-height: 12px;
+    margin-bottom: 6px;
+    text-align: center;
 }
 
 .site-header__phone-number {
@@ -80,7 +79,6 @@
 .site-header__nav-panel {
     height: $nav-panel-height;
 }
-
 
 @media (min-width: breakpoint(lg-start)) and (max-width: breakpoint(lg-end)) {
     .site-header__logo {
