@@ -4,14 +4,13 @@ import React from 'react';
 // data stubs
 import theme from '../../data/theme';
 
-export default function FooterContacts() {
+export default function FooterContacts({ fetchedData }) {
     return (
         <div className="site-footer__widget footer-contacts">
             <h5 className="footer-contacts__title">تواصل معنا</h5>
 
             <div className="footer-contacts__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in feugiat
-                lorem. Pellentque ac placerat tellus.
+                {fetchedData?.description}
             </div>
 
             <ul className="footer-contacts__contacts">
@@ -21,11 +20,11 @@ export default function FooterContacts() {
                 </li>
                 <li>
                     <i className="footer-contacts__icon far fa-envelope" />
-                    {theme.contacts.email}
+                    {fetchedData?.storeEmail}
                 </li>
                 <li>
                     <i className="footer-contacts__icon fas fa-mobile-alt" />
-                    {`${theme.contacts.phone}, ${theme.contacts.phone}`}
+                    {fetchedData?.phonenumber}
                 </li>
                 <li>
                     <i className="footer-contacts__icon far fa-clock" />

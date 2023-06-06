@@ -16,8 +16,7 @@ import NavLinks from './NavLinks';
 import { Heart20Svg, LogoSmallSvg } from '../../svg';
 
 function NavPanel(props) {
-    const { layout, wishlist } = props;
-
+    const { layout, wishlist, fetchedData } = props;
     let logo = null;
     let departments = null;
     let searchIndicator;
@@ -35,7 +34,7 @@ function NavPanel(props) {
     if (layout === 'default') {
         departments = (
             <div className="nav-panel__departments">
-                <Departments />
+                <Departments fetchedData={fetchedData} />
             </div>
         );
     }

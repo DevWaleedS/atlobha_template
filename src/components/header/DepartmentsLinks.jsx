@@ -10,31 +10,32 @@ import Menu from './Menu';
 import { ArrowRoundedRight6x9Svg } from '../../svg';
 
 // data stubs
-import departments from '../../data/headerDepartments';
+// import departments from '../../data/headerDepartments';
 
-function DepartmentsLinks() {
-    const linksList = departments.map((department, index) => {
+function DepartmentsLinks({ props }) {
+    const { fetchedData } = props;
+    const linksList = fetchedData?.category?.map((department, index) => {
         let arrow = null;
         let submenu = null;
         let itemClass = '';
 
-        if (department.submenu) {
+        if (department?.subcategory) {
             arrow = <ArrowRoundedRight6x9Svg className="departments__link-arrow" />;
         }
 
-        if (department.submenu && department.submenu.type === 'menu') {
+        if (department?.subcategory && department?.subcategory.type === 'menu') {
             itemClass = 'departments__item--menu';
             submenu = (
                 <div className="departments__menu">
-                    <Menu items={department.submenu.menu} />
+                    <Menu items={department.subcategory?.name} />
                 </div>
             );
         }
 
-        if (department.submenu && department.submenu.type === 'megamenu') {
+        if (department?.subcategory && department?.subcategory?.type === 'megamenu') {
             submenu = (
-                <div className={`departments__megamenu departments__megamenu--${department.submenu.menu.size}`}>
-                    <Megamenu menu={department.submenu.menu} location="department" />
+                <div className={`departments__megamenu departments__megamenu--${department?.subcategory?.menu.size}`}>
+                    <Megamenu menu={department?.subcategory?.name} location="department" />
                 </div>
             );
         }
@@ -42,7 +43,7 @@ function DepartmentsLinks() {
         return (
             <li key={index} className={`departments__item ${itemClass}`}>
                 <Link to={department.url}>
-                    {department.title}
+                    {department?.name}
                     {arrow}
                 </Link>
                 {submenu}

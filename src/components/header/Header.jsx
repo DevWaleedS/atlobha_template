@@ -23,7 +23,7 @@ function Header(props) {
                     </Link>
                 </div>
                 <div className="site-header__search">
-                    <Search context="header" />
+                    <Search fetchedData={fetchedData} context="header" />
                 </div>
                 <div className="site-header__phone">
                     <div className="site-header__phone-title">
@@ -41,7 +41,7 @@ function Header(props) {
         <div className="site-header">
             {bannerSection}
             <div className="site-header__nav-panel">
-                <NavPanel layout={layout} />
+                <NavPanel fetchedData={fetchedData} layout={layout} />
             </div>
         </div>
     );
