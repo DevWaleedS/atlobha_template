@@ -35,28 +35,31 @@ function ProductCard(props) {
         'product-card--layout--horizontal': layout === 'horizontal',
     });
 
-    let badges = [];
+    // let badges = [];
     let image;
     let price;
     let features;
 
-    if (product.badges.includes('sale')) {
-        badges.push(<div key="sale" className="product-card__badge product-card__badge--sale">خصم</div>);
-    }
-    if (product.badges.includes('hot')) {
-        badges.push(<div key="hot" className="product-card__badge product-card__badge--hot">عرض خاص</div>);
-    }
-    if (product.badges.includes('new')) {
-        badges.push(<div key="new" className="product-card__badge product-card__badge--new">جديد</div>);
-    }
+    // if (product.badges.includes('sale')) {
+    // eslint-disable-next-line max-len
+    // badges.push(<div key="sale" className="product-card__badge product-card__badge--sale">خصم</div>);
+    // }
+    // if (product.badges.includes('hot')) {
+    // eslint-disable-next-line max-len
+    //     badges.push(<div key="hot" className="product-card__badge product-card__badge--hot">عرض خاص</div>);
+    // }
+    // if (product.badges.includes('new')) {
+    // eslint-disable-next-line max-len
+    //     badges.push(<div key="new" className="product-card__badge product-card__badge--new">جديد</div>);
+    // }
 
-    badges = badges.length ? <div className="product-card__badges-list">{badges}</div> : null;
+    // badges = badges.length ? <div className="product-card__badges-list">{badges}</div> : null;
 
-    if (product.images && product.images.length > 0) {
+    if (product?.cover) {
         image = (
             <div className="product-card__image product-image">
-                <Link to={url.product(product)} className="product-image__body">
-                    <img className="product-image__img" src={product.images[0]} alt="" />
+                <Link to={url.product(product?.id)} className="product-image__body">
+                    <img className="product-image__img" src={product?.cover} alt="product_image" />
                 </Link>
             </div>
         );
@@ -65,15 +68,14 @@ function ProductCard(props) {
     if (product.compareAtPrice) {
         price = (
             <div className="product-card__prices">
-                <span className="product-card__new-price"><Currency value={product.price} /></span>
-                {' '}
-                <span className="product-card__old-price"><Currency value={product.compareAtPrice} /></span>
+                <span className="product-card__new-price">{product?.purchasing_price}</span>
+                <span className="product-card__old-price">{product?.compareAtPrice}</span>
             </div>
         );
     } else {
         price = (
             <div className="product-card__prices">
-                <Currency value={product.price} />
+                <Currency value={product?.purchasing_price || 0} />
             </div>
         );
     }
@@ -104,44 +106,13 @@ function ProductCard(props) {
                     </button>
                 )}
             />
-            {badges}
             {image}
             <div className="product-card__info">
                 <div className="product-card__name">
-                    <Link to={url.product(product)}>{product.name}</Link>
-                    <div className="buttons">
-                        <AsyncAction
-                            action={() => wishlistAddItem(product)}
-                            render={({ run, loading }) => (
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    <Wishlist16Svg />
-                                </button>
-                            )}
-                        />
-                        <AsyncAction
-                            action={() => compareAddItem(product)}
-                            render={({ run, loading }) => (
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    <Compare16Svg />
-                                </button>
-                            )}
-                        />
-                    </div>
+                    <Link to={url.product(product?.id)}>{product.name}</Link>
                 </div>
                 <div className="product-card__rating">
-                    <Rating value={product.rating} />
+                    <Rating value={product?.productRating} />
                     <div className=" product-card__rating-legend">{`${product.reviews} تقييم`}</div>
                 </div>
                 {features}
@@ -176,6 +147,34 @@ function ProductCard(props) {
                                     اضافة إلى السلة
                                 </button>
                             </React.Fragment>
+                        )}
+                    />
+                    <AsyncAction
+                        action={() => wishlistAddItem(product)}
+                        render={({ run, loading }) => (
+                            <button
+                                type="button"
+                                onClick={run}
+                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
+                                    'btn-loading': loading,
+                                })}
+                            >
+                                <Wishlist16Svg />
+                            </button>
+                        )}
+                    />
+                    <AsyncAction
+                        action={() => compareAddItem(product)}
+                        render={({ run, loading }) => (
+                            <button
+                                type="button"
+                                onClick={run}
+                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
+                                    'btn-loading': loading,
+                                })}
+                            >
+                                <Compare16Svg />
+                            </button>
                         )}
                     />
                 </div>

@@ -1,11 +1,11 @@
 // react
 import React from 'react';
-
 // third-party
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import useFetch from '../hooks/useFetch';
 
 // application
 import Footer from './footer';
@@ -69,7 +69,7 @@ const productLayouts = [
 
 function Layout(props) {
     const { match, headerLayout, homeComponent } = props;
-
+    const { fetchedData } = useFetch('https://backend.atlbha.com/api/indexStore/1');
     return (
         <React.Fragment>
             <Helmet>
@@ -85,11 +85,11 @@ function Layout(props) {
 
             <div className="site">
                 <header className="site__header d-lg-none">
-                    <MobileHeader />
+                    <MobileHeader fetchedData={fetchedData?.data} />
                 </header>
 
                 <header className="site__header d-lg-block d-none">
-                    <Header layout={headerLayout} />
+                    <Header fetchedData={fetchedData?.data} layout={headerLayout} />
                 </header>
 
                 <div className="site__body">
