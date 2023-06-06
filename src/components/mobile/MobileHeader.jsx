@@ -1,21 +1,16 @@
 // react
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // third-party
-import classNames from 'classnames';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import classNames from "classnames";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 // application
-import Indicator from '../header/Indicator';
-import {
-    Menu18x14Svg,
-    Search20Svg,
-    Heart20Svg,
-    Cart20Svg,
-} from '../../svg';
-import { mobileMenuOpen } from '../../store/mobile-menu';
-import Search from '../header/Search';
+import Indicator from "../header/Indicator";
+import { Menu18x14Svg, Search20Svg, Heart20Svg, Cart20Svg } from "../../svg";
+import { mobileMenuOpen } from "../../store/mobile-menu";
+import Search from "../header/Search";
 
 class MobileHeader extends Component {
     constructor(props) {
@@ -44,12 +39,10 @@ class MobileHeader extends Component {
     };
 
     render() {
-        const {
-            openMobileMenu, wishlist, cart, fetchedData,
-        } = this.props;
+        const { openMobileMenu, wishlist, cart, fetchedData } = this.props;
         const { searchOpen } = this.state;
-        const searchClasses = classNames('mobile-header__search', {
-            'mobile-header__search--open': searchOpen,
+        const searchClasses = classNames("mobile-header__search", {
+            "mobile-header__search--open": searchOpen,
         });
 
         return (
@@ -61,7 +54,7 @@ class MobileHeader extends Component {
                                 <Menu18x14Svg />
                             </button>
                             <Link to="/" className="mobile-header__logo">
-                                <img src={fetchedData?.logo} alt="logo" />
+                                <img className="img-fluid" src={fetchedData?.logo} alt="logo" />
                             </Link>
                             <Search
                                 context="mobile-header"
@@ -105,7 +98,4 @@ const mapDispatchToProps = {
     openMobileMenu: mobileMenuOpen,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(MobileHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(MobileHeader);
