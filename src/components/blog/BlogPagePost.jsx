@@ -1,25 +1,33 @@
 // react
 import React from 'react';
-
+import { useParams } from "react-router-dom";
 // third-party
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
+import useFetch from '../../hooks/useFetch';
 
 // application
 import PageHeader from '../shared/PageHeader';
 import BlogPost from './BlogPost';
 import BlogSidebar from './BlogSidebar';
+import BlockLoader from '../blocks/BlockLoader';
 
 // data stubs
 import theme from '../../data/theme';
 
 export default function BlogPagePost(props) {
+    let { id } = useParams();
+    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postdetail/${id}?id=1`);
     const { layout, sidebarPosition } = props;
 
     let content;
 
+    if (loading) {
+        return <BlockLoader />;
+    }
+
     if (layout === 'classic') {
-        const sidebar = <BlogSidebar position={sidebarPosition} />;
+        const sidebar = <BlogSidebar fetchedData={fetchedData?.data} position={sidebarPosition} />;
 
         let sidebarStart;
         let sidebarEnd;
@@ -35,7 +43,7 @@ export default function BlogPagePost(props) {
             <div className="row">
                 {sidebarStart}
                 <div className="col-12 col-lg-8">
-                    <BlogPost layout={layout} />
+                    <BlogPost data={fetchedData?.data?.post} layout={layout} />
                 </div>
                 {sidebarEnd}
             </div>

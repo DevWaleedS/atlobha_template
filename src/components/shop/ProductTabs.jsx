@@ -25,15 +25,15 @@ class ProductTabs extends Component {
 
     render() {
         const { currentTab } = this.state;
-        const { withSidebar } = this.props;
+        const { withSidebar, data } = this.props;
         const classes = classNames('product-tabs', {
             'product-tabs--layout--sidebar': withSidebar,
         });
 
         const tabs = [
-            { key: 'description', title: 'الوصف', content: <ProductTabDescription /> },
+            { key: 'description', title: 'الوصف', content: <ProductTabDescription desc={data?.product?.description}/> },
             { key: 'specification', title: 'المميزات', content: <ProductTabSpecification /> },
-            { key: 'reviews', title: 'التقييمات', content: <ProductTabReviews /> },
+            { key: 'reviews', title: 'التقييمات', content: <ProductTabReviews comments={data?.commentOfProducts} /> },
         ];
 
         const tabsButtons = tabs.map((tab) => {

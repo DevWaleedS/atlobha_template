@@ -142,7 +142,7 @@ class ProductGallery extends Component {
 
         // we need to invert index id direction === 'rtl' due to react-slick bug
         if (direction === 'rtl') {
-            return images.length - 1 - index;
+            return images?.length - 1 - index;
         }
 
         return index;
@@ -272,11 +272,10 @@ class ProductGallery extends Component {
     render() {
         const { layout, images } = this.props;
         const { currentIndex } = this.state;
-
         const featured = images.map((image, index) => (
             <div key={index} className="product-image product-image--location--gallery">
                 <Link
-                    to={`/${image}`}
+                    to={`/${image?.image}`}
                     className="product-image__body"
                     onClick={(event) => this.handleFeaturedClick(event, index)}
                     target="_blank"
@@ -291,7 +290,7 @@ class ProductGallery extends Component {
                     */}
                     <img
                         className="product-image__img"
-                        src={image}
+                        src={image?.image}
                         alt=""
                         ref={(element) => { this.imagesRefs[index] = element; }}
                         data-width="700"
@@ -314,7 +313,7 @@ class ProductGallery extends Component {
                     className={classes}
                 >
                     <div className="product-image__body">
-                        <img className="product-image__img product-gallery__carousel-image" src={image} alt="" />
+                        <img className="product-image__img product-gallery__carousel-image" src={image?.image} alt="" />
                     </div>
                 </button>
             );

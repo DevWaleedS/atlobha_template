@@ -4,7 +4,7 @@ import React from 'react';
 // application
 import SocialLinks from '../shared/SocialLinks';
 
-export default function FooterNewsletter() {
+export default function FooterNewsletter({ fetchedData }) {
     return (
         <div className="site-footer__widget footer-newsletter">
             <h5 className="footer-newsletter__title">اخر الاخبار</h5>
@@ -28,7 +28,7 @@ export default function FooterNewsletter() {
                 تابعونا على شبكات التواصل الاجتماعي
             </div>
 
-            <SocialLinks className="footer-newsletter__social-links" shape="circle" />
+            <SocialLinks fetchedData={fetchedData} className="footer-newsletter__social-links" shape="circle" />
         </div>
     );
 }

@@ -8,18 +8,18 @@ import Rating from '../shared/Rating';
 // data stubs
 import reviews from '../../data/shopProductReviews';
 
-function ProductTabReviews() {
-    const reviewsList = reviews.map((review, index) => (
+function ProductTabReviews({ comments }) {
+    const reviewsList = comments?.map((comment, index) => (
         <li key={index} className="reviews-list__item">
             <div className="review">
-                <div className="review__avatar"><img src={review.avatar} alt="" /></div>
+                <div className="review__avatar"><img src={comment?.user?.image} alt="" /></div>
                 <div className=" review__content">
-                    <div className=" review__author">{review.author}</div>
+                    <div className=" review__author">{comment?.user?.name}</div>
                     <div className=" review__rating">
-                        <Rating value={review.rating} />
+                        <Rating value={comment?.rateing} />
                     </div>
-                    <div className=" review__text">{review.text}</div>
-                    <div className=" review__date">{review.date}</div>
+                    <div className=" review__text">{comment?.comment_text}</div>
+                    <div className=" review__date">{comment?.created_at}</div>
                 </div>
             </div>
         </li>

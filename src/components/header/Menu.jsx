@@ -20,36 +20,36 @@ function Menu(props) {
     const renderLink = (item, content) => {
         let link;
 
-        if (item.url) {
+        if (item?.url) {
             link = (
                 <AppLink
                     {...item.props}
-                    to={item.url}
-                    onClick={() => onClick(item)}
+                    to={item?.url}
+                    onClick={() => onClick(item?.url)}
                 >
                     {content}
                 </AppLink>
             );
         } else {
-            link = <button type="button" onClick={() => onClick(item)}>{content}</button>;
+            link = <button type="button" onClick={() => onClick(item?.id)}>{item?.name}</button>;
         }
 
         return link;
     };
 
-    const itemsList = items.map((item, index) => {
+    const itemsList = items?.subcategory?.map((item, index) => {
         let arrow;
         let submenu;
         let icon;
 
-        if (item.submenu && item.submenu.length) {
+        if (item?.subcategory && item?.subcategory?.length) {
             arrow = <ArrowRoundedRight6x9Svg className="menu__arrow" />;
         }
 
-        if (item.submenu && item.submenu.length) {
+        if (item?.subcategory && item?.subcategory?.length) {
             submenu = (
                 <div className="menu__submenu">
-                    <Menu items={item.submenu} />
+                    <Menu items={item?.subcategory} />
                 </div>
             );
         }

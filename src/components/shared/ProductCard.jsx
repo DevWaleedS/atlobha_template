@@ -15,7 +15,6 @@ import { cartAddItem } from '../../store/cart';
 import { Compare16Svg, Quickview16Svg, Wishlist16Svg } from '../../svg';
 import { compareAddItem } from '../../store/compare';
 import { quickviewOpen } from '../../store/quickview';
-import { url } from '../../services/utils';
 import { wishlistAddItem } from '../../store/wishlist';
 
 function ProductCard(props) {
@@ -58,7 +57,7 @@ function ProductCard(props) {
     if (product?.cover) {
         image = (
             <div className="product-card__image product-image">
-                <Link to={url.product(product?.id)} className="product-image__body">
+                <Link to={`/shop/products/${product?.id}`} className="product-image__body">
                     <img className="product-image__img" src={product?.cover} alt="product_image" />
                 </Link>
             </div>
@@ -109,7 +108,7 @@ function ProductCard(props) {
             {image}
             <div className="product-card__info">
                 <div className="product-card__name">
-                    <Link to={url.product(product?.id)}>{product.name}</Link>
+                    <Link to={`/shop/products/${product?.id}`}>{product.name}</Link>
                 </div>
                 <div className="product-card__rating">
                     <Rating value={product?.productRating} />

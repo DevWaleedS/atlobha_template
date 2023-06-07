@@ -125,9 +125,9 @@ $local-transition-duration: .1s;
 }
 .btn-secondary {
     @include local-button-variant(
-        $btn-secondary-bg-color,        $btn-secondary-font-color,        $btn-secondary-icon-color,
+        #1dbbbe,        $btn-secondary-font-color,        $btn-secondary-icon-color,
         $btn-secondary-hover-bg-color,  $btn-secondary-hover-font-color,  $btn-secondary-hover-icon-color,
-        $btn-secondary-active-bg-color, $btn-secondary-active-font-color, $btn-secondary-active-icon-color
+        #1dbbbe, $btn-secondary-active-font-color, $btn-secondary-active-icon-color
     );
 }
 .btn-light {
