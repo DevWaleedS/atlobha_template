@@ -1,9 +1,8 @@
 /*
 // .pagination
 */
-@import '../variables';
-@import '../mixins/direction';
-
+@import "../variables";
+@import "../mixins/direction";
 
 .pagination {
     margin-bottom: 0;
@@ -68,7 +67,7 @@
 }
 .page-item.active .page-link {
     background: $pagination-current-bg;
-    color: $pagination-current-font-color;
+    color: #fff;
     cursor: default;
     z-index: 2;
 }
@@ -76,4 +75,3 @@
     background: $pagination-disabled-bg;
     color: $pagination-disabled-font-color;
 }
-
