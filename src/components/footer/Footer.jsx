@@ -9,6 +9,10 @@ import ToTop from './ToTop';
 import Whatsapp from './Whatsapp';
 
 export default function Footer({ fetchedData }) {
+
+
+   
+
     // const informationLinks = [
     //     { title: 'About Us', url: '' },
     //     { title: 'Delivery Information', url: '' },
@@ -49,7 +53,10 @@ export default function Footer({ fetchedData }) {
                 <div className="site-footer__bottom">
                     <div className="site-footer__copyright">
                         صنع بكل حب 2023 &copy;
-                        <a href="https://faz-it.net/" rel="noopener noreferrer" target="_blank"> شبكة فاز </a>
+                        <a href="https://faz-it.net/" rel="noopener noreferrer" target="_blank">
+                            {" "}
+                            شبكة فاز{" "}
+                        </a>
                     </div>
                     <div className="site-footer__payments">
                         <a href="https://google.com" rel="noopener noreferrer" target="_blank">
