@@ -1,12 +1,12 @@
 /*
 // .about-us
 */
-@import '../variables';
-@import '../functions';
-@import '../mixins/direction';
+@import "../variables";
+@import "../functions";
+@import "../mixins/direction";
 
-
-.about-us {}
+.about-us {
+}
 .about-us__image {
     background-size: cover;
     background-position: bottom center;
@@ -58,7 +58,7 @@
             height: $local-dot-size;
             padding: 0;
             border: none;
-            border-radius: $local-dot-size * .5;
+            border-radius: $local-dot-size * 0.5;
             background: $block-slideshow-dot-default-color;
 
             &:focus {
@@ -109,8 +109,6 @@
 .teammate__position {
     font-size: 14px;
 }
-
-
 
 @media (max-width: breakpoint(md-end)) and (min-width: breakpoint(md-start)) {
     .about-us__image {
