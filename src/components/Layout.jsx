@@ -1,50 +1,50 @@
 // react
-import React from 'react';
+import React, { useEffect, useState } from "react";
 // third-party
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet-async';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import useFetch from '../hooks/useFetch';
+import PropTypes from "prop-types";
+import { Helmet } from "react-helmet-async";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import useFetch from "../hooks/useFetch";
 
 // application
-import Footer from './footer';
-import Header from './header';
-import MobileHeader from './mobile/MobileHeader';
-import MobileMenu from './mobile/MobileMenu';
-import Quickview from './shared/Quickview';
+import Footer from "./footer";
+import Header from "./header";
+import MobileHeader from "./mobile/MobileHeader";
+import MobileMenu from "./mobile/MobileMenu";
+import Quickview from "./shared/Quickview";
 
 // pages
-import AccountLayout from './account/AccountLayout';
-import AccountPageLogin from './account/AccountPageLogin';
-import BlogPageCategory from './blog/BlogPageCategory';
-import BlogPagePost from './blog/BlogPagePost';
-import PageCart from './shop/ShopPageCart';
-import PageCheckout from './shop/ShopPageCheckout';
-import PageCompare from './shop/ShopPageCompare';
-import PageWishlist from './shop/ShopPageWishlist';
-import ShopPageCategory from './shop/ShopPageCategory';
-import ShopPageOrderSuccess from './shop/ShopPageOrderSuccess';
-import ShopPageProduct from './shop/ShopPageProduct';
-import ShopPageTrackOrder from './shop/ShopPageTrackOrder';
-// import SitePageAboutUs from './site/SitePageAboutUs';
+import AccountLayout from "./account/AccountLayout";
+import AccountPageLogin from "./account/AccountPageLogin";
+import BlogPageCategory from "./blog/BlogPageCategory";
+import BlogPagePost from "./blog/BlogPagePost";
+import PageCart from "./shop/ShopPageCart";
+import PageCheckout from "./shop/ShopPageCheckout";
+import PageCompare from "./shop/ShopPageCompare";
+import PageWishlist from "./shop/ShopPageWishlist";
+import ShopPageCategory from "./shop/ShopPageCategory";
+import ShopPageOrderSuccess from "./shop/ShopPageOrderSuccess";
+import ShopPageProduct from "./shop/ShopPageProduct";
+import ShopPageTrackOrder from "./shop/ShopPageTrackOrder";
+import SitePageAboutUs from "./site/SitePageAboutUs";
+import SitePageContactUs from "./site/SitePageContactUs";
+import SitePageContactUsAlt from "./site/SitePageContactUsAlt";
+import UsagePolicy from "./site/UsagePolicy";
+import SitePageNotFound from "./site/SitePageNotFound";
+import TermsAndConditions from "./site/TermsAndConditions";
+
 // import SitePageComponents from './site/SitePageComponents';
-import SitePageContactUs from './site/SitePageContactUs';
-// import SitePageContactUsAlt from './site/SitePageContactUsAlt';
-// import SitePageFaq from './site/SitePageFaq';
-import SitePageNotFound from './site/SitePageNotFound';
-// import SitePageTerms from './site/SitePageTerms';
-// import SitePageTypography from './site/SitePageTypography';
 
 // data stubs
-import theme from '../data/theme';
+import theme from "../data/theme";
 
 const categoryLayouts = [
-    ['/shop/category-grid-3-columns-sidebar', { columns: 3, viewMode: 'grid', sidebarPosition: 'start' }],
-    ['/shop/category-grid-4-columns-full', { columns: 4, viewMode: 'grid' }],
-    ['/shop/category-grid-5-columns-full', { columns: 5, viewMode: 'grid' }],
-    ['/shop/category-list', { columns: 3, viewMode: 'list', sidebarPosition: 'start' }],
-    ['/shop/category-right-sidebar', { columns: 3, viewMode: 'grid', sidebarPosition: 'end' }],
+    ["/shop/category-grid-3-columns-sidebar", { columns: 3, viewMode: "grid", sidebarPosition: "start" }],
+    ["/shop/category-grid-4-columns-full", { columns: 4, viewMode: "grid" }],
+    ["/shop/category-grid-5-columns-full", { columns: 5, viewMode: "grid" }],
+    ["/shop/category-list", { columns: 3, viewMode: "list", sidebarPosition: "start" }],
+    ["/shop/category-right-sidebar", { columns: 3, viewMode: "grid", sidebarPosition: "end" }],
 ].map(([url, options]) => (
     <Route
         key={url}
@@ -55,9 +55,9 @@ const categoryLayouts = [
 ));
 
 const productLayouts = [
-    ['/shop/product-standard', { layout: 'standard' }],
-    ['/shop/product-columnar', { layout: 'columnar' }],
-    ['/shop/product-sidebar', { layout: 'sidebar' }],
+    ["/shop/product-standard", { layout: "standard" }],
+    ["/shop/product-columnar", { layout: "columnar" }],
+    ["/shop/product-sidebar", { layout: "sidebar" }],
 ].map(([url, options]) => (
     <Route
         key={url}
@@ -69,7 +69,22 @@ const productLayouts = [
 
 function Layout(props) {
     const { match, headerLayout, homeComponent } = props;
-    const { fetchedData } = useFetch('https://backend.atlbha.com/api/indexStore/1');
+    const { fetchedData } = useFetch("https://backend.atlbha.com/api/indexStore/1");
+    const { fetchedData: pages } = useFetch("https://backend.atlbha.com/api/storPage/111?id=1");
+    pages?.data?.pages.map((page) => page?.title);
+
+    const [pageTitle, setPageTitle] = useState([]);
+
+    useEffect(() => {
+        if (pages?.data?.pages) {
+            setPageTitle(pages?.data?.pages.map((page) => page?.title));
+        }
+    }, [pages?.data?.pages]);
+
+    const termsAndConditions = pageTitle[0];
+    const usagePolicy = pageTitle[1];
+    const aboutUs = pageTitle[2];
+
     return (
         <React.Fragment>
             <Helmet>
@@ -154,30 +169,22 @@ function Layout(props) {
                         <Route
                             exact
                             path="/blog/category-classic"
-                            render={(props) => (
-                                <BlogPageCategory {...props} layout="classic" sidebarPosition="end" />
-                            )}
+                            render={(props) => <BlogPageCategory {...props} layout="classic" sidebarPosition="end" />}
                         />
                         <Route
                             exact
                             path="/blog/category-grid"
-                            render={(props) => (
-                                <BlogPageCategory {...props} layout="grid" sidebarPosition="end" />
-                            )}
+                            render={(props) => <BlogPageCategory {...props} layout="grid" sidebarPosition="end" />}
                         />
                         <Route
                             exact
                             path="/blog/category-list"
-                            render={(props) => (
-                                <BlogPageCategory {...props} layout="list" sidebarPosition="end" />
-                            )}
+                            render={(props) => <BlogPageCategory {...props} layout="list" sidebarPosition="end" />}
                         />
                         <Route
                             exact
                             path="/blog/category-left-sidebar"
-                            render={(props) => (
-                                <BlogPageCategory {...props} layout="classic" sidebarPosition="start" />
-                            )}
+                            render={(props) => <BlogPageCategory {...props} layout="classic" sidebarPosition="start" />}
                         />
                         <Route
                             exact
@@ -189,9 +196,7 @@ function Layout(props) {
                         <Route
                             exact
                             path="/blog/post-full"
-                            render={(props) => (
-                                <BlogPagePost {...props} layout="full" />
-                            )}
+                            render={(props) => <BlogPagePost {...props} layout="full" />}
                         />
 
                         {/*
@@ -200,20 +205,38 @@ function Layout(props) {
                         <Route exact path="/account/login" component={AccountPageLogin} />
                         <Route path="/account" component={AccountLayout} />
 
-                        {/*
-                        // Site
                         <Redirect exact from="/site" to="/site/about-us" />
-                        <Route exact path="/site/about-us" component={SitePageAboutUs} />
-                        <Route exact path="/site/components" component={SitePageComponents} />
-                        <Route exact path="/site/contact-us-alt" component={SitePageContactUsAlt} />
-                        <Route exact path="/site/not-found" component={SitePageNotFound} />
-                        <Route exact path="/site/faq" component={SitePageFaq} />
-                        <Route exact path="/site/terms" component={SitePageTerms} />
-                        <Route exact path="/site/typography" component={SitePageTypography} />
+                        {/*
+                         // about us page 
                         */}
-
+                        <Route
+                            exact
+                            path={`/site/${aboutUs === "من نحن" ? "about-us" : "about-us"}`}
+                            component={SitePageAboutUs}
+                        />
+                        {/*
+                         // terms And Conditions page
+                        */}
+                        <Route
+                            exact
+                            path={`/site/${
+                                termsAndConditions === "الشروط و الأحكام" ? "termsAndConditions" : "termsAndConditions"
+                            }`}
+                            component={TermsAndConditions}
+                        />
+                        {/*
+                         // usage Policy page
+                        */}
+                        <Route
+                            exact
+                            path={`/site/${usagePolicy === "سياسة الاستخدام" ? "usagePolicy" : "usagePolicy"}`}
+                            component={UsagePolicy}
+                        />
+                        {/*
+                         // contact us pages  
+                        */}
                         <Route exact path="/site/contact-us" component={SitePageContactUs} />
-
+                        <Route exact path="/site/contact-us-alt" component={SitePageContactUsAlt} />
                         {/*
                         // Page Not Found
                         */}
@@ -234,7 +257,7 @@ Layout.propTypes = {
      * header layout (default: 'classic')
      * one of ['classic', 'compact']
      */
-    headerLayout: PropTypes.oneOf(['default', 'compact']),
+    headerLayout: PropTypes.oneOf(["default", "compact"]),
     /**
      * home component
      */
@@ -242,7 +265,7 @@ Layout.propTypes = {
 };
 
 Layout.defaultProps = {
-    headerLayout: 'default',
+    headerLayout: "default",
 };
 
 export default Layout;

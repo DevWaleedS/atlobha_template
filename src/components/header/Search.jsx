@@ -64,7 +64,7 @@ function Search(props) {
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState('[all]');
     const categories = useCategories();
-    console.log(categories);
+    // console.log(categories);
     const wrapper = useRef(null);
     const close = useCallback(() => {
         if (onClose) {

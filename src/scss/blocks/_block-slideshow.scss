@@ -1,16 +1,14 @@
 /*
 // .block-slideshow
 */
-@import '../variables';
-@import '../functions';
-@import '../mixins/buttons';
-@import '../mixins/direction';
-
+@import "../variables";
+@import "../functions";
+@import "../mixins/buttons";
+@import "../mixins/direction";
 
 $local-dots-height: 18px;
 $local-dots-padding: 4px;
 $local-dot-size: $local-dots-height - $local-dots-padding * 2;
-
 
 .block-slideshow {
     margin-bottom: $block-margin-bottom;
@@ -30,7 +28,7 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
         position: absolute;
         background: $block-slideshow-dots-bg;
         padding: $local-dots-padding;
-        border-radius: $local-dots-height * .5;
+        border-radius: $local-dots-height * 0.5;
         font-size: 0;
         list-style: none;
         margin: 0;
@@ -49,7 +47,7 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
             height: $local-dot-size;
             padding: 0;
             border: none;
-            border-radius: $local-dot-size * .5;
+            border-radius: $local-dot-size * 0.5;
             background: $block-slideshow-dot-default-color;
 
             &:focus {
@@ -86,6 +84,8 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 .block-slideshow__slide-image--mobile {
     display: none;
@@ -105,18 +105,18 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
     font-weight: $font-weight-bold;
     margin-bottom: 12px;
     opacity: 0;
-    transition: all 1s .2s;
+    transition: all 1s 0.2s;
 }
 .block-slideshow__slide-text {
     line-height: 1.625;
     opacity: 0;
     transform: translateY(15px);
-    transition: all .8s .5s;
+    transition: all 0.8s 0.5s;
 }
 .block-slideshow__slide-button {
     margin-top: 40px;
     opacity: 0;
-    transition: all 1s .4s;
+    transition: all 1s 0.4s;
 }
 .block-slideshow .correct-slick-active {
     .block-slideshow__slide-title,
@@ -126,7 +126,6 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
         transform: none;
     }
 }
-
 
 .block-slideshow--layout--full {
     margin-top: 20px;
@@ -182,7 +181,6 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
     }
 }
 
-
 .block-slideshow--layout--with-departments {
     $local-margin: 15px;
 
@@ -208,7 +206,6 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
         }
     }
 }
-
 
 @media (max-width: breakpoint(sm-end)) {
     .block-slideshow__body,

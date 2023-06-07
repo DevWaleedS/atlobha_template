@@ -1,42 +1,34 @@
 export default [
     {
-        title: 'الرئيسية',
-        url: '/',
+        title: "الرئيسية",
+        url: "/",
+    },
+
+    {
+        title: "الاستبدال والاسترجاع",
+        url: "/",
+    },
+
+    {
+        title: "المنتجات",
+        url: "/shop/catalog",
     },
     {
-        title: 'تواصل معنا',
-        url: '/site/contact-us',
+        title: "المقالات",
+        url: "/blog/category-classic",
     },
     {
-        title: 'الاستبدال والاسترجاع',
-        url: '/',
-    },
-    {
-        title: 'الخصوصية',
-        url: '/',
-    },
-    {
-        title: 'المنتجات',
-        url: '/shop/catalog',
-    },
-    {
-        title: 'المقالات',
-        url: '/blog/category-classic',
-    },
-    {
-        title: 'الصفحات',
-        url: '/site/contact-us',
+        title: "الصفحات",
+        url: "",
         submenu: {
-            type: 'menu',
+            type: "menu",
             menu: [
-                { title: 'من نحن', url: '' },
-                { title: 'تواصل معنا', url: '/site/contact-us' },
-                { title: 'تواصل معنا Alt', url: '' },
-                { title: '404', url: '' },
-                { title: 'الشروط والأحكام', url: '' },
-                { title: 'الأسئلة الشائعة', url: '' },
-                { title: 'العناصر', url: '' },
-                { title: 'الخطوط', url: '' },
+                { title: "من نحن", url: "/site/about-us" },
+                { title: "تواصل معنا", url: "/site/contact-us" },
+                { title: "تواصل معنا Alt", url: "" },
+                { title: "الشروط و الأحكام", url: "/site/termsAndConditions" },
+                { title: "سياسة الاستخدام", url: "/site/usagePolicy" },
+                { title: "سياسة الخصوصية", url: " " },
             ],
         },
     },
