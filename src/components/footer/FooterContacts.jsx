@@ -10,7 +10,7 @@ export default function FooterContacts({ fetchedData }) {
             <h5 className="footer-contacts__title">تواصل معنا</h5>
 
             <div className="footer-contacts__text">
-                {fetchedData?.description}
+                {fetchedData?.storeName}
             </div>
 
             <ul className="footer-contacts__contacts">

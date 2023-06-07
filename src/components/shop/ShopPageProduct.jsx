@@ -1,15 +1,15 @@
 // react
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 // third-party
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
+import useFetch from '../../hooks/useFetch';
 
 // application
 import PageHeader from '../shared/PageHeader';
 import Product from '../shared/Product';
 import ProductTabs from './ProductTabs';
-import shopApi from '../../api/shop';
 import { url } from '../../services/utils';
 
 // blocks
@@ -26,77 +26,16 @@ import theme from '../../data/theme';
 
 function ShopPageProduct(props) {
     const { productSlug, layout, sidebarPosition } = props;
-    const [isLoading, setIsLoading] = useState(true);
-    const [product, setProduct] = useState(null);
-    const [relatedProducts, setRelatedProducts] = useState([]);
-    const [latestProducts, setLatestProducts] = useState([]);
+    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/productPage/${productSlug}`);
 
-    // Load product.
-    useEffect(() => {
-        let canceled = false;
-
-        setIsLoading(true);
-
-        shopApi.getProductBySlug(productSlug).then((product) => {
-            if (canceled) {
-                return;
-            }
-
-            setProduct(product);
-            setIsLoading(false);
-        });
-
-        return () => {
-            canceled = true;
-        };
-    }, [productSlug, setIsLoading]);
-
-    // Load related products.
-    useEffect(() => {
-        let canceled = false;
-
-        shopApi.getRelatedProducts(productSlug, { limit: 8 }).then((products) => {
-            if (canceled) {
-                return;
-            }
-
-            setRelatedProducts(products);
-        });
-
-        return () => {
-            canceled = true;
-        };
-    }, [productSlug, setRelatedProducts]);
-
-    // Load latest products.
-    useEffect(() => {
-        let canceled = false;
-
-        if (layout !== 'sidebar') {
-            setLatestProducts([]);
-        } else {
-            shopApi.getLatestProducts({ limit: 5 }).then((result) => {
-                if (canceled) {
-                    return;
-                }
-
-                setLatestProducts(result);
-            });
-        }
-
-        return () => {
-            canceled = true;
-        };
-    }, [layout]);
-
-    if (isLoading) {
+    if (loading) {
         return <BlockLoader />;
     }
 
     const breadcrumb = [
         { title: 'الرئيسية', url: url.home() },
         { title: 'المنتجات', url: url.catalog() },
-        { title: product.name, url: url.product(product) },
+        { title: fetchedData?.data?.product?.name, url: ''},
     ];
 
     let content;
@@ -109,7 +48,7 @@ function ShopPageProduct(props) {
                         <WidgetCategories categories={categories} location="shop" />
                     </div>
                     <div className="block-sidebar__item d-none d-lg-block">
-                        <WidgetProducts title="المنتجات المضافة مؤخراً" products={latestProducts} />
+                        <WidgetProducts title="المنتجات المضافة مؤخراً" />
                     </div>
                 </div>
             </div>
@@ -121,15 +60,15 @@ function ShopPageProduct(props) {
                     {sidebarPosition === 'start' && sidebar}
                     <div className=" shop-layout__content">
                         <div className=" block">
-                            <Product product={product} layout={layout} />
+                            <Product product={fetchedData?.data?.product} layout={layout} />
                             <ProductTabs withSidebar />
                         </div>
 
-                        {relatedProducts.length > 0 && (
+                        {fetchedData?.data?.relatedProduct?.length > 0 && (
                             <BlockProductsCarousel
                                 title="منتجات ذات صله"
                                 layout="grid-4-sm"
-                                products={relatedProducts}
+                                products={fetchedData?.data?.relatedProduct}
                                 withSidebar
                             />
                         )}
@@ -143,16 +82,16 @@ function ShopPageProduct(props) {
             <React.Fragment>
                 <div className="block">
                     <div className="container">
-                        <Product product={product} layout={layout} />
-                        <ProductTabs />
+                        <Product product={fetchedData?.data?.product} layout={layout} />
+                        <ProductTabs data={fetchedData?.data} />
                     </div>
                 </div>
 
-                {relatedProducts.length > 0 && (
+                {fetchedData?.data?.relatedProduct?.length > 0 && (
                     <BlockProductsCarousel
                         title="منتجات ذات صله"
                         layout="grid-5"
-                        products={relatedProducts}
+                        products={fetchedData?.data?.relatedProduct}
                     />
                 )}
             </React.Fragment>
@@ -162,7 +101,7 @@ function ShopPageProduct(props) {
     return (
         <React.Fragment>
             <Helmet>
-                <title>{`${product.name} — ${theme.name}`}</title>
+                <title>{`${fetchedData?.data?.product?.name} — ${theme.name}`}</title>
             </Helmet>
 
             <PageHeader breadcrumb={breadcrumb} />

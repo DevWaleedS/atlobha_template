@@ -5,6 +5,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import moment from 'moment/moment';
 
 // application
 import BlogCommentsList from './BlogCommentsList';
@@ -14,24 +15,25 @@ import comments from '../../data/blogPostComments';
 import posts from '../../data/blogPosts';
 
 export default function BlogPost(props) {
-    const { layout } = props;
+    const { layout, data } = props;
+    console.log(data);
 
     const postClasses = classNames('post__content typography', {
         'typography--expanded': layout === 'full',
     });
 
-    const relatedPostsList = posts.slice(0, 2).map((relatedPost) => (
-        <div key={relatedPost.id} className="related-posts__item post-card post-card--layout--related">
+    const relatedPostsList = data?.relatedPosts?.slice(0, 2).map((relatedPost) => (
+        <div key={relatedPost?.id} className="related-posts__item post-card post-card--layout--related">
             <div className="post-card__image">
-                <Link to="/">
-                    <img src={relatedPost.image} alt="" />
+                <Link to={`/blog/post/${relatedPost?.id}`}>
+                    <img src={relatedPost?.image} alt="" width={"100%"} />
                 </Link>
             </div>
             <div className="post-card__info">
                 <div className="post-card__name">
-                    <Link to="/">{relatedPost.title}</Link>
+                    <Link to={`/blog/post/${relatedPost?.id}`}>{relatedPost?.title}</Link>
                 </div>
-                <div className="post-card__date">{relatedPost.date}</div>
+                <div className="post-card__date">{moment(relatedPost?.created_at).format('MMMM.DD.YYYY')}</div>
             </div>
         </div>
     ));
@@ -40,129 +42,32 @@ export default function BlogPost(props) {
         <div className={`block post post--layout--${layout}`}>
             <div className={`post__header post-header post-header--layout--${layout}`}>
                 <div className="post-header__categories">
-                    <Link to="/">Latest news</Link>
+                    <Link>Latest news</Link>
                 </div>
-                <h1 className="post-header__title">Morbi Interdum Velit Quis Magna Placerat Lobortis Eget</h1>
+                <h1 className="post-header__title">{data?.title}</h1>
                 <div className="post-header__meta">
                     <div className="post-header__meta-item">
                         By
-                        <Link to="/">Jessica Moore</Link>
+                        {data?.user?.name}
                     </div>
-                    <div className="post-header__meta-item"><Link to="/">November 30, 2018</Link></div>
-                    <div className="post-header__meta-item"><Link to="/">4 التعليقات</Link></div>
+                    <div className="post-header__meta-item">{moment(data?.created_at).format('MMMM.DD.YYYY')}</div>
+                    <div className="post-header__meta-item">4 التعليقات</div>
                 </div>
             </div>
 
             <div className="post__featured">
-                <Link to="/">
-                    <img src="images/posts/post-featured.jpg" alt="" />
-                </Link>
+                <img src={data?.image} width={"100%"} alt="" />
             </div>
-
             <div className={postClasses}>
-                <p>
-                    Vestibulum sagittis justo sit amet nisl semper, et pulvinar elit maximus. Morbi
-                    interdum velit quis magna placerat lobortis eget pharetra magna. Nulla
-                    tristique sollicitudin turpis, eget maximus risus faucibus non. Nulla
-                    vestibulum ipsum risus, vitae maximus nunc bibendum quis.
-                </p>
-                <p>
-                    raesent eu consequat nibh. Quisque
-                    <i>ullamcorper</i>
-                    , augue eu fringillasodales, leo metus volutpat risus, at suscipit ipsum
-                    diam eget sem. Maecenas dictum elit in enim molestie,
-                    <Link to="/">vel sollicitudin erat ultricies</Link>
-                    . Sed risus tellus, molestie finibus
-                    dui quis, suscipit consequat ex.
-                </p>
-                <blockquote>
-                    <p>
-                        Sed a dictum elit. In iaculis porttitor luctus. Maecenas ultricies dolor et
-                        semper placerat. Proin at lectus felis.
-                    </p>
-                    <p><cite>John Mcarthy</cite></p>
-                </blockquote>
-                <p>
-                    Vivamus in nisi at turpis rhoncus feugiat. Mauris scelerisque non ante et
-                    ultrices. Donec sit amet sem lobortis, ullamcorper felis at, finibus sem.
-                    Curabitur tincidunt neque nunc.
-                </p>
-                <h3>Nam Eget Blandit Diam</h3>
-                <p>
-                    Quisque semper magna eget libero maximus, a sollicitudin nunc hendrerit. Cras
-                    efficitur, ante vitae fringilla rutrum, mi tortor dapibus metus, in egestas
-                    metus erat sit amet orci. Ut faucibus non ante dapibus efficitur. Nam eget
-                    blandit diam, imperdiet condimentum neque. Donec risus nisi, aliquet a commodo
-                    ac, elementum vitae leo.
-                </p>
-                <p>
-                    Vestibulum sagittis justo sit amet nisl semper, et pulvinar elit maximus. Morbi
-                    interdum velit quis magna placerat lobortis eget pharetra magna.
-                </p>
-                <p>
-                    <strong>Nulla fringilla:</strong>
-                    <Link to="/">Donec aliquet at felis et dignissim</Link>
-                </p>
-                <figure>
-                    <Link to="/">
-                        <img src="images/posts/post-featured.jpg" alt="" />
-                    </Link>
-                    <figcaption>Nunc viverra, dui nec commodo dignissim, libero arcu.</figcaption>
-                </figure>
-                <p>
-                    Vestibulum non varius lectus. Cras vel elit id ligula laoreet imperdiet. Mauris
-                    quis laoreet velit. Suspendisse sed velit nec ante facilisis pharetra.
-                </p>
-                <p>
-                    Phasellus ut elit vestibulum, dignissim mi non, suscipit ex. Praesent eu
-                    consequat nibh. Quisque ullamcorper, augue eu fringilla sodales, leo metus
-                    volutpat risus,
-                    <Link to="/">at suscipit ipsum diam eget sem</Link>
-                    . Maecenas dictum elit in enim molestie,
-                    vel sollicitudin erat ultricies. Sed risus tellus, molestie finibus dui quis,
-                    suscipit consequat ex.
-                </p>
-                <hr />
-                <h2>Nunc Dapibus Varius Ligula</h2>
-                <p>
-                    Maecenas ultrices arcu ut feugiat semper. Praesent dictum tincidunt justo, ac
-                    tincidunt ante fermentum at. Vestibulum non varius lectus. Cras vel elit id
-                    ligula laoreet imperdiet. Mauris quis laoreet velit. Suspendisse sed velit
-                    nec ante facilisis pharetra. Duis vitae fermentum elit. Integer ac mattis elit.
-                </p>
-                <p>
-                    Mauris scelerisque non ante et ultrices. Donec sit amet sem lobortis:
-                </p>
-                <ol>
-                    <li>
-                        Duis
-                        <strong>finibus imperdiet ultricies</strong>
-                        . Donec vel pretium turpis. In auctor euismod posuere.
-                    </li>
-                    <li>
-                        Praesent dictum tincidunt justo, ac tincidunt ante fermentum at. Vestibulum
-                        non varius lectus. Cras vel elit id ligula laoreet imperdiet.
-                    </li>
-                    <li>
-                        <strong>In iaculis porttitor luctus</strong>
-                        . Maecenas ultricies dolor et semper placerat. Proin at lectus felis.
-                        Quisque dapibus auctor justo id dictum.
-                    </li>
-                </ol>
-                <p>
-                    Ut faucibus non ante dapibus efficitur. Nam eget blandit diam, imperdiet
-                    condimentum neque. Donec risus nisi, aliquet a commodo ac, elementum vitae leo.
-                </p>
+                <div dangerouslySetInnerHTML={{ __html: data?.page_content }} />
             </div>
-
             <div className="post__footer">
                 <div className="post__tags-share-links">
                     <div className="post__tags tags">
                         <div className="tags__list">
-                            <Link to="/">Promotion</Link>
-                            <Link to="/">Power Tool</Link>
-                            <Link to="/">Wrench</Link>
-                            <Link to="/">Electrodes</Link>
+                            {data?.tags?.map((tag, index) => (
+                                <Link key={index}>{tag}</Link>
+                            ))}
                         </div>
                     </div>
                     <div className="post__share-links share-links">
@@ -176,11 +81,11 @@ export default function BlogPost(props) {
                 </div>
                 <div className="post-author">
                     <div className="post-author__avatar">
-                        <Link to="/"><img src="images/avatars/avatar-1.jpg" alt="" /></Link>
+                        <img src={data?.user?.image} alt="" />
                     </div>
                     <div className="post-author__info">
                         <div className="post-author__name">
-                            <Link to="/">Jessica Moore</Link>
+                            {data?.user?.name}
                         </div>
                         <div className="post-author__about">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur

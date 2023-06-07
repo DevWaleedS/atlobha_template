@@ -11,7 +11,7 @@ import { ArrowRoundedRight6x9Svg } from '../../svg';
 
 function WidgetCategories(props) {
     const { categories, location } = props;
-    const categoriesList = categories.map((category) => {
+    const categoriesList = categories?.map((category) => {
         const renderCategory = ({ toggle, setItemRef, setContentRef }) => {
             let expander;
             let children;
@@ -33,9 +33,9 @@ function WidgetCategories(props) {
             return (
                 <li className="widget-categories__item" ref={setItemRef}>
                     <div className="widget-categories__row">
-                        <Link to={category.url}>
+                        <Link to={category?.id}>
                             <ArrowRoundedRight6x9Svg className="widget-categories__arrow" />
-                            {category.name}
+                            {category?.name}
                         </Link>
                         {expander}
                     </div>
@@ -44,7 +44,7 @@ function WidgetCategories(props) {
             );
         };
 
-        return <Collapse key={category.id} toggleClass="widget-categories__item--open" render={renderCategory} />;
+        return <Collapse key={category?.id} toggleClass="widget-categories__item--open" render={renderCategory} />;
     });
 
     return (

@@ -5,11 +5,8 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-// data stubs
-import theme from '../../data/theme';
-
 function SocialLinks(props) {
-    const { shape, className } = props;
+    const { shape, className, fetchedData } = props;
 
     const classes = classNames(className, 'social-links', {
         'social-links--shape--circle': shape === 'circle',
@@ -17,23 +14,24 @@ function SocialLinks(props) {
     });
 
     const items = [
-        { type: 'facebook', url: theme.author.profile_url, icon: 'fab fa-facebook-f' },
-        { type: 'twitter', url: theme.author.profile_url, icon: 'fab fa-twitter' },
-        { type: 'youtube', url: theme.author.profile_url, icon: 'fab fa-youtube' },
-        { type: 'instagram', url: theme.author.profile_url, icon: 'fab fa-instagram' },
-        { type: 'rss', url: theme.author.profile_url, icon: 'fas fa-rss' },
+        { type: 'facebook', url: fetchedData?.facebook, icon: 'fab fa-facebook-f' },
+        { type: 'twitter', url: fetchedData?.twiter, icon: 'fab fa-twitter' },
+        { type: 'youtube', url: fetchedData?.youtube, icon: 'fab fa-youtube' },
+        { type: 'instagram', url: fetchedData?.instegram, icon: 'fab fa-instagram' },
+        { type: 'snapchat', url: fetchedData?.snapchat, icon: 'fab fa-snapchat' },
     ].map((item) => (
-        <li key={item.type} className="social-links__item">
-            <a
-                className={`social-links__link social-links__link--type--${item.type}`}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <i className={item.icon} />
-            </a>
-        </li>
-    ));
+        item?.url && (
+            <li key={item.type} className="social-links__item">
+                <a
+                    className={`social-links__link social-links__link--type--${item.type}`}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i className={item.icon} />
+                </a>
+            </li>
+        )));
 
     return (
         <div className={classes}>

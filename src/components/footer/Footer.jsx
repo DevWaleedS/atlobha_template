@@ -41,7 +41,7 @@ export default function Footer({ fetchedData }) {
                             <FooterLinks title="معلومات" items={fetchedData?.pages} />
                         </div>
                         <div className="col-12 col-md-12 col-lg-4">
-                            <FooterNewsletter />
+                            <FooterNewsletter fetchedData={fetchedData} />
                         </div>
                     </div>
                 </div>

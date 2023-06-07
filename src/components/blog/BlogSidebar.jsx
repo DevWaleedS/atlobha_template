@@ -14,12 +14,10 @@ import WidgetSearch from '../widgets/WidgetSearch';
 import WidgetTags from '../widgets/WidgetTags';
 
 // data stubs
-import categories from '../../data/blogWidgetCategories';
 import comments from '../../data/blogWidgetLatestComments';
-import posts from '../../data/blogPosts';
 
 export default function BlogSidebar(props) {
-    const { position } = props;
+    const { position, fetchedData } = props;
 
     return (
         <div className={`block block-sidebar block-sidebar--position--${position}`}>
@@ -30,10 +28,10 @@ export default function BlogSidebar(props) {
                 <WidgetAboutus />
             </div>
             <div className="block-sidebar__item">
-                <WidgetCategories categories={categories} />
+                <WidgetCategories categories={fetchedData?.postCategory} />
             </div>
             <div className="block-sidebar__item">
-                <WidgetPosts posts={posts.slice(0, 3)} />
+                <WidgetPosts posts={fetchedData?.lastPosts?.slice(0, 3)} />
             </div>
             <div className="block-sidebar__item">
                 <WidgetNewsletter />

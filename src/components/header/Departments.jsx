@@ -123,7 +123,7 @@ class Departments extends Component {
             <div className="departments" ref={this.setWrapperRef}>
                 <div className="departments__body">
                     <div className="departments__links-wrapper" onTransitionEnd={this.handleTransitionEnd}>
-                        <DepartmentsLinks props={this.props} />
+                        <DepartmentsLinks fetchedData={this.props?.fetchedData} />
                     </div>
                 </div>
 

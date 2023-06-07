@@ -5,44 +5,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // application
-import Megamenu from './Megamenu';
 import Menu from './Menu';
 import { ArrowRoundedRight6x9Svg } from '../../svg';
 
 // data stubs
 // import departments from '../../data/headerDepartments';
 
-function DepartmentsLinks({ props }) {
-    const { fetchedData } = props;
+function DepartmentsLinks({ fetchedData }) {
     const linksList = fetchedData?.category?.map((department, index) => {
         let arrow = null;
         let submenu = null;
         let itemClass = '';
+        const type = 'menu';
 
         if (department?.subcategory) {
             arrow = <ArrowRoundedRight6x9Svg className="departments__link-arrow" />;
         }
 
-        if (department?.subcategory && department?.subcategory.type === 'menu') {
+        if (department?.subcategory && type === 'menu') {
             itemClass = 'departments__item--menu';
             submenu = (
                 <div className="departments__menu">
-                    <Menu items={department.subcategory?.name} />
-                </div>
-            );
-        }
-
-        if (department?.subcategory && department?.subcategory?.type === 'megamenu') {
-            submenu = (
-                <div className={`departments__megamenu departments__megamenu--${department?.subcategory?.menu.size}`}>
-                    <Megamenu menu={department?.subcategory?.name} location="department" />
+                    <Menu items={department} layout="classic" />
                 </div>
             );
         }
 
         return (
             <li key={index} className={`departments__item ${itemClass}`}>
-                <Link to={department.url}>
+                <Link to={department?.id}>
                     {department?.name}
                     {arrow}
                 </Link>

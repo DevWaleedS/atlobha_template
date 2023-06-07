@@ -42,22 +42,22 @@ class Product extends Component {
         const { quantity } = this.state;
         let prices;
 
-        if (product.compareAtPrice) {
+        if (product?.compareAtPrice) {
             prices = (
                 <React.Fragment>
-                    <span className="product__new-price"><Currency value={product.price} /></span>
+                    <span className="product__new-price"><Currency value={product?.selling_price} /></span>
                     {' '}
-                    <span className="product__old-price"><Currency value={product.compareAtPrice} /></span>
+                    <span className="product__old-price"><Currency value={product?.selling_price} /></span>
                 </React.Fragment>
             );
         } else {
-            prices = <Currency value={product.price} />;
+            prices = <Currency value={product?.selling_price} />;
         }
 
         return (
             <div className={`product product--layout--${layout}`}>
                 <div className="product__content">
-                    <ProductGallery layout={layout} images={product.images} />
+                    <ProductGallery layout={layout} images={product?.images} />
 
                     <div className="product__info">
                         <div className="product__wishlist-compare">
@@ -96,21 +96,19 @@ class Product extends Component {
                                 )}
                             />
                         </div>
-                        <h1 className="product__name">{product.name}</h1>
+                        <h1 className="product__name">{product?.name}</h1>
                         <div className="product__rating">
                             <div className="product__rating-stars">
-                                <Rating value={product.rating} />
+                                <Rating value={product?.productRating} />
                             </div>
                             <div className="product__rating-legend">
-                                <Link to="/">{`${product.reviews} تقييم`}</Link>
+                                <Link to="/">{`${product?.productRatingCount} تقييم`}</Link>
                                 <span>/</span>
                                 <Link to="/">اكتب تقييماً</Link>
                             </div>
                         </div>
                         <div className="product__description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-                            ornare, mi in ornare elementum, libero nibh lacinia urna, quis
-                            convallis lorem erat at purus. Maecenas eu varius nisi.
+                            {product?.description}
                         </div>
                         <ul className="product__features">
                             <li>Speed: 750 RPM</li>
@@ -122,7 +120,11 @@ class Product extends Component {
                         <ul className="product__meta">
                             <li className="product__meta-availability">
                                 المخزون:
-                                <span className="text-success">متوفر</span>
+                                {product?.stock > 0 ?
+                                    <span className="text-success">متوفر</span>
+                                    :
+                                    <span className="text-danger">غير متوفر</span>
+                                }
                             </li>
                             <li>
                                 العلامة التجارية:
@@ -280,9 +282,9 @@ class Product extends Component {
                     <div className="product__footer">
                         <div className="product__tags tags">
                             <div className="tags__list">
-                                <Link to="/">Mounts</Link>
-                                <Link to="/">Electrodes</Link>
-                                <Link to="/">Chainsaws</Link>
+                                {product?.subcategory?.map((sub,index)=>(
+                                    <Link key={index} to="/">{sub?.name}</Link>
+                                ))}
                             </div>
                         </div>
 

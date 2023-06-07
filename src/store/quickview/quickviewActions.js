@@ -17,6 +17,7 @@ export function quickviewClose() {
 }
 
 export function quickviewOpen(productSlug) {
+    console.log(productSlug);
     return (dispatch) => {
         cancelPreviousRequest();
 
