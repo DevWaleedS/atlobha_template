@@ -1,5 +1,5 @@
 // react
-import React, { useState } from 'react';
+import React from 'react';
 
 // third-party
 import PropTypes from 'prop-types';
