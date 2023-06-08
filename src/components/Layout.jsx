@@ -38,6 +38,7 @@ import TermsAndConditions from "./site/TermsAndConditions";
 
 // data stubs
 import theme from "../data/theme";
+import SitePages from "./site/SitePages";
 
 const categoryLayouts = [
     ["/shop/category-grid-3-columns-sidebar", { columns: 3, viewMode: "grid", sidebarPosition: "start" }],
@@ -70,20 +71,6 @@ const productLayouts = [
 function Layout(props) {
     const { match, headerLayout, homeComponent } = props;
     const { fetchedData } = useFetch("https://backend.atlbha.com/api/indexStore/1");
-    const { fetchedData: pages } = useFetch("https://backend.atlbha.com/api/storPage/111?id=1");
-    pages?.data?.pages.map((page) => page?.title);
-
-    const [pageTitle, setPageTitle] = useState([]);
-
-    useEffect(() => {
-        if (pages?.data?.pages) {
-            setPageTitle(pages?.data?.pages.map((page) => page?.title));
-        }
-    }, [pages?.data?.pages]);
-
-    const termsAndConditions = pageTitle[0];
-    const usagePolicy = pageTitle[1];
-    const aboutUs = pageTitle[2];
 
     return (
         <React.Fragment>
@@ -192,6 +179,7 @@ function Layout(props) {
                             path="/blog/post-full"
                             render={(props) => <BlogPagePost {...props} layout="full" />}
                         />
+                        <Route exact path={"/site/SitePages/:id"} component={SitePages} />
 
                         {/*
                         // Account
@@ -199,33 +187,14 @@ function Layout(props) {
                         <Route exact path="/account/login" component={AccountPageLogin} />
                         <Route path="/account" component={AccountLayout} />
 
-                        <Redirect exact from="/site" to="/site/about-us" />
                         {/*
-                         // about us page 
+                         // Pages dropdown menu
                         */}
-                        <Route
-                            exact
-                            path={`/site/${aboutUs === "من نحن" ? "about-us" : "about-us"}`}
-                            component={SitePageAboutUs}
-                        />
+                        <Redirect exact from="/site" to="/" />
                         {/*
-                         // terms And Conditions page
+                         // page that will come form api 
                         */}
-                        <Route
-                            exact
-                            path={`/site/${
-                                termsAndConditions === "الشروط و الأحكام" ? "termsAndConditions" : "termsAndConditions"
-                            }`}
-                            component={TermsAndConditions}
-                        />
-                        {/*
-                         // usage Policy page
-                        */}
-                        <Route
-                            exact
-                            path={`/site/${usagePolicy === "سياسة الاستخدام" ? "usagePolicy" : "usagePolicy"}`}
-                            component={UsagePolicy}
-                        />
+                        <Route exact path={"/site/SitePages/:id"} component={SitePages} />
                         {/*
                          // contact us pages  
                         */}

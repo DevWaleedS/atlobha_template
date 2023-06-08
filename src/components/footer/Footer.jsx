@@ -11,6 +11,8 @@ import Whatsapp from "./Whatsapp";
 // import
 
 export default function Footer({ fetchedData }) {
+  
+
     return (
         <div className="site-footer">
             <div className="container">
