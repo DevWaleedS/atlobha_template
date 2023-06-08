@@ -16,7 +16,7 @@ export default function FooterContacts({ fetchedData }) {
             <ul className="footer-contacts__contacts">
                 <li>
                     <i className="footer-contacts__icon fas fa-globe-americas" />
-                    {theme.contacts.address}
+                    {fetchedData?.storeAddress}
                 </li>
                 <li>
                     <i className="footer-contacts__icon far fa-envelope" />

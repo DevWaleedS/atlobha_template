@@ -119,7 +119,11 @@ function ProductCard(props) {
             <div className="product-card__actions">
                 <div className="product-card__availability">
                     المخزون:
-                    <span className="text-success">متوفر</span>
+                    {product?.stock > 0 ?
+                        <span className="text-success">متوفر</span>
+                        :
+                        <span className="text-danger">غير متوفر</span>
+                    }
                 </div>
                 {price}
                 <div className="product-card__buttons">

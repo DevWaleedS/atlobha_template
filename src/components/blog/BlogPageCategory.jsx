@@ -18,9 +18,13 @@ import theme from '../../data/theme';
 
 function BlogPageCategory(props) {
     const { fetchedData, loading } = useFetch('https://backend.atlbha.com/api/postStore/1');
-
     const { layout, sidebarPosition } = props;
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = fetchedData?.data?.posts?.slice(indexOfFirstPost, indexOfLastPost);
+
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
         { title: 'المقالات', url: '' },
@@ -28,9 +32,6 @@ function BlogPageCategory(props) {
     let sidebarStart;
     let sidebarEnd;
 
-    const handlePageChange = (page) => {
-        setPage(page);
-    };
     const sidebar = <BlogSidebar fetchedData={fetchedData?.data} position={sidebarPosition} />;
 
     if (sidebarPosition === 'start') {
@@ -39,7 +40,7 @@ function BlogPageCategory(props) {
         sidebarEnd = <div className="col-12 col-lg-4">{sidebar}</div>;
     }
 
-    const postsList = fetchedData?.data?.posts?.map((post) => {
+    const postsList = currentPosts?.map((post) => {
         const postLayout = {
             classic: 'grid-lg',
             grid: 'grid-nl',
@@ -55,6 +56,22 @@ function BlogPageCategory(props) {
     if (loading) {
         return <BlockLoader />;
     }
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const previousPage = () => {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const nextPage = () => {
+        if (currentPage !== Math.ceil(fetchedData?.data?.posts?.length / postsPerPage)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
 
     return (
         <React.Fragment>
@@ -77,10 +94,12 @@ function BlogPageCategory(props) {
                                 </div>
                                 <div className="posts-view__pagination">
                                     <Pagination
-                                        current={page}
-                                        siblings={2}
-                                        total={10}
-                                        onPageChange={handlePageChange}
+                                        postsPerPage={postsPerPage}
+                                        totalPosts={fetchedData?.data?.posts?.length}
+                                        paginate={paginate}
+                                        previousPage={previousPage}
+                                        nextPage={nextPage}
+                                        currentPage={currentPage}
                                     />
                                 </div>
                             </div>

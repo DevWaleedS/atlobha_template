@@ -207,8 +207,8 @@ class ProductGallery extends Component {
             const height = parseFloat(tag.dataset.height) || tag.naturalHeight;
 
             return {
-                src: images[index],
-                msrc: images[index],
+                src: images[index]?.image,
+                msrc: images[index]?.image,
                 w: width,
                 h: height,
             };
@@ -275,10 +275,10 @@ class ProductGallery extends Component {
         const featured = images.map((image, index) => (
             <div key={index} className="product-image product-image--location--gallery">
                 <Link
-                    to={`/${image?.image}`}
+                    to={{ pathname: `${image?.image}` }}
+                    target="_blank"
                     className="product-image__body"
                     onClick={(event) => this.handleFeaturedClick(event, index)}
-                    target="_blank"
                 >
                     {/*
                     The data-width and data-height attributes must contain the size of a larger
