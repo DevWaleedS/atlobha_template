@@ -5,11 +5,6 @@ export default [
     },
 
     {
-        title: "الاستبدال والاسترجاع",
-        url: "/",
-    },
-
-    {
         title: "المنتجات",
         url: "/shop/catalog",
     },
@@ -18,8 +13,12 @@ export default [
         url: "/blog/category-classic",
     },
     {
+        title: "الاستبدال والاسترجاع",
+        url: "/",
+    },
+    {
         title: "الصفحات",
-        url: "",
+        url: "/",
         submenu: {
             type: "menu",
             menu: [

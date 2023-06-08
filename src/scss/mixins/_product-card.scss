@@ -1,8 +1,7 @@
-@import 'buttons';
-@import '../functions';
-@import 'hacks';
-@import 'direction';
-
+@import "buttons";
+@import "../functions";
+@import "hacks";
+@import "direction";
 
 @mixin product-card-list() {
     flex-direction: row;
@@ -16,8 +15,8 @@
         padding: 20px 0;
 
         @include direction {
-            #{$padding-inline-start}: 0;
-            #{$padding-inline-end}: 20px;
+            #{$padding-inline-start}: 20px;
+            #{$padding-inline-end}: 0;
         }
     }
     .product-card__name {
@@ -84,7 +83,6 @@
             #{$padding-inline-end}: 10px;
         }
     }
-
 
     .product-card__features-list {
         font-size: 14px;
@@ -165,7 +163,6 @@
     }
 }
 
-
 @mixin product-card-grid() {
     .product-card__image {
         padding: 18px 18px 20px;
@@ -209,7 +206,6 @@
         padding: 0 15px 15px;
     }
 
-
     .product-card__buttons .btn {
         @include btn-xs();
     }
@@ -218,8 +214,8 @@
         .product-card__buttons {
             display: none;
         }
-        .product-card__name{
-            .buttons{
+        .product-card__name {
+            .buttons {
                 display: none;
             }
         }
@@ -232,8 +228,8 @@
             .product-card__buttons {
                 display: flex;
             }
-            .product-card__name{
-                .buttons{
+            .product-card__name {
+                .buttons {
                     display: flex;
                 }
             }
@@ -265,8 +261,8 @@
         .product-card__buttons {
             display: none;
         }
-        .product-card__name{
-            .buttons{
+        .product-card__name {
+            .buttons {
                 display: none;
             }
         }
@@ -279,8 +275,8 @@
             .product-card__buttons {
                 display: flex;
             }
-            .product-card__name{
-                .buttons{
+            .product-card__name {
+                .buttons {
                     display: flex;
                 }
             }
@@ -329,7 +325,6 @@
         font-size: 20px;
     }
 }
-
 
 @mixin product-card-horizontal() {
     flex-direction: row;
