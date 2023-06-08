@@ -11,27 +11,7 @@ import Whatsapp from "./Whatsapp";
 // import
 
 export default function Footer({ fetchedData }) {
-    console.log(fetchedData);
-
-    // const informationLinks = [
-    //     { title: 'About Us', url: '' },
-    //     { title: 'Delivery Information', url: '' },
-    //     { title: 'Privacy Policy', url: '' },
-    //     { title: 'Brands', url: '' },
-    //     { title: 'Contact Us', url: '' },
-    //     { title: 'Returns', url: '' },
-    //     { title: 'Site Map', url: '' },
-    // ];
-
-    // const accountLinks = [
-    //     { title: 'Store Location', url: '' },
-    //     { title: 'Order History', url: '' },
-    //     { title: 'Wish List', url: '' },
-    //     { title: 'Newsletter', url: '' },
-    //     { title: 'Specials', url: '' },
-    //     { title: 'Gift Certificates', url: '' },
-    //     { title: 'Affiliate', url: '' },
-    // ];
+    
 
     return (
         <div className="site-footer">
