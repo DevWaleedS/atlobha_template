@@ -1,5 +1,5 @@
 // react
-import React, { useEffect, useState } from "react";
+import React from "react";
 // third-party
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet-async";
@@ -27,12 +27,10 @@ import ShopPageCategory from "./shop/ShopPageCategory";
 import ShopPageOrderSuccess from "./shop/ShopPageOrderSuccess";
 import ShopPageProduct from "./shop/ShopPageProduct";
 import ShopPageTrackOrder from "./shop/ShopPageTrackOrder";
-import SitePageAboutUs from "./site/SitePageAboutUs";
 import SitePageContactUs from "./site/SitePageContactUs";
 import SitePageContactUsAlt from "./site/SitePageContactUsAlt";
-import UsagePolicy from "./site/UsagePolicy";
+
 import SitePageNotFound from "./site/SitePageNotFound";
-import TermsAndConditions from "./site/TermsAndConditions";
 
 // import SitePageComponents from './site/SitePageComponents';
 
