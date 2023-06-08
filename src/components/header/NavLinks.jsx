@@ -93,6 +93,9 @@ function NavLinks(props) {
         );
     });
 
+
+    console.log(linksList);
+
     return (
         <ul className="nav-links__list">
             {linksList}
