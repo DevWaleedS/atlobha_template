@@ -61,7 +61,7 @@ export default function Footer({ fetchedData }) {
                     <div className="site-footer__payments">
                         {fetchedData?.paymentMethod?.map((payment) => (
                             <div key={payment?.id}>
-                                <img className="img-fluid" src={payment?.image} alt={payment?.name} width="40" />
+                                <img className="img-fluid" src={payment?.image} alt={payment?.name} width="30" />
                             </div>
                         ))}
                     </div>

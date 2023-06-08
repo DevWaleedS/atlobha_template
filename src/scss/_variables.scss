@@ -489,325 +489,370 @@ $post-image-overlay-bg: rgba(#000, 0.2) !default;
 // ----------------------------------------
 // -- components
 // ----------------------------------------
-   // ----------------------------------------
-   // -- .alert
-   // ----------------------------------------
-      $alert-link-default-bg:            rgba(#fff, .5)  !default;
-      $alert-link-hover-bg:              rgba(#fff, .85) !default;
-      $alert-link-active-bg:             rgba(#fff, .5)  !default;
-      // close button
-      $alert-close-button-default-bg:    transparent     !default;
-      $alert-close-button-default-color: rgba(#000, .3)  !default;
-      $alert-close-button-hover-bg:      rgba(#000, .08) !default;
-      $alert-close-button-hover-color:   rgba(#000, .5)  !default;
-      // styles
-      $alerts: () !default;
-      $alerts: map_merge((
-         primary:   (main: #b2d9ff, opposite: #36414d),
-         secondary: (main: #d9d9d9, opposite: #4d4d4d),
-         info:      (main: #b8e2e5, opposite: #2d3e40),
-         success:   (main: #bde5a1, opposite: #34402d),
-         danger:    (main: #ffb8b8, opposite: #473333),
-         warning:   (main: #f2e291, opposite: #4d472e),
-      ), $alerts);
+// ----------------------------------------
+// -- .alert
+// ----------------------------------------
+$alert-link-default-bg: rgba(#fff, 0.5) !default;
+$alert-link-hover-bg: rgba(#fff, 0.85) !default;
+$alert-link-active-bg: rgba(#fff, 0.5) !default;
+// close button
+$alert-close-button-default-bg: transparent !default;
+$alert-close-button-default-color: rgba(#000, 0.3) !default;
+$alert-close-button-hover-bg: rgba(#000, 0.08) !default;
+$alert-close-button-hover-color: rgba(#000, 0.5) !default;
+// styles
+$alerts: () !default;
+$alerts: map_merge(
+    (
+        primary: (
+            main: #b2d9ff,
+            opposite: #36414d,
+        ),
+        secondary: (
+            main: #d9d9d9,
+            opposite: #4d4d4d,
+        ),
+        info: (
+            main: #b8e2e5,
+            opposite: #2d3e40,
+        ),
+        success: (
+            main: #bde5a1,
+            opposite: #34402d,
+        ),
+        danger: (
+            main: #ffb8b8,
+            opposite: #473333,
+        ),
+        warning: (
+            main: #f2e291,
+            opposite: #4d472e,
+        ),
+    ),
+    $alerts
+);
 
-   // ----------------------------------------
-   // -- .block-header
-   // ----------------------------------------
-      $block-header-divider-size:          2px                                       !default;
-      $block-header-divider-color:         #ebebeb                                   !default;
+// ----------------------------------------
+// -- .block-header
+// ----------------------------------------
+$block-header-divider-size: 2px !default;
+$block-header-divider-color: #ebebeb !default;
 
-      $block-header-filter-default-shadow: none                                      !default;
-      $block-header-filter-hover-shadow:   0 0 0 2px #ebebeb inset                   !default;
-      $block-header-filter-active-shadow:  0 0 0 2px $accent-color inset             !default;
+$block-header-filter-default-shadow: none !default;
+$block-header-filter-hover-shadow: 0 0 0 2px #ebebeb inset !default;
+$block-header-filter-active-shadow: 0 0 0 2px $accent-color inset !default;
 
-      $block-header-arrow-default-bg:      #f2f2f2                                   !default;
-      $block-header-arrow-default-color:   #999                                      !default;
-      $block-header-arrow-hover-bg:        $accent-color                             !default;
-      $block-header-arrow-hover-color:     $accent-opposite-color                    !default;
-      $block-header-arrow-active-bg:       lighten($block-header-arrow-hover-bg, 8%) !default;
-      $block-header-arrow-active-color:    $block-header-arrow-hover-color           !default;
+$block-header-arrow-default-bg: #f2f2f2 !default;
+$block-header-arrow-default-color: #999 !default;
+$block-header-arrow-hover-bg: $accent-color !default;
+$block-header-arrow-hover-color: #fff !default;
+$block-header-arrow-active-bg: lighten(
+    $block-header-arrow-hover-bg,
+    8%
+) !default;
+$block-header-arrow-active-color: #fff !default;
 
-   // ----------------------------------------
-   // -- .breadcrumb
-   // ----------------------------------------
-      $breadcrumb-link-default-color: inherit                !default;
-      $breadcrumb-link-hover-color:   $link-hover-color      !default;
-      $breadcrumb-link-active-color:  $body-font-muted-color !default;
-      $breadcrumb-arrow-color:        #d1d1d1                !default;
+// ----------------------------------------
+// -- .breadcrumb
+// ----------------------------------------
+$breadcrumb-link-default-color: inherit !default;
+$breadcrumb-link-hover-color: $link-hover-color !default;
+$breadcrumb-link-active-color: $body-font-muted-color !default;
+$breadcrumb-arrow-color: #d1d1d1 !default;
 
-   // ----------------------------------------
-   // -- .btn
-   // ----------------------------------------
-      // primary
-         // default
-         $btn-primary-bg-color:          $accent-color                 !default;
-         $btn-primary-font-color:        $accent-opposite-color        !default;
-         $btn-primary-icon-color:        $btn-primary-font-color       !default;
-         // hover
-         $btn-primary-hover-bg-color:    $dark-color                   !default;
-         $btn-primary-hover-font-color:  $dark-opposite-color          !default;
-         $btn-primary-hover-icon-color:  $btn-primary-hover-font-color !default;
-         // active
-         $btn-primary-active-bg-color:   lighten($dark-color, 10%)     !default;
-         $btn-primary-active-font-color: $btn-primary-hover-font-color !default;
-         $btn-primary-active-icon-color: $btn-primary-hover-icon-color !default;
-      // secondary
-         // default
-         $btn-secondary-bg-color:          #f0f0f0                         !default;
-         $btn-secondary-font-color:        $light-opposite-color           !default;
-         $btn-secondary-icon-color:        $btn-secondary-font-color       !default;
-         // hover
-         $btn-secondary-hover-bg-color:    $dark-color                     !default;
-         $btn-secondary-hover-font-color:  $dark-opposite-color            !default;
-         $btn-secondary-hover-icon-color:  $btn-secondary-hover-font-color !default;
-         // active
-         $btn-secondary-active-bg-color:   lighten($dark-color, 10%)       !default;
-         $btn-secondary-active-font-color: $btn-secondary-hover-font-color !default;
-         $btn-secondary-active-icon-color: $btn-secondary-hover-icon-color !default;
-      // light
-         // default
-         $btn-light-bg-color:          transparent                 !default;
-         $btn-light-font-color:        $light-opposite-color       !default;
-         $btn-light-icon-color:        #ccc                        !default;
-         // hover
-         $btn-light-hover-bg-color:    #f0f0f0                     !default;
-         $btn-light-hover-font-color:  $light-opposite-color       !default;
-         $btn-light-hover-icon-color:  $btn-light-hover-font-color !default;
-         // active
-         $btn-light-active-bg-color:   #e5e5e5                     !default;
-         $btn-light-active-font-color: $btn-light-hover-font-color !default;
-         $btn-light-active-icon-color: $btn-light-hover-icon-color !default;
+// ----------------------------------------
+// -- .btn
+// ----------------------------------------
+// primary
+// default
+$btn-primary-bg-color: $accent-color !default;
+$btn-primary-font-color: $accent-opposite-color !default;
+$btn-primary-icon-color: $btn-primary-font-color !default;
+// hover
+$btn-primary-hover-bg-color: $dark-color !default;
+$btn-primary-hover-font-color: $dark-opposite-color !default;
+$btn-primary-hover-icon-color: $btn-primary-hover-font-color !default;
+// active
+$btn-primary-active-bg-color: lighten($dark-color, 10%) !default;
+$btn-primary-active-font-color: $btn-primary-hover-font-color !default;
+$btn-primary-active-icon-color: $btn-primary-hover-icon-color !default;
+// secondary
+// default
+$btn-secondary-bg-color: #f0f0f0 !default;
+$btn-secondary-font-color: $light-opposite-color !default;
+$btn-secondary-icon-color: $btn-secondary-font-color !default;
+// hover
+$btn-secondary-hover-bg-color: $dark-color !default;
+$btn-secondary-hover-font-color: $dark-opposite-color !default;
+$btn-secondary-hover-icon-color: $btn-secondary-hover-font-color !default;
+// active
+$btn-secondary-active-bg-color: lighten($dark-color, 10%) !default;
+$btn-secondary-active-font-color: $btn-secondary-hover-font-color !default;
+$btn-secondary-active-icon-color: $btn-secondary-hover-icon-color !default;
+// light
+// default
+$btn-light-bg-color: transparent !default;
+$btn-light-font-color: $light-opposite-color !default;
+$btn-light-icon-color: #ccc !default;
+// hover
+$btn-light-hover-bg-color: #f0f0f0 !default;
+$btn-light-hover-font-color: $light-opposite-color !default;
+$btn-light-hover-icon-color: $btn-light-hover-font-color !default;
+// active
+$btn-light-active-bg-color: #e5e5e5 !default;
+$btn-light-active-font-color: $btn-light-hover-font-color !default;
+$btn-light-active-icon-color: $btn-light-hover-icon-color !default;
 
-   // ----------------------------------------
-   // -- .card
-   // ----------------------------------------
-      $card-border-width:     2px                                         !default;
-      $card-border-color:     #f0f0f0                                     !default;
-      $card-border-radius:    2px                                         !default;
-      $card-border:           $card-border-width solid $card-border-color !default;
-      $card-divider-color:    $light-divider-color                        !default;
-      $card-font-color:       $light-opposite-color                       !default;
-      $card-font-alt-color:   $light-opposite-alt-color                   !default;
-      $card-font-muted-color: $light-opposite-muted-color                 !default;
+// ----------------------------------------
+// -- .card
+// ----------------------------------------
+$card-border-width: 2px !default;
+$card-border-color: #f0f0f0 !default;
+$card-border-radius: 2px !default;
+$card-border: $card-border-width solid $card-border-color !default;
+$card-divider-color: $light-divider-color !default;
+$card-font-color: $light-opposite-color !default;
+$card-font-alt-color: $light-opposite-alt-color !default;
+$card-font-muted-color: $light-opposite-muted-color !default;
 
-   // ----------------------------------------
-   // -- .form-control
-   // ----------------------------------------
-      $form-control-select-arrow-color: #4d4d4d !default;
+// ----------------------------------------
+// -- .form-control
+// ----------------------------------------
+$form-control-select-arrow-color: #4d4d4d !default;
 
-   // ----------------------------------------
-   // -- .input-check
-   // ----------------------------------------
-      // normal
-      $input-check-box-bg:              #fff                            !default;
-      $input-check-box-shadow:          0 0 0 1px rgba(#000, .15) inset !default;
-      $input-check-icon-color:          #fff                            !default;
-      // checked
-      $input-check-checked-box-bg:      $accent-color                   !default;
-      $input-check-checked-box-shadow:  0 0 0 1px rgba(#000, .05) inset !default;
-      $input-check-checked-icon-color:  $accent-opposite-color          !default;
-      // disabled
-      $input-check-disabled-box-bg:     #f2f2f2                         !default;
-      $input-check-disabled-box-shadow: 0 0 0 1px rgba(#000, .1) inset  !default;
-      $input-check-disabled-icon-color: rgba(#000, .2)                  !default;
+// ----------------------------------------
+// -- .input-check
+// ----------------------------------------
+// normal
+$input-check-box-bg: #fff !default;
+$input-check-box-shadow: 0 0 0 1px rgba(#000, 0.15) inset !default;
+$input-check-icon-color: #fff !default;
+// checked
+$input-check-checked-box-bg: $accent-color !default;
+$input-check-checked-box-shadow: 0 0 0 1px rgba(#000, 0.05) inset !default;
+$input-check-checked-icon-color: #fff !default;
+// disabled
+$input-check-disabled-box-bg: #f2f2f2 !default;
+$input-check-disabled-box-shadow: 0 0 0 1px rgba(#000, 0.1) inset !default;
+$input-check-disabled-icon-color: rgba(#000, 0.2) !default;
 
-   // ----------------------------------------
-   // -- .input-check-color
-   // ----------------------------------------
-      $input-check-color-stick-color:       rgba(#666, .9)          !default;
-      $input-check-color-arrow-light-color: #fff                    !default;
-      $input-check-color-arrow-dark-color:  #3d464d                 !default;
-      $input-check-color-white-shadow:      0 0 0 2px #d9d9d9 inset !default;
-      $input-check-color-white-arrow-color: #bfbfbf                 !default;
+// ----------------------------------------
+// -- .input-check-color
+// ----------------------------------------
+$input-check-color-stick-color: rgba(#666, 0.9) !default;
+$input-check-color-arrow-light-color: #fff !default;
+$input-check-color-arrow-dark-color: #3d464d !default;
+$input-check-color-white-shadow: 0 0 0 2px #d9d9d9 inset !default;
+$input-check-color-white-arrow-color: #bfbfbf !default;
 
-   // ----------------------------------------
-   // -- .input-radio
-   // ----------------------------------------
-      // normal
-      $input-radio-circle-bg:                   #fff                            !default;
-      $input-radio-circle-shadow:               0 0 0 1px rgba(#000, .17) inset !default;
-      $input-radio-inner-circle-color:          #fff                            !default;
-      // checked
-      $input-radio-checked-circle-bg:           $accent-color                   !default;
-      $input-radio-checked-circle-shadow:       0 0 0 1px rgba(#000, .08) inset !default;
-      $input-radio-checked-inner-circle-color:  $accent-opposite-color          !default;
-      // disabled
-      $input-radio-disabled-circle-bg:          #f2f2f2                         !default;
-      $input-radio-disabled-circle-shadow:      0 0 0 1px rgba(#000, .12) inset !default;
-      $input-radio-disabled-inner-circle-color: rgba(#000, .2)                  !default;
+// ----------------------------------------
+// -- .input-radio
+// ----------------------------------------
+// normal
+$input-radio-circle-bg: #fff !default;
+$input-radio-circle-shadow: 0 0 0 1px rgba(#000, 0.17) inset !default;
+$input-radio-inner-circle-color: #fff !default;
+// checked
+$input-radio-checked-circle-bg: $accent-color !default;
+$input-radio-checked-circle-shadow: 0 0 0 1px rgba(#000, 0.08) inset !default;
+$input-radio-checked-inner-circle-color: #fff !default;
+// disabled
+$input-radio-disabled-circle-bg: #f2f2f2 !default;
+$input-radio-disabled-circle-shadow: 0 0 0 1px rgba(#000, 0.12) inset !default;
+$input-radio-disabled-inner-circle-color: rgba(#000, 0.2) !default;
 
-   // ----------------------------------------
-   // -- .input-radio-color
-   // ----------------------------------------
-      $input-radio-color-stick-color:        rgba(#000, .3) !default;
-      $input-radio-color-white-border-color: #ccc           !default;
-      $input-radio-color-inner-circle-color: #fff           !default;
+// ----------------------------------------
+// -- .input-radio-color
+// ----------------------------------------
+$input-radio-color-stick-color: rgba(#000, 0.3) !default;
+$input-radio-color-white-border-color: #ccc !default;
+$input-radio-color-inner-circle-color: #fff !default;
 
-   // ----------------------------------------
-   // -- .input-radio-label
-   // ----------------------------------------
-      $input-radio-label-default-bg:         #f0f0f0                               !default;
-      $input-radio-label-default-font-color: $light-opposite-color                 !default;
-      $input-radio-label-hover-bg:           #e0e0e0                               !default;
-      $input-radio-label-hover-font-color:   $input-radio-label-default-font-color !default;
-      $input-radio-label-active-bg:          $accent-color                         !default;
-      $input-radio-label-active-font-color:  $accent-opposite-color                !default;
+// ----------------------------------------
+// -- .input-radio-label
+// ----------------------------------------
+$input-radio-label-default-bg: #f0f0f0 !default;
+$input-radio-label-default-font-color: $light-opposite-color !default;
+$input-radio-label-hover-bg: #e0e0e0 !default;
+$input-radio-label-hover-font-color: $input-radio-label-default-font-color !default;
+$input-radio-label-active-bg: $accent-color !default;
+$input-radio-label-active-font-color: $accent-opposite-color !default;
 
-   // ----------------------------------------
-   // -- .layout-switcher
-   // ----------------------------------------
-      // default
-      $layout-switcher-default-bg:           $light-color                          !default;
-      $layout-switcher-default-border-color: #e5e5e5                               !default;
-      $layout-switcher-default-color:        #a1abb3                               !default;
-      // hover
-      $layout-switcher-hover-bg:             #f2f2f2                               !default;
-      $layout-switcher-hover-border-color:   $layout-switcher-default-border-color !default;
-      $layout-switcher-hover-color:          $light-opposite-color                 !default;
-      // active
-      $layout-switcher-active-bg:            $accent-color                         !default;
-      $layout-switcher-active-border-color:  $accent-color                         !default;
-      $layout-switcher-active-color:         $accent-opposite-color                !default;
+// ----------------------------------------
+// -- .layout-switcher
+// ----------------------------------------
+// default
+$layout-switcher-default-bg: $light-color !default;
+$layout-switcher-default-border-color: #e5e5e5 !default;
+$layout-switcher-default-color: #a1abb3 !default;
+// hover
+$layout-switcher-hover-bg: #f2f2f2 !default;
+$layout-switcher-hover-border-color: $layout-switcher-default-border-color !default;
+$layout-switcher-hover-color: $light-opposite-color !default;
+// active
+$layout-switcher-active-bg: $accent-color !default;
+$layout-switcher-active-border-color: $accent-color !default;
+$layout-switcher-active-color: #ffff !default;
 
-   // ----------------------------------------
-   // -- .filters-button
-   // ----------------------------------------
-      $filters-button-icon-color:            $dark-color                           !default;
-      $filters-button-counter-bg:            $accent-color                         !default;
-      $filters-button-counter-font-color:    $accent-opposite-color                !default;
-      // default
-      $filters-button-default-bg:            $light-color                          !default;
-      $filters-button-default-border-color:  #e5e5e5                               !default;
-      // hover
-      $filters-button-hover-bg:              #f5f5f5                               !default;
-      $filters-button-hover-border-color:    $filters-button-default-border-color  !default;
+// ----------------------------------------
+// -- .filters-button
+// ----------------------------------------
+$filters-button-icon-color: $dark-color !default;
+$filters-button-counter-bg: $accent-color !default;
+$filters-button-counter-font-color: $accent-opposite-color !default;
+// default
+$filters-button-default-bg: $light-color !default;
+$filters-button-default-border-color: #e5e5e5 !default;
+// hover
+$filters-button-hover-bg: #f5f5f5 !default;
+$filters-button-hover-border-color: $filters-button-default-border-color !default;
 
-   // ----------------------------------------
-   // -- .modal
-   // ----------------------------------------
-      $modal-border-radius: 2px                                                   !default;
-      $modal-shadow:        0 1px 20px rgba(#000, .15), 0 1px 3px rgba(#000, .15) !default;
+// ----------------------------------------
+// -- .modal
+// ----------------------------------------
+$modal-border-radius: 2px !default;
+$modal-shadow: 0 1px 20px rgba(#000, 0.15), 0 1px 3px rgba(#000, 0.15) !default;
 
-   // ----------------------------------------
-   // -- .nouislider
-   // ----------------------------------------
-      $nouislider-bg-color:      #e0e0e0                !default;
-      $nouislider-connect-color: $accent-color          !default;
-      $nouislider-border-color:  $accent-opposite-color !default;
-      $nouislider-handle-color:  $accent-color          !default;
+// ----------------------------------------
+// -- .nouislider
+// ----------------------------------------
+$nouislider-bg-color: #e0e0e0 !default;
+$nouislider-connect-color: $accent-color !default;
+$nouislider-border-color: #02466a !default;
+$nouislider-handle-color: #ffff !default;
 
-   // ----------------------------------------
-   // -- .pagination
-   // ----------------------------------------
-      // default
-      $pagination-bg:                  transparent            !default;
-      $pagination-font-color:          $body-font-color       !default;
-      // disabled
-      $pagination-disabled-bg:         transparent            !default;
-      $pagination-disabled-font-color: #b3b3b3                !default;
-      // hover
-      $pagination-hover-bg:            #ebebeb                !default;
-      $pagination-hover-font-color:    $pagination-font-color !default;
-      // current
-      $pagination-current-bg:          $accent-color          !default;
-      $pagination-current-font-color:  $accent-opposite-color !default;
+// ----------------------------------------
+// -- .pagination
+// ----------------------------------------
+// default
+$pagination-bg: transparent !default;
+$pagination-font-color: $body-font-color !default;
+// disabled
+$pagination-disabled-bg: transparent !default;
+$pagination-disabled-font-color: #b3b3b3 !default;
+// hover
+$pagination-hover-bg: #ebebeb !default;
+$pagination-hover-font-color: $pagination-font-color !default;
+// current
+$pagination-current-bg: $accent-color !default;
+$pagination-current-font-color: $accent-opposite-color !default;
 
-   // ----------------------------------------
-   // -- .post-card
-   // ----------------------------------------
-      $post-card-meta-font-color: #adadad !default;
+// ----------------------------------------
+// -- .post-card
+// ----------------------------------------
+$post-card-meta-font-color: #adadad !default;
 
-   // ----------------------------------------
-   // -- .product-card
-   // ----------------------------------------
-      $product-card-bg:                      #fff                                     !default;
-      $product-card-border-radius:           2px                                      !default;
-      $product-card-divider-color:           #ebebeb                                  !default;
-      $product-card-font-alt-color:          $light-opposite-alt-color                !default;
-      $product-card-font-muted-color:        $light-opposite-muted-color              !default;
+// ----------------------------------------
+// -- .product-card
+// ----------------------------------------
+$product-card-bg: #fff !default;
+$product-card-border-radius: 2px !default;
+$product-card-divider-color: #ebebeb !default;
+$product-card-font-alt-color: $light-opposite-alt-color !default;
+$product-card-font-muted-color: $light-opposite-muted-color !default;
 
-      $product-card-default-shadow:          0 0 0 1px #ededed inset                  !default;
-      $product-card-hover-shadow:            0 0 0 2px rgba($accent-color, .7) inset  !default;
+$product-card-default-shadow: 0 0 0 1px #ededed inset !default;
+$product-card-hover-shadow: 0 0 0 2px rgba($accent-color, 0.7) inset !default;
 
-      $product-card-badge-sale-bg:           #ff3333                                  !default;
-      $product-card-badge-sale-color:        #fff                                     !default;
-      $product-card-badge-new-bg:            #3377ff                                  !default;
-      $product-card-badge-new-color:         #fff                                     !default;
-      $product-card-badge-hot-bg:            #614ba6                                  !default;
-      $product-card-badge-hot-color:         #fff                                     !default;
+$product-card-badge-sale-bg: #ff3333 !default;
+$product-card-badge-sale-color: #fff !default;
+$product-card-badge-new-bg: #3377ff !default;
+$product-card-badge-new-color: #fff !default;
+$product-card-badge-hot-bg: #614ba6 !default;
+$product-card-badge-hot-color: #fff !default;
 
-      $product-card-quickview-color:         #ccc                                     !default;
-      $product-card-quickview-default-bg:    $accent-color                            !default;
-      $product-card-quickview-default-color: $accent-opposite-color                   !default;
-      $product-card-quickview-hover-bg:      $dark-color                              !default;
-      $product-card-quickview-hover-color:   $dark-opposite-color                     !default;
+$product-card-quickview-color: #ccc !default;
+$product-card-quickview-default-bg: $accent-color !default;
+$product-card-quickview-default-color: $accent-opposite-color !default;
+$product-card-quickview-hover-bg: #02466a !default;
+$product-card-quickview-hover-color: $dark-opposite-color !default;
 
-   // ----------------------------------------
-   // -- .product-image
-   // ----------------------------------------
-      $product-image-width:  1                                                     !default;
-      $product-image-height: 1                                                     !default;
-      $product-image-ratio:  math.div($product-image-width, $product-image-height) !default;
+// ----------------------------------------
+// -- .product-image
+// ----------------------------------------
+$product-image-width: 1 !default;
+$product-image-height: 1 !default;
+$product-image-ratio: math.div(
+    $product-image-width,
+    $product-image-height
+) !default;
 
-   // ----------------------------------------
-   // -- .rating
-   // ----------------------------------------
-      $rating-legend-font-color:         #b3b3b3                           !default;
-      $rating-star-default-color:        #ccc                              !default;
-      $rating-star-default-stroke-color: rgba(#000, .08)                   !default;
-      $rating-star-active-color:         #ffd333                           !default;
-      $rating-star-active-stroke-color:  $rating-star-default-stroke-color !default;
+// ----------------------------------------
+// -- .rating
+// ----------------------------------------
+$rating-legend-font-color: #b3b3b3 !default;
+$rating-star-default-color: #ccc !default;
+$rating-star-default-stroke-color: rgba(#000, 0.08) !default;
+$rating-star-active-color: #ffd333 !default;
+$rating-star-active-stroke-color: $rating-star-default-stroke-color !default;
 
-   // ----------------------------------------
-   // -- .share-links
-   // ----------------------------------------
-      $share-links-font-color:     #fff                           !default;
-      $share-links-like-color:     #4267b2                        !default;
-      $share-links-tweet-color:    #1b95e0                        !default;
-      $share-links-pin-color:      #e63939                        !default;
-      $share-links-counter-color:  #737373                        !default;
-      $share-links-counter-shadow: inset 0 0 0 1px rgba(#000, .2) !default;
+// ----------------------------------------
+// -- .share-links
+// ----------------------------------------
+$share-links-font-color: #fff !default;
+$share-links-like-color: #4267b2 !default;
+$share-links-tweet-color: #1b95e0 !default;
+$share-links-pin-color: #e63939 !default;
+$share-links-counter-color: #737373 !default;
+$share-links-counter-shadow: inset 0 0 0 1px rgba(#000, 0.2) !default;
 
-   // ----------------------------------------
-   // -- .social-links
-   // ----------------------------------------
-      $social-links: () !default;
-      $social-links: map_merge((
-         facebook:  (bg-color: #3c5a99, font-color: #fff),
-         twitter:   (bg-color: #00a2e8, font-color: #fff),
-         youtube:   (bg-color: #e52e2e, font-color: #fff),
-         instagram: (bg-color: #815dc7, font-color: #fff),
-         snapchat:       (bg-color: #ffc338, font-color: #fff),
-      ), $social-links);
-      $social-links-bg-color:   #000 !default;
-      $social-links-font-color: #fff !default;
+// ----------------------------------------
+// -- .social-links
+// ----------------------------------------
+$social-links: () !default;
+$social-links: map_merge(
+    (
+        facebook: (
+            bg-color: #3c5a99,
+            font-color: #fff,
+        ),
+        twitter: (
+            bg-color: #00a2e8,
+            font-color: #fff,
+        ),
+        youtube: (
+            bg-color: #e52e2e,
+            font-color: #fff,
+        ),
+        instagram: (
+            bg-color: #815dc7,
+            font-color: #fff,
+        ),
+        snapchat: (
+            bg-color: #ffc338,
+            font-color: #fff,
+        ),
+    ),
+    $social-links
+);
+$social-links-bg-color: #000 !default;
+$social-links-font-color: #fff !default;
 
-   // ----------------------------------------
-   // -- .tags
-   // ----------------------------------------
-      $tags-border-radius:      1.5px                   !default;
-      // default
-      $tags-default-bg:         transparent             !default;
-      $tags-default-border:     1px solid #e5e5e5       !default;
-      $tags-default-font-color: $light-opposite-color   !default;
-      // hover
-      $tags-hover-bg:           $accent-color           !default;
-      $tags-hover-border:       1px solid $accent-color !default;
-      $tags-hover-font-color:   $accent-opposite-color  !default;
+// ----------------------------------------
+// -- .tags
+// ----------------------------------------
+$tags-border-radius: 1.5px !default;
+// default
+$tags-default-bg: transparent !default;
+$tags-default-border: 1px solid #e5e5e5 !default;
+$tags-default-font-color: $light-opposite-color !default;
+// hover
+$tags-hover-bg: $accent-color !default;
+$tags-hover-border: 1px solid $accent-color !default;
+$tags-hover-font-color: $accent-opposite-color !default;
 
-   // ----------------------------------------
-   // -- .tooltip
-   // ----------------------------------------
-      $tooltip-color:      $dark-color          !default;
-      $tooltip-font-color: $dark-opposite-color !default;
+// ----------------------------------------
+// -- .tooltip
+// ----------------------------------------
+$tooltip-color: $dark-color !default;
+$tooltip-font-color: $dark-opposite-color !default;
 
-   // ----------------------------------------
-   // -- .typography
-   // ----------------------------------------
-      $typography-figcaption-color: #999 !default;
-      $typography-hr-color:         #ccc !default;
-      $typography-cite-color:       #999 !default;
+// ----------------------------------------
+// -- .typography
+// ----------------------------------------
+$typography-figcaption-color: #999 !default;
+$typography-hr-color: #ccc !default;
+$typography-cite-color: #999 !default;
 
 // ----------------------------------------
 // -- .typography
