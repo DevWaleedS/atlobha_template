@@ -9,50 +9,32 @@ import PropTypes from 'prop-types';
 import { ArrowRoundedLeft8x13Svg, ArrowRoundedRight8x13Svg } from '../../svg';
 
 class Pagination extends Component {
-    setPage = (value) => {
-        const { total, current, onPageChange } = this.props;
-
-        if (value < 1 || value > total || value === current) {
-            return;
-        }
-
-        if (onPageChange) {
-            onPageChange(value);
-        }
-    };
-
-    getPages() {
-        const { siblings, current, total } = this.props;
-        const pages = [];
-        const min = Math.max(1, current - siblings - Math.max(0, siblings - total + current));
-        const max = Math.min(total, min + siblings * 2);
-
-        for (let i = min; i <= max; i += 1) {
-            pages.push(i);
-        }
-
-        return pages;
-    }
 
     render() {
-        const { current, total } = this.props;
+        const { postsPerPage, totalPosts, paginate, previousPage, nextPage, currentPage } = this.props;
+        const pageNumbers = [];
+
+        for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+
         const firstLinkClasses = classNames('page-item', {
-            disabled: current <= 1,
+            disabled: currentPage <= 1,
         });
         const lastLinkClasses = classNames('page-item', {
-            disabled: current >= total,
+            disabled: currentPage >= totalPosts,
         });
 
-        const pages = this.getPages().map((page, index) => {
+        const pages = pageNumbers?.map((page, index) => {
             const classes = classNames('page-item', {
-                active: page === current,
+                active: page === currentPage,
             });
 
             return (
                 <li key={index} className={classes}>
-                    <button type="button" className="page-link" onClick={() => this.setPage(page)}>
+                    <button type="button" className="page-link" onClick={() => paginate(page)}>
                         {page}
-                        {page === current && <span className="sr-only">(current)</span>}
+                        {page === currentPage && <span className="sr-only">(current)</span>}
                     </button>
                 </li>
             );
@@ -65,7 +47,7 @@ class Pagination extends Component {
                         type="button"
                         className="page-link page-link--with-arrow"
                         aria-label="Previous"
-                        onClick={() => this.setPage(current - 1)}
+                        onClick={previousPage}
                     >
                         <ArrowRoundedLeft8x13Svg className="page-link__arrow page-link__arrow--left" aria-hidden="true" />
                     </button>
@@ -76,7 +58,7 @@ class Pagination extends Component {
                         type="button"
                         className="page-link page-link--with-arrow"
                         aria-label="Next"
-                        onClick={() => this.setPage(current + 1)}
+                        onClick={nextPage}
                     >
                         <ArrowRoundedRight8x13Svg className="page-link__arrow page-link__arrow--right" aria-hidden="true" />
                     </button>
