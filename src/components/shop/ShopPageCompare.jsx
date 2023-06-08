@@ -21,6 +21,7 @@ import theme from '../../data/theme';
 
 function ShopPageCompare(props) {
     const { products, compareRemoveItem, cartAddItem } = props;
+    console.log(products);
     const breadcrumb = [
         { title: 'الرئيسية', url: '' },
         { title: 'المقارنة', url: '' },
@@ -28,74 +29,74 @@ function ShopPageCompare(props) {
 
     let content;
 
-    if (products.length) {
+    if (products?.length) {
         const attributes = [];
 
-        products.forEach((product) => product.attributes.forEach((productAttribute) => {
-            let attribute = attributes.find((x) => x.name === productAttribute.name);
+        products.forEach((product) => product?.attributes?.forEach((productAttribute) => {
+            let attribute = attributes.find((x) => x?.name === productAttribute?.name);
 
             if (!attribute) {
                 attribute = {
-                    name: productAttribute.name,
+                    name: productAttribute?.name,
                     values: {},
                 };
                 attributes.push(attribute);
             }
 
-            attribute.values[product.id] = productAttribute.values.map((x) => x.name).join(', ');
+            attribute.values[product?.id] = productAttribute?.values?.map((x) => x?.name)?.join(', ');
         }));
 
-        const productInfoRow = products.map((product) => {
+        const productInfoRow = products?.map((product) => {
             let image;
-
-            if (product.images.length > 0) {
-                image = (
-                    <div className="compare-table__product-image product-image">
-                        <div className="product-image__body">
-                            <img className="product-image__img" src={product.images[0]} alt="" />
-                        </div>
+            image = (
+                <div className="compare-table__product-image product-image">
+                    <div className="product-image__body">
+                        <img className="product-image__img" src={product?.cover} alt="" />
                     </div>
-                );
-            }
+                </div>
+            );
 
             return (
                 <td key={product.id}>
-                    <Link to={url.product(product)} className="compare-table__product-link">
+                    <Link to={`/shop/products/${product?.id}`} className="compare-table__product-link">
                         {image}
-                        <div className="compare-table__product-name">{product.name}</div>
+                        <div className="compare-table__product-name">{product?.name}</div>
                     </Link>
                 </td>
             );
         });
 
-        const ratingRow = products.map((product) => (
-            <td key={product.id}>
+        const ratingRow = products?.map((product) => (
+            <td key={product?.id}>
                 <div className="compare-table__product-rating">
-                    <Rating value={product.rating} />
+                    <Rating value={product?.productRating} />
                 </div>
                 <div className=" compare-table__product-rating-legend">
-                    {`${product.reviews} Reviews`}
+                    {`${product?.productRatingCount} تقييم`}
                 </div>
             </td>
         ));
 
-        const availabilityRow = products.map((product) => {
+        const availabilityRow = products?.map((product) => {
             let badge;
 
-            if (product.availability === 'in-stock') {
+            if (product?.stock > 0 ) {
                 badge = <span className="compare-table__product-badge badge badge-success">متوفر</span>;
             }
+            else{
+                badge = <span className="compare-table__product-badge badge badge-danger">غير متوفر</span>;
+            }
 
-            return <td key={product.id}>{badge}</td>;
+            return <td key={product?.id}>{badge}</td>;
         });
 
-        const priceRow = products.map((product) => (
-            <td key={product.id}>
-                <Currency value={product.price} />
+        const priceRow = products?.map((product) => (
+            <td key={product?.id}>
+                <Currency value={product?.selling_price} />
             </td>
         ));
 
-        const addToCartRow = products.map((product) => {
+        const addToCartRow = products?.map((product) => {
             const renderButton = ({ run, loading }) => {
                 const classes = classNames('btn btn-primary', {
                     'btn-loading': loading,
@@ -105,7 +106,7 @@ function ShopPageCompare(props) {
             };
 
             return (
-                <td key={product.id}>
+                <td key={product?.id}>
                     <AsyncAction
                         action={() => cartAddItem(product)}
                         render={renderButton}
@@ -114,20 +115,20 @@ function ShopPageCompare(props) {
             );
         });
 
-        const attributeRows = attributes.map((feature, index) => {
-            const rows = products.map((product) => (
-                <td key={product.id}>{feature.values[product.id]}</td>
+        const attributeRows = attributes?.map((feature, index) => {
+            const rows = products?.map((product) => (
+                <td key={product?.id}>{feature?.values[product?.id]}</td>
             ));
 
             return (
                 <tr key={index}>
-                    <th>{feature.name}</th>
+                    <th>{feature?.name}</th>
                     {rows}
                 </tr>
             );
         });
 
-        const removeRow = products.map((product) => {
+        const removeRow = products?.map((product) => {
             const renderButton = ({ run, loading }) => {
                 const classes = classNames('btn btn-secondary btn-sm', {
                     'btn-loading': loading,
@@ -137,9 +138,9 @@ function ShopPageCompare(props) {
             };
 
             return (
-                <td key={product.id}>
+                <td key={product?.id}>
                     <AsyncAction
-                        action={() => compareRemoveItem(product.id)}
+                        action={() => compareRemoveItem(product?.id)}
                         render={renderButton}
                     />
                 </td>

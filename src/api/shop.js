@@ -69,7 +69,7 @@ const shopApi = {
      *
      * @return {Promise<object>}
      */
-    getProductBySlug: (slug) => {
+    getProductBySlug: async (slug) => {
         /**
          * This is what your API endpoint might look like:
          *
@@ -78,11 +78,11 @@ const shopApi = {
          * where:
          * - screwdriver-a2017 = slug
          */
-        // return fetch(`https://example.com/api/products/${slug}.json`)
-        //     .then((response) => response.json());
+        const response = await fetch(`https://backend.atlbha.com/api/productPage/${slug}`);
+        return await response.json();
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getProductBySlug(slug);
+        // return getProductBySlug(slug);
     },
     /**
      * Returns array of related products.

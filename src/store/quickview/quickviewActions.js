@@ -17,7 +17,6 @@ export function quickviewClose() {
 }
 
 export function quickviewOpen(productSlug) {
-    console.log(productSlug);
     return (dispatch) => {
         cancelPreviousRequest();
 
@@ -25,13 +24,14 @@ export function quickviewOpen(productSlug) {
             let canceled = false;
             // sending request to server, timeout is used as a stub
             const timer = setTimeout(() => {
+
                 shopApi.getProductBySlug(productSlug).then((product) => {
                     if (canceled) {
                         return;
                     }
 
-                    if (product) {
-                        dispatch(quickviewOpenSuccess(product));
+                    if (product?.data?.product) {
+                        dispatch(quickviewOpenSuccess(product?.data?.product));
                     }
 
                     resolve();

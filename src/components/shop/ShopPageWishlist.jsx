@@ -22,6 +22,7 @@ import theme from '../../data/theme';
 
 function ShopPageWishlist(props) {
     const { wishlist, cartAddItem, wishlistRemoveItem } = props;
+    console.log(wishlist);
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
         { title: 'المفضلة', url: '' },
@@ -32,16 +33,13 @@ function ShopPageWishlist(props) {
     if (wishlist.length) {
         const itemsList = wishlist.map((item) => {
             let image;
-
-            if (item.images.length > 0) {
                 image = (
                     <div className="product-image">
-                        <Link to={url.product(item)} className="product-image__body">
-                            <img className="product-image__img" src={item.images[0]} alt="" />
+                        <Link to={`/shop/products/${item?.id}`} className="product-image__body">
+                            <img className="product-image__img" src={item?.cover} alt="" />
                         </Link>
                     </div>
                 );
-            }
 
             const renderAddToCarButton = ({ run, loading }) => {
                 const classes = classNames('btn btn-primary btn-sm', {
@@ -60,21 +58,25 @@ function ShopPageWishlist(props) {
             };
 
             return (
-                <tr key={item.id} className="wishlist__row">
+                <tr key={item?.id} className="wishlist__row">
                     <td className="wishlist__column wishlist__column--image">
                         {image}
                     </td>
                     <td className="wishlist__column wishlist__column--product">
-                        <Link to={url.product(item)} className="wishlist__product-name">{item.name}</Link>
+                        <Link to={`/shop/products/${item?.id}`} className="wishlist__product-name">{item?.name}</Link>
                         <div className="wishlist__product-rating">
-                            <Rating value={item.rating} />
-                            <div className="wishlist__product-rating-legend">{`${item.reviews} Reviews`}</div>
+                            <Rating value={item?.productRating} />
+                            <div className="wishlist__product-rating-legend">{`${item?.productRatingCount} تقييم`}</div>
                         </div>
                     </td>
                     <td className="wishlist__column wishlist__column--stock">
-                        <div className="badge badge-success">متوفر</div>
+                        {item?.stock > 0 ?
+                            <div className="badge badge-success">متوفر</div>
+                            :
+                            <div className="badge badge-danger">غير متوفر</div>
+                        }
                     </td>
-                    <td className="wishlist__column wishlist__column--price"><Currency value={item.price} /></td>
+                    <td className="wishlist__column wishlist__column--price"><Currency value={item?.selling_price} /></td>
                     <td className="wishlist__column wishlist__column--tocart">
                         <AsyncAction
                             action={() => cartAddItem(item)}
