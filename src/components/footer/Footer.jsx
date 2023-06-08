@@ -1,17 +1,17 @@
 // react
-import React from 'react';
+import React from "react";
 
 // application
-import FooterContacts from './FooterContacts';
-import FooterLinks from './FooterLinks';
-import FooterNewsletter from './FooterNewsletter';
-import ToTop from './ToTop';
-import Whatsapp from './Whatsapp';
+import FooterContacts from "./FooterContacts";
+import FooterLinks from "./FooterLinks";
+import FooterNewsletter from "./FooterNewsletter";
+import ToTop from "./ToTop";
+import Whatsapp from "./Whatsapp";
+
+// import
 
 export default function Footer({ fetchedData }) {
-
-
-   
+    console.log(fetchedData);
 
     // const informationLinks = [
     //     { title: 'About Us', url: '' },
@@ -59,10 +59,11 @@ export default function Footer({ fetchedData }) {
                         </a>
                     </div>
                     <div className="site-footer__payments">
-                        <a href="https://google.com" rel="noopener noreferrer" target="_blank">
-                            <img src="images/maroof.webp" width="60" alt="maroof" />
-                        </a>
-                        <img src="images/payments.png" alt="payments" />
+                        {fetchedData?.paymentMethod?.map((payment) => (
+                            <div key={payment?.id}>
+                                <img className="img-fluid" src={payment?.image} alt={payment?.name} width="40" />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

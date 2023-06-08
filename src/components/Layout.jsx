@@ -145,11 +145,7 @@ function Layout(props) {
                             exact
                             path="/shop/products/:id"
                             render={(props) => (
-                                <ShopPageProduct
-                                    {...props}
-                                    layout="standard"
-                                    productSlug={props.match.params.id}
-                                />
+                                <ShopPageProduct {...props} layout="standard" productSlug={props.match.params.id} />
                             )}
                         />
                         {/* Following product layouts only for demonstration. */}
@@ -189,9 +185,7 @@ function Layout(props) {
                         <Route
                             exact
                             path="/blog/post/:id"
-                            render={(props) => (
-                                <BlogPagePost {...props} layout="classic" sidebarPosition="end" />
-                            )}
+                            render={(props) => <BlogPagePost {...props} layout="classic" sidebarPosition="end" />}
                         />
                         <Route
                             exact
