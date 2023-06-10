@@ -11,8 +11,6 @@ import Whatsapp from "./Whatsapp";
 // import
 
 export default function Footer({ fetchedData }) {
-  
-
     return (
         <div className="site-footer">
             <div className="container">
@@ -39,11 +37,28 @@ export default function Footer({ fetchedData }) {
                         </a>
                     </div>
                     <div className="site-footer__payments">
-                        {fetchedData?.paymentMethod?.map((payment) => (
-                            <div key={payment?.id}>
-                                <img className="img-fluid" src={payment?.image} alt={payment?.name} width="30" />
-                            </div>
-                        ))}
+                        <>
+                            {
+                                <a
+                                    href={fetchedData?.verificayionMethod?.link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <img
+                                        className="img-fluid"
+                                        src={fetchedData?.verificayionMethod?.image}
+                                        alt={fetchedData?.verificayionMethod?.image}
+                                        width="60"
+                                    />
+                                </a>
+                            }
+                            {fetchedData?.paymentMethod?.map((payment) => (
+                                <div key={payment?.id}>
+                                    <img className="img-fluid" src={payment?.image} alt={payment?.name} width="30" />
+                                </div>
+                            ))}
+                        </>
                     </div>
                 </div>
             </div>

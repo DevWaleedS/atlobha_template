@@ -1,16 +1,16 @@
 // react
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // third-party
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 // application
-import departmentsAria from '../../services/departmentsArea';
+import departmentsAria from "../../services/departmentsArea";
 // import languages from '../../i18n';
-import StroykaSlick from '../shared/StroykaSlick';
+import StroykaSlick from "../shared/StroykaSlick";
 
 const slickSettings = {
     dots: true,
@@ -24,11 +24,11 @@ const slickSettings = {
 class BlockSlideShow extends Component {
     departmentsAreaRef = null;
 
-    media = window.matchMedia('(min-width: 992px)');
+    media = window.matchMedia("(min-width: 992px)");
 
     componentDidMount() {
         if (this.media.addEventListener) {
-            this.media.addEventListener('change', this.onChangeMedia);
+            this.media.addEventListener("change", this.onChangeMedia);
         } else {
             // noinspection JSDeprecatedSymbols
             this.media.addListener(this.onChangeMedia);
@@ -39,7 +39,7 @@ class BlockSlideShow extends Component {
         departmentsAria.area = null;
 
         if (this.media.removeEventListener) {
-            this.media.removeEventListener('change', this.onChangeMedia);
+            this.media.removeEventListener("change", this.onChangeMedia);
         } else {
             // noinspection JSDeprecatedSymbols
             this.media.removeListener(this.onChangeMedia);
@@ -64,24 +64,18 @@ class BlockSlideShow extends Component {
         const { withDepartments, silders } = this.props;
         // const { direction } = languages[locale];
 
-        const blockClasses = classNames(
-            'block-slideshow block',
-            {
-                'block-slideshow--layout--full': !withDepartments,
-                'block-slideshow--layout--with-departments': withDepartments,
-            },
-        );
+        const blockClasses = classNames("block-slideshow block", {
+            "block-slideshow--layout--full": !withDepartments,
+            "block-slideshow--layout--with-departments": withDepartments,
+        });
 
-        const layoutClasses = classNames(
-            'col-12',
-            {
-                'col-lg-12': !withDepartments,
-                'col-lg-9': withDepartments,
-            },
-        );
+        const layoutClasses = classNames("col-12", {
+            "col-lg-12": !withDepartments,
+            "col-lg-9": withDepartments,
+        });
 
         const slides = silders?.map((slide, index) => {
-            const image = (withDepartments ? slide : slide);
+            const image = withDepartments ? slide : slide;
 
             return (
                 <div key={index} className="block-slideshow__slide">
@@ -98,8 +92,20 @@ class BlockSlideShow extends Component {
                         }}
                     />
                     <div className="block-slideshow__slide-content">
+                        <div className="block-slideshow__slide-title">
+                            Big choice of
+                            <br />
+                            Plumbing products
+                        </div>
+                        <div className="block-slideshow__slide-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            <br />
+                            Etiam pharetra laoreet dui quis molestie.
+                        </div>
                         <div className="block-slideshow__slide-button">
-                            <Link to="/" className="btn btn-primary btn-lg">تسوق الان</Link>
+                            <Link to="/" className="btn btn-primary btn-lg">
+                                تسوق الان
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -116,9 +122,7 @@ class BlockSlideShow extends Component {
 
                         <div className={layoutClasses}>
                             <div className="block-slideshow__body">
-                                <StroykaSlick {...slickSettings}>
-                                    {slides}
-                                </StroykaSlick>
+                                <StroykaSlick {...slickSettings}>{slides}</StroykaSlick>
                             </div>
                         </div>
                     </div>
