@@ -1,13 +1,13 @@
 // react
-import React from 'react';
+import React from "react";
 
 // third-party
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 // application
-import AppLink from '../shared/AppLink';
-import Collapse from '../shared/Collapse';
-import { ArrowRoundedDown12x7Svg } from '../../svg';
+import AppLink from "../shared/AppLink";
+import Collapse from "../shared/Collapse";
+import { ArrowRoundedDown12x7Svg } from "../../svg";
 
 function MobileLinks(props) {
     const { links, level, onItemClick } = props;
@@ -21,7 +21,7 @@ function MobileLinks(props) {
     const linksList = links.map((link, index) => {
         let item;
 
-        if (link.type === 'link' || link.type === 'button') {
+        if (link.type === "link" || link.type === "button") {
             item = (
                 <Collapse
                     toggleClass="mobile-links__item--open"
@@ -39,16 +39,12 @@ function MobileLinks(props) {
 
                             subLinks = (
                                 <div className="mobile-links__item-sub-links" ref={setContentRef}>
-                                    <MobileLinks
-                                        links={link.children}
-                                        level={level + 1}
-                                        onItemClick={onItemClick}
-                                    />
+                                    <MobileLinks links={link.children} level={level + 1} onItemClick={onItemClick} />
                                 </div>
                             );
                         }
 
-                        if (link.type === 'link') {
+                        if (link.type === "link") {
                             linkOrButton = (
                                 <AppLink
                                     to={link.url}
@@ -82,18 +78,14 @@ function MobileLinks(props) {
                     }}
                 />
             );
-        } else if (link.type === 'divider') {
+        } else if (link.type === "divider") {
             item = <div className="mobile-links__divider" />;
         }
 
         return <li key={index}>{item}</li>;
     });
 
-    return (
-        <ul className={`mobile-links mobile-links--level--${level}`}>
-            {linksList}
-        </ul>
-    );
+    return <ul className={`mobile-links mobile-links--level--${level}`}>{linksList}</ul>;
 }
 
 MobileLinks.propTypes = {

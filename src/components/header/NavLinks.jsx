@@ -1,20 +1,20 @@
 // react
-import React from 'react';
+import React from "react";
 
 // third-party
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 // application
-import AppLink from '../shared/AppLink';
-import languages from '../../i18n';
-import Megamenu from './Megamenu';
-import Menu from './Menu';
-import { ArrowRoundedDown9x6Svg } from '../../svg';
+import AppLink from "../shared/AppLink";
+import languages from "../../i18n";
+import Megamenu from "./Megamenu";
+import Menu from "./Menu";
+import { ArrowRoundedDown9x6Svg } from "../../svg";
 
 // data stubs
-import navLinks from '../../data/headerNavigation';
+import navLinks from "../../data/headerNavigation";
 
 function NavLinks(props) {
     const handleMouseEnter = (event) => {
@@ -22,7 +22,7 @@ function NavLinks(props) {
         const { direction } = languages[locale];
 
         const item = event.currentTarget;
-        const megamenu = item.querySelector('.nav-links__megamenu');
+        const megamenu = item.querySelector(".nav-links__megamenu");
 
         if (megamenu) {
             const container = megamenu.offsetParent;
@@ -30,23 +30,17 @@ function NavLinks(props) {
             const megamenuWidth = megamenu.getBoundingClientRect().width;
             const itemOffsetLeft = item.offsetLeft;
 
-            if (direction === 'rtl') {
-                const itemPosition = containerWidth - (
-                    itemOffsetLeft + item.getBoundingClientRect().width
-                );
+            if (direction === "rtl") {
+                const itemPosition = containerWidth - (itemOffsetLeft + item.getBoundingClientRect().width);
 
-                const megamenuPosition = Math.round(
-                    Math.min(itemPosition, containerWidth - megamenuWidth),
-                );
+                const megamenuPosition = Math.round(Math.min(itemPosition, containerWidth - megamenuWidth));
 
-                megamenu.style.left = '';
+                megamenu.style.left = "";
                 megamenu.style.right = `${megamenuPosition}px`;
             } else {
-                const megamenuPosition = Math.round(
-                    Math.min(itemOffsetLeft, containerWidth - megamenuWidth),
-                );
+                const megamenuPosition = Math.round(Math.min(itemOffsetLeft, containerWidth - megamenuWidth));
 
-                megamenu.style.right = '';
+                megamenu.style.right = "";
                 megamenu.style.left = `${megamenuPosition}px`;
             }
         }
@@ -60,7 +54,7 @@ function NavLinks(props) {
             arrow = <ArrowRoundedDown9x6Svg className="nav-links__arrow" />;
         }
 
-        if (item.submenu && item.submenu.type === 'menu') {
+        if (item.submenu && item.submenu.type === "menu") {
             submenu = (
                 <div className="nav-links__menu">
                     <Menu items={item.submenu.menu} />
@@ -68,7 +62,8 @@ function NavLinks(props) {
             );
         }
 
-        if (item.submenu && item.submenu.type === 'megamenu') {
+        if (item.submenu && item.submenu.type === "megamenu") {
+            console.log(item.submenu.menu);
             submenu = (
                 <div className={`nav-links__megamenu nav-links__megamenu--size--${item.submenu.menu.size}`}>
                     <Megamenu menu={item.submenu.menu} />
@@ -76,11 +71,12 @@ function NavLinks(props) {
             );
         }
 
-        const classes = classNames('nav-links__item', {
-            'nav-links__item--with-submenu': item.submenu,
+        const classes = classNames("nav-links__item", {
+            "nav-links__item--with-submenu": item.submenu,
         });
 
         return (
+       
             <li key={index} className={classes} onMouseEnter={handleMouseEnter}>
                 <AppLink to={item.url} {...item.props}>
                     <span>
@@ -93,14 +89,7 @@ function NavLinks(props) {
         );
     });
 
-
-    console.log(linksList);
-
-    return (
-        <ul className="nav-links__list">
-            {linksList}
-        </ul>
-    );
+    return <ul className="nav-links__list">{linksList}</ul>;
 }
 
 NavLinks.propTypes = {
