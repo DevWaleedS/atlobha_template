@@ -1,13 +1,13 @@
 // react
-import React from 'react';
+import React from "react";
 
 // third-party
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
 // application
-import AppLink from '../shared/AppLink';
-import { ArrowRoundedRight6x9Svg } from '../../svg';
+import AppLink from "../shared/AppLink";
+import { ArrowRoundedRight6x9Svg } from "../../svg";
 
 function Menu(props) {
     const {
@@ -21,16 +21,16 @@ function Menu(props) {
 
         if (item?.url) {
             link = (
-                <AppLink
-                    {...item.props}
-                    to={item?.url}
-                    onClick={() => onClick(item?.url)}
-                >
+                <AppLink {...item.props} to={item?.url} onClick={() => onClick(item?.url)}>
                     {content}
                 </AppLink>
             );
         } else {
-            link = <button type="button" onClick={() => onClick(item?.id)}>{item?.name}</button>;
+            link = (
+                <button type="button" onClick={() => onClick(item?.id)}>
+                    {item?.name}
+                </button>
+            );
         }
 
         return link;
@@ -63,32 +63,29 @@ function Menu(props) {
 
         return (
             <li key={index}>
-                {renderLink(item, (
+                {renderLink(
+                    item,
                     <React.Fragment>
                         {icon}
                         {item?.name}
                         {arrow}
                     </React.Fragment>
-                ))}
+                )}
                 {submenu}
             </li>
         );
     });
 
     const classes = classNames(`menu menu--layout--${layout}`, {
-        'menu--with-icons': withIcons,
+        "menu--with-icons": withIcons,
     });
 
-    return (
-        <ul className={classes}>
-            {itemsList}
-        </ul>
-    );
+    return <ul className={classes}>{itemsList}</ul>;
 }
 
 Menu.propTypes = {
     /** one of ['classic', 'topbar'] (default: 'classic') */
-    layout: PropTypes.oneOf(['classic', 'topbar']),
+    layout: PropTypes.oneOf(["classic", "topbar"]),
     /** default: false */
     withIcons: PropTypes.bool,
     /** array of menu items */
@@ -98,7 +95,7 @@ Menu.propTypes = {
 };
 
 Menu.defaultProps = {
-    layout: 'classic',
+    layout: "classic",
     withIcons: false,
     items: {},
     onClick: () => {},

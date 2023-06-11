@@ -1,12 +1,12 @@
 // react
-import React from 'react';
+import React from "react";
 
 // third-party
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 // application
-import BlockHeader from '../shared/BlockHeader';
+import BlockHeader from "../shared/BlockHeader";
 
 export default function BlockCategories(props) {
     const { title, layout, categories } = props;
@@ -30,15 +30,14 @@ export default function BlockCategories(props) {
                         <div className=" category-card__name">
                             <Link to={`/shop/products-by-category/${category?.id}`}>{category?.name}</Link>
                         </div>
-                        <ul className="category-card__links">
-                            {subcategories}
-                        </ul>
+                        <ul className="category-card__links">{subcategories}</ul>
                         <div className="category-card__all">
                             <Link to="/shop/products">عرض الكل</Link>
                         </div>
                         <div className="category-card__products">
                             {`${category?.products} Products`}
                         </div>
+                        <div className="category-card__products">{`${category?.products} Products`}</div>
                     </div>
                 </div>
             </div>
@@ -50,9 +49,7 @@ export default function BlockCategories(props) {
             <div className="container">
                 <BlockHeader title={title} />
 
-                <div className="block-categories__list">
-                    {categoriesList}
-                </div>
+                <div className="block-categories__list">{categoriesList}</div>
             </div>
         </div>
     );
@@ -61,10 +58,10 @@ export default function BlockCategories(props) {
 BlockCategories.propTypes = {
     title: PropTypes.string.isRequired,
     categories: PropTypes.array,
-    layout: PropTypes.oneOf(['classic', 'compact']),
+    layout: PropTypes.oneOf(["classic", "compact"]),
 };
 
 BlockCategories.defaultProps = {
     categories: [],
-    layout: 'classic',
+    layout: "classic",
 };

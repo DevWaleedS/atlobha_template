@@ -1,5 +1,5 @@
 // react
-import React, { useEffect, useState } from "react";
+import React from "react";
 // third-party
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet-async";
@@ -28,17 +28,16 @@ import ShopPageCategory from "./shop/ShopPageCategory";
 import ShopPageOrderSuccess from "./shop/ShopPageOrderSuccess";
 import ShopPageProduct from "./shop/ShopPageProduct";
 import ShopPageTrackOrder from "./shop/ShopPageTrackOrder";
-import SitePageAboutUs from "./site/SitePageAboutUs";
 import SitePageContactUs from "./site/SitePageContactUs";
 import SitePageContactUsAlt from "./site/SitePageContactUsAlt";
-import UsagePolicy from "./site/UsagePolicy";
+
 import SitePageNotFound from "./site/SitePageNotFound";
-import TermsAndConditions from "./site/TermsAndConditions";
 
 // import SitePageComponents from './site/SitePageComponents';
 
 // data stubs
 import theme from "../data/theme";
+import SitePages from "./site/SitePages";
 
 const categoryLayouts = [
     ["/shop/category-grid-3-columns-sidebar", { columns: 3, viewMode: "grid", sidebarPosition: "start" }],
@@ -71,22 +70,7 @@ const productLayouts = [
 function Layout(props) {
     const { match, headerLayout, homeComponent } = props;
     const { fetchedData } = useFetch("https://backend.atlbha.com/api/indexStore/1");
-    const { fetchedData: pages } = useFetch("https://backend.atlbha.com/api/storPage/111?id=1");
-
-    pages?.data?.pages.map((page) => page?.title);
-
-    const [pageTitle, setPageTitle] = useState([]);
-
-    useEffect(() => {
-        if (pages?.data?.pages) {
-            setPageTitle(pages?.data?.pages.map((page) => page?.title));
-        }
-    }, [pages?.data?.pages]);
-
-    const termsAndConditions = pageTitle[0];
-    const usagePolicy = pageTitle[1];
-    const aboutUs = pageTitle[2];
-
+  
     return (
         <React.Fragment>
             <Helmet>
@@ -147,11 +131,7 @@ function Layout(props) {
                             exact
                             path="/shop/products/:id"
                             render={(props) => (
-                                <ShopPageProduct
-                                    {...props}
-                                    layout="standard"
-                                    productSlug={props.match.params.id}
-                                />
+                                <ShopPageProduct {...props} layout="standard" productSlug={props.match.params.id} />
                             )}
                         />
                         {/* Following product layouts only for demonstration. */}
@@ -196,15 +176,14 @@ function Layout(props) {
                         <Route
                             exact
                             path="/blog/post/:id"
-                            render={(props) => (
-                                <BlogPagePost {...props} layout="classic" sidebarPosition="end" />
-                            )}
+                            render={(props) => <BlogPagePost {...props} layout="classic" sidebarPosition="end" />}
                         />
                         <Route
                             exact
                             path="/blog/post-full"
                             render={(props) => <BlogPagePost {...props} layout="full" />}
                         />
+                        <Route exact path={"/site/SitePages/:id"} component={SitePages} />
 
                         {/*
                         // Account
@@ -212,32 +191,16 @@ function Layout(props) {
                         <Route exact path="/account/login" component={AccountPageLogin} />
                         <Route path="/account" component={AccountLayout} />
 
-                        <Redirect exact from="/site" to="/site/about-us" />
                         {/*
+
                          // about us page
+                         // Pages dropdown menu
                         */}
-                        <Route
-                            exact
-                            path={`/site/${aboutUs === "من نحن" ? "about-us" : "about-us"}`}
-                            component={SitePageAboutUs}
-                        />
+                        <Redirect exact from="/site" to="/" />
                         {/*
-                         // terms And Conditions page
+                         // page that will come form api 
                         */}
-                        <Route
-                            exact
-                            path={`/site/${termsAndConditions === "الشروط و الأحكام" ? "termsAndConditions" : "termsAndConditions"
-                                }`}
-                            component={TermsAndConditions}
-                        />
-                        {/*
-                         // usage Policy page
-                        */}
-                        <Route
-                            exact
-                            path={`/site/${usagePolicy === "سياسة الاستخدام" ? "usagePolicy" : "usagePolicy"}`}
-                            component={UsagePolicy}
-                        />
+                        <Route exact path={"/site/SitePages/:id"} component={SitePages} />
                         {/*
                          // contact us pages
                         */}

@@ -9,18 +9,7 @@ export default function FooterLinks(props) {
     const { title, items } = props;
     const linksList = items?.map((item, index) => (
         <li key={index} className="footer-links__item">
-            <Link
-                to={`/site/${
-                    item?.title === "من نحن"
-                        ? "about-us"
-                        : item?.title === "الشروط و الأحكام"
-                        ? "termsAndConditions"
-                        : item?.title === "سياسة الاستخدام"
-                        ? "usagePolicy"
-                        : " "
-                }`}
-                className="footer-links__link"
-            >
+            <Link to={`/site/SitePages/${item?.id}`} className="footer-links__link">
                 {item?.title}
             </Link>
         </li>

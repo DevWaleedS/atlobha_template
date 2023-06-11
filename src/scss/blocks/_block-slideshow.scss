@@ -70,11 +70,11 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
 .block-slideshow__slide {
     position: relative;
     display: block;
-    color: inherit;
+    color: #fff;
     vertical-align: middle;
 
     &:hover {
-        color: inherit;
+        color: #fff;
     }
 }
 .block-slideshow__slide-image {

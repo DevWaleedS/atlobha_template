@@ -8,11 +8,6 @@ export default [
         url: "/site/contact-us",
     },
     {
-        title: "الاستبدال والاسترجاع",
-        url: "/",
-    },
-
-    {
         title: "المنتجات",
         url: "/shop/products",
     },
@@ -21,17 +16,17 @@ export default [
         url: "/blog/posts",
     },
     {
+        title: "الاستبدال والاسترجاع",
+        url: "/",
+    },
+    {
         title: "الصفحات",
-        url: "",
+        url: "/",
         submenu: {
             type: "menu",
             menu: [
-                { title: "من نحن", url: "/site/about-us" },
                 { title: "تواصل معنا", url: "/site/contact-us" },
-                { title: "تواصل معنا Alt", url: "" },
-                { title: "الشروط و الأحكام", url: "/site/termsAndConditions" },
-                { title: "سياسة الاستخدام", url: "/site/usagePolicy" },
-                { title: "سياسة الخصوصية", url: " " },
+                { title: "تواصل معنا Alt", url: "/site/contact-us-alt" },
             ],
         },
     },

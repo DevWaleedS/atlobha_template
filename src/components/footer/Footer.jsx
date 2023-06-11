@@ -1,38 +1,16 @@
 // react
-import React from 'react';
+import React from "react";
 
 // application
-import FooterContacts from './FooterContacts';
-import FooterLinks from './FooterLinks';
-import FooterNewsletter from './FooterNewsletter';
-import ToTop from './ToTop';
-import Whatsapp from './Whatsapp';
+import FooterContacts from "./FooterContacts";
+import FooterLinks from "./FooterLinks";
+import FooterNewsletter from "./FooterNewsletter";
+import ToTop from "./ToTop";
+import Whatsapp from "./Whatsapp";
+
+// import
 
 export default function Footer({ fetchedData }) {
-
-
-   
-
-    // const informationLinks = [
-    //     { title: 'About Us', url: '' },
-    //     { title: 'Delivery Information', url: '' },
-    //     { title: 'Privacy Policy', url: '' },
-    //     { title: 'Brands', url: '' },
-    //     { title: 'Contact Us', url: '' },
-    //     { title: 'Returns', url: '' },
-    //     { title: 'Site Map', url: '' },
-    // ];
-
-    // const accountLinks = [
-    //     { title: 'Store Location', url: '' },
-    //     { title: 'Order History', url: '' },
-    //     { title: 'Wish List', url: '' },
-    //     { title: 'Newsletter', url: '' },
-    //     { title: 'Specials', url: '' },
-    //     { title: 'Gift Certificates', url: '' },
-    //     { title: 'Affiliate', url: '' },
-    // ];
-
     return (
         <div className="site-footer">
             <div className="container">
@@ -59,10 +37,28 @@ export default function Footer({ fetchedData }) {
                         </a>
                     </div>
                     <div className="site-footer__payments">
-                        <a href="https://google.com" rel="noopener noreferrer" target="_blank">
-                            <img src="images/maroof.webp" width="60" alt="maroof" />
-                        </a>
-                        <img src="images/payments.png" alt="payments" />
+                        <>
+                            {
+                                <a
+                                    href={fetchedData?.verificayionMethod?.link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <img
+                                        className="img-fluid"
+                                        src={fetchedData?.verificayionMethod?.image}
+                                        alt={fetchedData?.verificayionMethod?.image}
+                                        width="60"
+                                    />
+                                </a>
+                            }
+                            {fetchedData?.paymentMethod?.map((payment) => (
+                                <div key={payment?.id}>
+                                    <img className="img-fluid" src={payment?.image} alt={payment?.name} width="30" />
+                                </div>
+                            ))}
+                        </>
                     </div>
                 </div>
             </div>

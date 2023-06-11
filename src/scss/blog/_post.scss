@@ -1,13 +1,13 @@
 /*
 // .post
 */
-@import '../variables';
-@import '../functions';
-@import '../mixins/card';
-@import '../mixins/direction';
+@import "../variables";
+@import "../functions";
+@import "../mixins/card";
+@import "../mixins/direction";
 
-
-.post {}
+.post {
+}
 .post__featured {
     text-align: center;
     position: relative;
@@ -16,13 +16,34 @@
     margin-bottom: 40px;
 
     img {
-        transition: opacity .2s;
+        transition: opacity 0.2s;
         max-width: 100%;
     }
     &:hover img {
-        opacity: .8;
+        opacity: 0.8;
     }
 }
+
+.post__content,
+.post__content div h1,
+.post__content div h2,
+.post__content div h3,
+.post__content div h4,
+.post__content div h4,
+.post__content div h5,
+.post__content div h6,
+.post__content div h1 p,
+.post__content div h2 p,
+.post__content div h3 p,
+.post__content div h4 p,
+.post__content div h4 p,
+.post__content div h5 p,
+.post__content div h6 p,
+.post__content div {
+    width: 100% !important;
+    max-width: 100%;
+}
+
 .post__footer {
     margin-top: 60px;
 }
@@ -50,7 +71,7 @@
 
     &::after {
         margin-top: 1px;
-        content: '';
+        content: "";
         display: block;
         height: 2px;
         flex-grow: 1;
@@ -61,7 +82,6 @@
         }
     }
 }
-
 
 @media (max-width: breakpoint(lg-end)) {
     .post__section {
@@ -97,7 +117,6 @@
         padding: 20px 0 0;
     }
 }
-
 
 .post--layout--full {
     @media (min-width: breakpoint(lg-start)) {
