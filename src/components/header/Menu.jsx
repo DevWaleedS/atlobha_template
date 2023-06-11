@@ -8,14 +8,10 @@ import PropTypes from "prop-types";
 // application
 import AppLink from "../shared/AppLink";
 import { ArrowRoundedRight6x9Svg } from "../../svg";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Menu(props) {
-    const {
-        layout,
-        withIcons,
-        items,
-        onClick,
-    } = props;
+    const { layout, withIcons, items, onClick } = props;
     const renderLink = (item, content) => {
         let link;
 
@@ -26,11 +22,7 @@ function Menu(props) {
                 </AppLink>
             );
         } else {
-            link = (
-                <button type="button" onClick={() => onClick(item?.id)}>
-                    {item?.name}
-                </button>
-            );
+            link = <Link to={`/site/SitePages/${item?.id}`}>{item?.name}</Link>;
         }
 
         return link;

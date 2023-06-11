@@ -1,16 +1,14 @@
 /*
 // .btn
 */
-@import '../variables';
-@import '../functions';
-@import '../mixins/buttons';
-@import '../mixins/preloader';
-@import '../mixins/hacks';
-@import '../mixins/direction';
+@import "../variables";
+@import "../functions";
+@import "../mixins/buttons";
+@import "../mixins/preloader";
+@import "../mixins/hacks";
+@import "../mixins/direction";
 
-
-$local-transition-duration: .1s;
-
+$local-transition-duration: 0.1s;
 
 .btn {
     border-radius: 2px;
@@ -35,7 +33,6 @@ $local-transition-duration: .1s;
     cursor: default;
 }
 
-
 .btn-svg-icon {
     padding: 0;
     position: relative;
@@ -56,8 +53,17 @@ $local-transition-duration: .1s;
     }
 }
 
-
-@mixin local-button-variant($bg, $font, $icon, $hover-bg, $hover-font, $hover-icon, $active-bg, $active-font, $active-icon) {
+@mixin local-button-variant(
+    $bg,
+    $font,
+    $icon,
+    $hover-bg,
+    $hover-font,
+    $hover-icon,
+    $active-bg,
+    $active-font,
+    $active-icon
+) {
     &.focus,
     &:focus,
     &:hover {
@@ -98,46 +104,64 @@ $local-transition-duration: .1s;
         border-color: $bg;
         background: $bg;
         color: #ffffff;
-        fill:  #ffffff;
+        fill: #ccc;
 
         .fake-svg-icon {
-            color:  #ffffff;
+            color: #ffffff;
         }
     }
 
     &.btn-loading:not(:disabled):not(.disabled),
     &.btn-loading:not(:disabled):not(.disabled):active,
-    &.btn-loading:not(:disabled):not(.disabled).active  {
+    &.btn-loading:not(:disabled):not(.disabled).active {
         cursor: default;
         border-color: $bg;
         background: $bg;
     }
 }
 
-
 .btn-primary {
-    
     @include local-button-variant(
-        $btn-primary-bg-color,        $btn-primary-font-color,        $btn-primary-icon-color,
-        $btn-primary-hover-bg-color,  $btn-primary-hover-font-color,  $btn-primary-hover-icon-color,
-        $btn-primary-active-bg-color, $btn-primary-active-font-color, $btn-primary-active-icon-color
+        $btn-primary-bg-color,
+        $btn-primary-font-color,
+        $btn-primary-icon-color,
+        $btn-primary-hover-bg-color,
+        $btn-primary-hover-font-color,
+        $btn-primary-hover-icon-color,
+        $btn-primary-active-bg-color,
+        $btn-primary-active-font-color,
+        $btn-primary-active-icon-color
     );
 }
 .btn-secondary {
     @include local-button-variant(
-        #1dbbbe,        $btn-secondary-font-color,        $btn-secondary-icon-color,
-        $btn-secondary-hover-bg-color,  $btn-secondary-hover-font-color,  $btn-secondary-hover-icon-color,
-        #1dbbbe, $btn-secondary-active-font-color, $btn-secondary-active-icon-color
+        #1dbbbe,
+        $btn-secondary-font-color,
+        $btn-secondary-icon-color,
+        $btn-secondary-hover-bg-color,
+        $btn-secondary-hover-font-color,
+        $btn-secondary-hover-icon-color,
+        #1dbbbe,
+        $btn-secondary-active-font-color,
+        $btn-secondary-active-icon-color
     );
 }
 .btn-light {
     @include local-button-variant(
-        $btn-light-bg-color,        $btn-light-font-color,        $btn-light-icon-color,
-        $btn-light-hover-bg-color,  $btn-light-hover-font-color,  $btn-light-hover-icon-color,
-        $btn-light-active-bg-color, $btn-light-active-font-color, $btn-light-active-icon-color
+        $btn-light-bg-color,
+        $btn-light-font-color,
+        $btn-light-icon-color,
+        $btn-light-hover-bg-color,
+        $btn-light-hover-font-color,
+        $btn-light-hover-icon-color,
+        $btn-light-active-bg-color,
+        $btn-light-active-font-color,
+        $btn-light-active-icon-color
     );
 }
 
+// #ccc
+// #3d464d
 
 /* loading state */
 .btn-loading {
