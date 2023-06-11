@@ -17,6 +17,7 @@ import Quickview from "./shared/Quickview";
 // pages
 import AccountLayout from "./account/AccountLayout";
 import AccountPageLogin from "./account/AccountPageLogin";
+import BlogPosts from "./blog/BlogPosts";
 import BlogPageCategory from "./blog/BlogPageCategory";
 import BlogPagePost from "./blog/BlogPagePost";
 import PageCart from "./shop/ShopPageCart";
@@ -71,6 +72,7 @@ function Layout(props) {
     const { match, headerLayout, homeComponent } = props;
     const { fetchedData } = useFetch("https://backend.atlbha.com/api/indexStore/1");
     const { fetchedData: pages } = useFetch("https://backend.atlbha.com/api/storPage/111?id=1");
+
     pages?.data?.pages.map((page) => page?.title);
 
     const [pageTitle, setPageTitle] = useState([]);
@@ -96,7 +98,7 @@ function Layout(props) {
 
             <Quickview />
 
-            <MobileMenu />
+            <MobileMenu fetchedData={fetchedData?.data}/>
 
             <div className="site">
                 <header className="site__header d-lg-none">
@@ -117,24 +119,24 @@ function Layout(props) {
                         {/*
                         // Shop
                         */}
-                        <Redirect exact from="/shop" to="/shop/catalog" />
+                        <Redirect exact from="/shop" to="/shop/products" />
                         <Route
                             exact
-                            path="/shop/catalog"
+                            path="/shop/products"
                             render={(props) => (
                                 <ShopPageCategory {...props} columns={3} viewMode="grid" sidebarPosition="start" />
                             )}
                         />
                         <Route
                             exact
-                            path="/shop/catalog/:categorySlug"
+                            path="/shop/products-by-category/:id"
                             render={(props) => (
                                 <ShopPageCategory
                                     {...props}
                                     columns={3}
                                     viewMode="grid"
                                     sidebarPosition="start"
-                                    categorySlug={props.match.params.categorySlug}
+                                    categoryId={props.match.params.id}
                                 />
                             )}
                         />
@@ -155,7 +157,7 @@ function Layout(props) {
                         {/* Following product layouts only for demonstration. */}
                         {productLayouts}
 
-                        <Route exact path="/shop/cart" component={PageCart} />
+                        <Route exact path="/shop/cart" render={() => (<PageCart />)} />
                         <Route exact path="/shop/checkout" component={PageCheckout} />
                         <Route exact path="/shop/checkout/success" component={ShopPageOrderSuccess} />
                         <Route exact path="/shop/wishlist" component={PageWishlist} />
@@ -165,10 +167,15 @@ function Layout(props) {
                         {/*
                         // Blog
                         */}
-                        <Redirect exact from="/blog" to="/blog/category-classic" />
+                        <Redirect exact from="/blog" to="/blog/posts" />
                         <Route
                             exact
-                            path="/blog/category-classic"
+                            path="/blog/posts"
+                            render={(props) => <BlogPosts {...props} layout="classic" sidebarPosition="end" />}
+                        />
+                        <Route
+                            exact
+                            path="/blog/posts-by-category/:id"
                             render={(props) => <BlogPageCategory {...props} layout="classic" sidebarPosition="end" />}
                         />
                         <Route
@@ -207,7 +214,7 @@ function Layout(props) {
 
                         <Redirect exact from="/site" to="/site/about-us" />
                         {/*
-                         // about us page 
+                         // about us page
                         */}
                         <Route
                             exact
@@ -219,9 +226,8 @@ function Layout(props) {
                         */}
                         <Route
                             exact
-                            path={`/site/${
-                                termsAndConditions === "الشروط و الأحكام" ? "termsAndConditions" : "termsAndConditions"
-                            }`}
+                            path={`/site/${termsAndConditions === "الشروط و الأحكام" ? "termsAndConditions" : "termsAndConditions"
+                                }`}
                             component={TermsAndConditions}
                         />
                         {/*
@@ -233,7 +239,7 @@ function Layout(props) {
                             component={UsagePolicy}
                         />
                         {/*
-                         // contact us pages  
+                         // contact us pages
                         */}
                         <Route exact path="/site/contact-us" component={SitePageContactUs} />
                         <Route exact path="/site/contact-us-alt" component={SitePageContactUsAlt} />

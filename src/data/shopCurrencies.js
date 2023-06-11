@@ -31,4 +31,12 @@ export default [
             name: 'Russian Ruble',
         },
     },
+    {
+        title: 'Saudi Riyal',
+        currency: {
+            code: 'SAR',
+            symbol: 'ر.س',
+            name: 'الريال السعودي',
+        },
+    },
 ];

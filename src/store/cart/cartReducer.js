@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES } from './cartActionTypes';
+import { CART_SET_ITEM,CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES } from './cartActionTypes';
 
 /**
  * @param {array} items
@@ -39,62 +39,24 @@ function calcTotal(subtotal, extraLines) {
     return subtotal + extraLines.reduce((total, extraLine) => total + extraLine.price, 0);
 }
 
-function addItem(state, product, options, quantity) {
-    const itemIndex = findItemIndex(state.items, product, options);
-
-    let newItems;
-    let { lastItemId } = state;
-
-    if (itemIndex === -1) {
-        lastItemId += 1;
-        newItems = [...state.items, {
-            id: lastItemId,
-            product: JSON.parse(JSON.stringify(product)),
-            options: JSON.parse(JSON.stringify(options)),
-            price: product.price,
-            total: product.price * quantity,
-            quantity,
-        }];
-    } else {
-        const item = state.items[itemIndex];
-
-        newItems = [
-            ...state.items.slice(0, itemIndex),
-            {
-                ...item,
-                quantity: item.quantity + quantity,
-                total: (item.quantity + quantity) * item.price,
-            },
-            ...state.items.slice(itemIndex + 1),
-        ];
-    }
-
-    const subtotal = calcSubtotal(newItems);
-    const total = calcTotal(subtotal, state.extraLines);
-
+function addItem(state, data) {
     return {
         ...state,
-        lastItemId,
-        subtotal,
-        total,
-        items: newItems,
-        quantity: calcQuantity(newItems),
+        items: data?.cartDetail,
+        quantity: data?.count,
+        subtotal:data?.total,
+        total:data?.total,
+        lastItemId:data?.cartDetail?.[data?.cartDetail?.length- 1]?.product?.id,
     };
 }
 
-function removeItem(state, itemId) {
-    const { items } = state;
-    const newItems = items.filter((item) => item.id !== itemId);
-
-    const subtotal = calcSubtotal(newItems);
-    const total = calcTotal(subtotal, state.extraLines);
-
+function removeItem(state, data) {
     return {
         ...state,
-        items: newItems,
-        quantity: calcQuantity(newItems),
-        subtotal,
-        total,
+        items: data?.cartDetail,
+        quantity: data?.count,
+        subtotal:data?.total,
+        total:data?.total,
     };
 }
 
@@ -131,6 +93,16 @@ function updateQuantities(state, quantities) {
     }
 
     return state;
+}
+
+function getData(state, data) {
+    return {
+        ...state,
+        items: data?.cartDetail || [],
+        quantity: Number(data?.count) || 0,
+        subtotal: Number(data?.total) || 0,
+        total: Number(data?.total) || 0,
+    };
 }
 
 /*
@@ -174,11 +146,14 @@ const initialState = {
 
 export default function cartReducer(state = initialState, action) {
     switch (action.type) {
+    case CART_SET_ITEM:
+        return getData(state,action.data);
+
     case CART_ADD_ITEM:
-        return addItem(state, action.product, action.options, action.quantity);
+        return addItem(state, action.data);
 
     case CART_REMOVE_ITEM:
-        return removeItem(state, action.itemId);
+        return removeItem(state, action.data);
 
     case CART_UPDATE_QUANTITIES:
         return updateQuantities(state, action.quantities);

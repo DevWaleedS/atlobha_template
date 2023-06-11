@@ -8,41 +8,41 @@ import { Link } from 'react-router-dom';
 
 // application
 import { ArrowRoundedLeft6x9Svg } from '../../svg';
-import { getCategoryParents, url } from '../../services/utils';
+import { getCategoryParents } from '../../services/utils';
 
 function FilterCategory(props) {
-    const { data } = props;
+    const { data,activeCategory } = props;
 
-    const categoriesList = data.items.map((category) => {
+    const categoriesList = data?.items?.map((category) => {
         const itemClasses = classNames('filter-categories__item', {
-            'filter-categories__item--current': data.value === category.slug,
+            'filter-categories__item--current': Number(activeCategory) === category?.id,
         });
 
         return (
-            <Fragment key={category.id}>
+            <Fragment key={category?.id}>
                 {getCategoryParents(category).map((parent) => (
-                    <li key={parent.id} className="filter-categories__item filter-categories__item--parent">
+                    <li key={parent?.id} className="filter-categories__item filter-categories__item--parent">
                         <ArrowRoundedLeft6x9Svg className="filter-categories__arrow" />
-                        <Link to={url.category(parent)}>{parent.name}</Link>
+                        <Link to={`/shop/products-by-category/${parent?.id}`}>{parent?.name}1</Link>
                     </li>
                 ))}
                 <li className={itemClasses}>
-                    <Link to={url.category(category)}>{category.name}</Link>
+                    <Link to={`/shop/products-by-category/${category?.id}`}>{category?.name}</Link>
                 </li>
-                {category.children && category.children.map((child) => (
+                {category?.s && category?.subcategory?.map((child) => (
                     <li key={child.id} className="filter-categories__item filter-categories__item--child">
-                        <Link to={url.category(child)}>{child.name}</Link>
+                        <Link to={`/shop/products-by-category/${child?.id}`}>{child?.name}</Link>
                     </li>
                 ))}
             </Fragment>
         );
     });
 
-    if (data.value) {
+    if (activeCategory) {
         categoriesList.unshift(
             <li key="[shop]" className="filter-categories__item filter-categories__item--parent">
                 <ArrowRoundedLeft6x9Svg className="filter-categories__arrow" />
-                <Link to={url.catalog()}>All Products</Link>
+                <Link to={"/shop/products"}>كل المنتجات</Link>
             </li>,
         );
     }

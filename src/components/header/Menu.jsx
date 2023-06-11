@@ -16,7 +16,6 @@ function Menu(props) {
         items,
         onClick,
     } = props;
-
     const renderLink = (item, content) => {
         let link;
 
@@ -67,7 +66,7 @@ function Menu(props) {
                 {renderLink(item, (
                     <React.Fragment>
                         {icon}
-                        {item.title}
+                        {item?.name}
                         {arrow}
                     </React.Fragment>
                 ))}
@@ -93,7 +92,7 @@ Menu.propTypes = {
     /** default: false */
     withIcons: PropTypes.bool,
     /** array of menu items */
-    items: PropTypes.array,
+    items: PropTypes.object,
     /** callback function that is called when the item is clicked */
     onClick: PropTypes.func,
 };
@@ -101,7 +100,7 @@ Menu.propTypes = {
 Menu.defaultProps = {
     layout: 'classic',
     withIcons: false,
-    items: [],
+    items: {},
     onClick: () => {},
 };
 

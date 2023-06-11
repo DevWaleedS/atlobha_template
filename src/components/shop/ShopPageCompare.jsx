@@ -21,7 +21,6 @@ import theme from '../../data/theme';
 
 function ShopPageCompare(props) {
     const { products, compareRemoveItem, cartAddItem } = props;
-    console.log(products);
     const breadcrumb = [
         { title: 'الرئيسية', url: '' },
         { title: 'المقارنة', url: '' },
@@ -69,7 +68,7 @@ function ShopPageCompare(props) {
         const ratingRow = products?.map((product) => (
             <td key={product?.id}>
                 <div className="compare-table__product-rating">
-                    <Rating value={product?.productRating} />
+                    <Rating value={Number(product?.productRating)} />
                 </div>
                 <div className=" compare-table__product-rating-legend">
                     {`${product?.productRatingCount} تقييم`}
@@ -92,7 +91,7 @@ function ShopPageCompare(props) {
 
         const priceRow = products?.map((product) => (
             <td key={product?.id}>
-                <Currency value={product?.selling_price} />
+                <Currency value={Number(product?.selling_price)} />
             </td>
         ));
 

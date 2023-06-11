@@ -48,7 +48,7 @@ function WidgetFilters(props) {
         dispatch({ type: 'RESET_FILTERS' });
     };
 
-    const filtersList = filters.map((filter) => {
+    const filtersList = filters?.filters?.map((filter) => {
         let filterView;
         let { value } = filter;
         const handler = getFilterHandler(filter);
@@ -65,6 +65,7 @@ function WidgetFilters(props) {
                     data={filter}
                     value={value}
                     onChangeValue={handleValueChange}
+                    activeCategory={filters?.filter_category}
                 />
             );
         }

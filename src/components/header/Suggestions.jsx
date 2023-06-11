@@ -40,13 +40,13 @@ function Suggestions(props) {
             <div className="suggestions__item-price">
                 {product.compareAtPrice && (
                     <React.Fragment>
-                        <span className="suggestions__item-price-new"><Currency value={product.price} /></span>
+                        <span className="suggestions__item-price-new"><Currency value={Number(product.price)} /></span>
                         {' '}
-                        <span className="suggestions__item-price-old"><Currency value={product.compareAtPrice} /></span>
+                        <span className="suggestions__item-price-old"><Currency value={Number(product.compareAtPrice)} /></span>
                     </React.Fragment>
                 )}
 
-                {!product.compareAtPrice && (<Currency value={product.price} />)}
+                {!product.compareAtPrice && (<Currency value={Number(product.price)} />)}
             </div>
             {context === 'header' && (
                 <div className="suggestions__item-actions">

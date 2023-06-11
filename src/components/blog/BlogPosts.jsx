@@ -1,6 +1,5 @@
 // react
 import React, { useState } from 'react';
-import { useParams } from "react-router-dom";
 
 // third-party
 import PropTypes from 'prop-types';
@@ -17,21 +16,18 @@ import BlockLoader from '../blocks/BlockLoader';
 // data stubs
 import theme from '../../data/theme';
 
-function BlogPageCategory(props) {
-    let { id } = useParams();
-    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postByCategory/${id}?id=1`);
+function BlogPosts(props) {
+    const { fetchedData, loading } = useFetch('https://backend.atlbha.com/api/postStore/1');
     const { layout, sidebarPosition } = props;
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = fetchedData?.data?.posts?.slice(indexOfFirstPost, indexOfLastPost);
-    const categoryName = fetchedData?.data?.postCategory?.filter((item) => item?.id === Number(id));
 
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
-        { title: 'المقالات', url: '/blog/posts' },
-        { title: categoryName?.[0]?.name || '', url: '' },
+        { title: 'المقالات', url: '' },
     ];
     let sidebarStart;
     let sidebarEnd;
@@ -88,37 +84,27 @@ function BlogPageCategory(props) {
             <div className="container">
                 <div className="row">
                     {sidebarStart}
-                    {fetchedData?.data?.posts?.length > 0 ?
-                        (
-                            <div className="col-12 col-lg-8">
-                                <div className="block">
-                                    <div className="posts-view">
-                                        <div className={`posts-view__list posts-list posts-list--layout--${layout}`}>
-                                            <div className="posts-list__body">
-                                                {postsList}
-                                            </div>
-                                        </div>
-                                        <div className="posts-view__pagination">
-                                            <Pagination
-                                                postsPerPage={postsPerPage}
-                                                totalPosts={fetchedData?.data?.posts?.length}
-                                                paginate={paginate}
-                                                previousPage={previousPage}
-                                                nextPage={nextPage}
-                                                currentPage={currentPage}
-                                            />
-                                        </div>
+                    <div className="col-12 col-lg-8">
+                        <div className="block">
+                            <div className="posts-view">
+                                <div className={`posts-view__list posts-list posts-list--layout--${layout}`}>
+                                    <div className="posts-list__body">
+                                        {postsList}
                                     </div>
                                 </div>
+                                <div className="posts-view__pagination">
+                                    <Pagination
+                                        postsPerPage={postsPerPage}
+                                        totalPosts={fetchedData?.data?.posts?.length}
+                                        paginate={paginate}
+                                        previousPage={previousPage}
+                                        nextPage={nextPage}
+                                        currentPage={currentPage}
+                                    />
+                                </div>
                             </div>
-                        )
-                        :
-                        (
-                            <div className="col-12 col-lg-8">
-                                <p>لاتوجد مقالات في هذا القسم</p>
-                            </div>
-                        )}
-
+                        </div>
+                    </div>
                     {sidebarEnd}
                 </div>
             </div>
@@ -126,7 +112,7 @@ function BlogPageCategory(props) {
     );
 }
 
-BlogPageCategory.propTypes = {
+BlogPosts.propTypes = {
     /**
      * blog layout
      * one of ['classic', 'grid', 'list'] (default: 'classic')
@@ -140,8 +126,8 @@ BlogPageCategory.propTypes = {
     sidebarPosition: PropTypes.oneOf(['start', 'end']),
 };
 
-BlogPageCategory.defaultProps = {
+BlogPosts.defaultProps = {
     layout: 'classic',
     sidebarPosition: 'start',
 };
-export default BlogPageCategory;
+export default BlogPosts;

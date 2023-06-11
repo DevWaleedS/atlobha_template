@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 // application
 import ProductTabDescription from './ProductTabDescription';
-import ProductTabSpecification from './ProductTabSpecification';
+// import ProductTabSpecification from './ProductTabSpecification';
 import ProductTabReviews from './ProductTabReviews';
 
 class ProductTabs extends Component {
@@ -32,7 +32,7 @@ class ProductTabs extends Component {
 
         const tabs = [
             { key: 'description', title: 'الوصف', content: <ProductTabDescription desc={data?.product?.description}/> },
-            { key: 'specification', title: 'المميزات', content: <ProductTabSpecification /> },
+            // { key: 'specification', title: 'المميزات', content: <ProductTabSpecification /> },
             { key: 'reviews', title: 'التقييمات', content: <ProductTabReviews data={data} /> },
         ];
 

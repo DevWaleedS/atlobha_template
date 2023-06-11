@@ -47,7 +47,7 @@ function NavPanel(props) {
                     {departments}
 
                     <div className="nav-panel__nav-links nav-links">
-                        <NavLinks />
+                        <NavLinks fetchedData={fetchedData}/>
                     </div>
 
                     <div className="nav-panel__indicators">

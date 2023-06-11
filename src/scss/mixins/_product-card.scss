@@ -355,7 +355,7 @@
 
         @include direction {
             #{$padding-inline-start}: 0;
-            #{$padding-inline-end}: 30px;
+            #{$padding-inline-end}: 20px;
         }
     }
     .product-card__name {

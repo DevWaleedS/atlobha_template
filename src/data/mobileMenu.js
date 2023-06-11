@@ -22,12 +22,12 @@ export default [
     {
         type: 'link',
         label: 'المنتجات',
-        url: '/shop/catalog',
+        url: '/shop/products',
     },
     {
         type: 'link',
         label: 'المقالات',
-        url: '/blog/category-classic',
+        url: '/blog/posts',
     },
 
     {

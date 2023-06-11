@@ -14,7 +14,6 @@ import PageHeader from '../shared/PageHeader';
 import Rating from '../shared/Rating';
 import { cartAddItem } from '../../store/cart';
 import { Cross12Svg } from '../../svg';
-import { url } from '../../services/utils';
 import { wishlistRemoveItem } from '../../store/wishlist';
 
 // data stubs
@@ -22,7 +21,6 @@ import theme from '../../data/theme';
 
 function ShopPageWishlist(props) {
     const { wishlist, cartAddItem, wishlistRemoveItem } = props;
-    console.log(wishlist);
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
         { title: 'المفضلة', url: '' },
@@ -65,7 +63,7 @@ function ShopPageWishlist(props) {
                     <td className="wishlist__column wishlist__column--product">
                         <Link to={`/shop/products/${item?.id}`} className="wishlist__product-name">{item?.name}</Link>
                         <div className="wishlist__product-rating">
-                            <Rating value={item?.productRating} />
+                            <Rating value={Number(item?.productRating)} />
                             <div className="wishlist__product-rating-legend">{`${item?.productRatingCount} تقييم`}</div>
                         </div>
                     </td>
@@ -76,7 +74,7 @@ function ShopPageWishlist(props) {
                             <div className="badge badge-danger">غير متوفر</div>
                         }
                     </td>
-                    <td className="wishlist__column wishlist__column--price"><Currency value={item?.selling_price} /></td>
+                    <td className="wishlist__column wishlist__column--price"><Currency value={Number(item?.selling_price)} /></td>
                     <td className="wishlist__column wishlist__column--tocart">
                         <AsyncAction
                             action={() => cartAddItem(item)}

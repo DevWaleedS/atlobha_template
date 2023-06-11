@@ -1,5 +1,5 @@
 // react
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 // third-party
 import PropTypes from 'prop-types';
@@ -123,34 +123,34 @@ const initialState = {
 
 function reducer(state, action) {
     switch (action.type) {
-    case 'FETCH_CATEGORY_SUCCESS':
-        return {
-            ...state,
-            init: true,
-            categoryIsLoading: false,
-            category: action.category,
-        };
-    case 'FETCH_PRODUCTS_LIST':
-        return { ...state, productsListIsLoading: true };
-    case 'FETCH_PRODUCTS_LIST_SUCCESS':
-        return { ...state, productsListIsLoading: false, productsList: action.productsList };
-    case 'SET_OPTION_VALUE':
-        return {
-            ...state,
-            options: { ...state.options, page: 1, [action.option]: action.value },
-        };
-    case 'SET_FILTER_VALUE':
-        return {
-            ...state,
-            options: { ...state.options, page: 1 },
-            filters: { ...state.filters, [action.filter]: action.value },
-        };
-    case 'RESET_FILTERS':
-        return { ...state, options: { ...state.options, page: 1 }, filters: {} };
-    case 'RESET':
-        return state.init ? initialState : state;
-    default:
-        throw new Error();
+        case 'FETCH_CATEGORY_SUCCESS':
+            return {
+                ...state,
+                init: true,
+                categoryIsLoading: false,
+                category: action.category,
+            };
+        case 'FETCH_PRODUCTS_LIST':
+            return { ...state, productsListIsLoading: true };
+        case 'FETCH_PRODUCTS_LIST_SUCCESS':
+            return { ...state, productsListIsLoading: false, productsList: action.productsList };
+        case 'SET_OPTION_VALUE':
+            return {
+                ...state,
+                options: { ...state.options, page: 1, [action.option]: action.value },
+            };
+        case 'SET_FILTER_VALUE':
+            return {
+                ...state,
+                options: { ...state.options, page: 1 },
+                filters: { ...state.filters, [action.filter]: action.value },
+            };
+        case 'RESET_FILTERS':
+            return { ...state, options: { ...state.options, page: 1 }, filters: {} };
+        case 'RESET':
+            return state.init ? initialState : state;
+        default:
+            throw new Error();
     }
 }
 
@@ -162,14 +162,13 @@ function init(state) {
 
 function ShopPageCategory(props) {
     const {
-        categorySlug,
+        categoryId,
         columns,
         viewMode,
         sidebarPosition,
     } = props;
     const offcanvas = columns === 3 ? 'mobile' : 'always';
     const [state, dispatch] = useReducer(reducer, initialState, init);
-    const [latestProducts, setLatestProducts] = useState([]);
 
     // Replace current url.
     useEffect(() => {
@@ -184,10 +183,10 @@ function ShopPageCategory(props) {
         let request;
         let canceled = false;
 
-        dispatch({ type: 'RESET', categorySlug });
+        dispatch({ type: 'RESET', categoryId });
 
-        if (categorySlug) {
-            request = shopApi.getCategoryBySlug(categorySlug);
+        if (categoryId) {
+            request = shopApi.getCategoryBySlug(categoryId);
         } else {
             request = Promise.resolve(null);
         }
@@ -197,13 +196,13 @@ function ShopPageCategory(props) {
                 return;
             }
 
-            dispatch({ type: 'FETCH_CATEGORY_SUCCESS', category });
+            dispatch({ type: 'FETCH_CATEGORY_SUCCESS', category:category?.data?.category });
         });
 
         return () => {
             canceled = true;
         };
-    }, [dispatch, categorySlug]);
+    }, [dispatch, categoryId]);
 
     // Load products.
     useEffect(() => {
@@ -213,7 +212,7 @@ function ShopPageCategory(props) {
 
         shopApi.getProductsList(
             state.options,
-            { ...state.filters, category: categorySlug },
+            { ...state.filters, category: categoryId },
         ).then((productsList) => {
             if (canceled) {
                 return;
@@ -225,28 +224,7 @@ function ShopPageCategory(props) {
         return () => {
             canceled = true;
         };
-    }, [dispatch, categorySlug, state.options, state.filters]);
-
-    // Load latest products.
-    useEffect(() => {
-        let canceled = false;
-
-        if (offcanvas === 'always') {
-            setLatestProducts([]);
-        } else {
-            shopApi.getLatestProducts({ limit: 5 }).then((result) => {
-                if (canceled) {
-                    return;
-                }
-
-                setLatestProducts(result);
-            });
-        }
-
-        return () => {
-            canceled = true;
-        };
-    }, [offcanvas]);
+    }, [dispatch, categoryId, state.options, state.filters]);
 
     if (state.categoryIsLoading || (state.productsListIsLoading && !state.productsList)) {
         return <BlockLoader />;
@@ -272,7 +250,7 @@ function ShopPageCategory(props) {
     const productsView = (
         <ProductsView
             isLoading={state.productsListIsLoading}
-            productsList={state.productsList}
+            productsList={state?.productsList?.data}
             options={state.options}
             filters={state.filters}
             dispatch={dispatch}
@@ -288,14 +266,14 @@ function ShopPageCategory(props) {
                 <WidgetFilters
                     title="فرز حسب"
                     offcanvas={offcanvas}
-                    filters={state.productsList.filters}
+                    filters={state?.productsList?.data}
                     values={state.filters}
                     dispatch={dispatch}
                 />
             </CategorySidebarItem>
             {offcanvas !== 'always' && (
                 <CategorySidebarItem className="d-none d-lg-block">
-                    <WidgetProducts title="المنتجات المضافة مؤخراً" products={latestProducts} />
+                    <WidgetProducts title="المنتجات المضافة مؤخراً" products={state?.productsList?.data?.lastProducts} />
                 </CategorySidebarItem>
             )}
         </CategorySidebar>
@@ -345,7 +323,7 @@ ShopPageCategory.propTypes = {
     /**
      * Category slug.
      */
-    categorySlug: PropTypes.string,
+    categoryId: PropTypes.number,
     /**
      * number of product columns (default: 3)
      */

@@ -43,7 +43,7 @@ class ShopPageCheckout extends Component {
         const extraLines = cart.extraLines.map((extraLine, index) => (
             <tr key={index}>
                 <th>{extraLine.title}</th>
-                <td><Currency value={extraLine.price} /></td>
+                <td><Currency value={Number(extraLine.price)} /></td>
             </tr>
         ));
 
@@ -52,7 +52,7 @@ class ShopPageCheckout extends Component {
                 <tbody className="checkout__totals-subtotals">
                     <tr>
                         <th>السعر</th>
-                        <td><Currency value={cart.subtotal} /></td>
+                        <td><Currency value={Number(cart.subtotal)} /></td>
                     </tr>
                     {extraLines}
                 </tbody>
@@ -66,7 +66,7 @@ class ShopPageCheckout extends Component {
         const items = cart.items.map((item) => (
             <tr key={item.id}>
                 <td>{`${item.product.name} × ${item.quantity}`}</td>
-                <td><Currency value={item.total} /></td>
+                <td><Currency value={Number(item.total)} /></td>
             </tr>
         ));
 
@@ -85,7 +85,7 @@ class ShopPageCheckout extends Component {
                 <tfoot className="checkout__totals-footer">
                     <tr>
                         <th>الاجمالي</th>
-                        <td><Currency value={cart.total} /></td>
+                        <td><Currency value={Number(cart.total)} /></td>
                     </tr>
                 </tfoot>
             </table>

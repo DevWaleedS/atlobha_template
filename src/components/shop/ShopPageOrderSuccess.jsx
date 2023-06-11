@@ -46,7 +46,7 @@ export default function ShopPageOrderSuccess() {
                     )}
                 </td>
                 <td className="order-list__column-quantity" data-title="Qty:">{item.quantity}</td>
-                <td className="order-list__column-total"><Currency value={item.total} /></td>
+                <td className="order-list__column-total"><Currency value={Number(item.total)} /></td>
             </tr>
         );
     });
@@ -54,7 +54,7 @@ export default function ShopPageOrderSuccess() {
     const additionalLines = order.additionalLines.map((line) => (
         <tr>
             <th className="order-list__column-label" colSpan="3">{line.label}</th>
-            <td className="order-list__column-total"><Currency value={line.total} /></td>
+            <td className="order-list__column-total"><Currency value={Number(line.total)} /></td>
         </tr>
     ));
 
@@ -87,7 +87,7 @@ export default function ShopPageOrderSuccess() {
                             </li>
                             <li className="order-success__meta-item">
                                 <span className="order-success__meta-title">Total:</span>
-                                <span className="order-success__meta-value"><Currency value={order.total} /></span>
+                                <span className="order-success__meta-value"><Currency value={Number(order.total)} /></span>
                             </li>
                             <li className="order-success__meta-item">
                                 <span className="order-success__meta-title">Payment method:</span>
@@ -113,7 +113,7 @@ export default function ShopPageOrderSuccess() {
                                     <tbody className="order-list__subtotals">
                                         <tr>
                                             <th className="order-list__column-label" colSpan="3">Subtotal</th>
-                                            <td className="order-list__column-total"><Currency value={order.subtotal} /></td>
+                                            <td className="order-list__column-total"><Currency value={Number(order.subtotal)} /></td>
                                         </tr>
                                         {additionalLines}
                                     </tbody>
@@ -121,7 +121,7 @@ export default function ShopPageOrderSuccess() {
                                 <tfoot className="order-list__footer">
                                     <tr>
                                         <th className="order-list__column-label" colSpan="3">Total</th>
-                                        <td className="order-list__column-total"><Currency value={order.total} /></td>
+                                        <td className="order-list__column-total"><Currency value={Number(order.total)} /></td>
                                     </tr>
                                 </tfoot>
                             </table>
