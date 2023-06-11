@@ -64,7 +64,6 @@ function Search(props) {
     const [query, setQuery] = useState('');
     const [category, setCategory] = useState('[all]');
     const categories = useCategories();
-    // console.log(categories);
     const wrapper = useRef(null);
     const close = useCallback(() => {
         if (onClose) {
@@ -171,9 +170,8 @@ function Search(props) {
         </button>
     );
 
-    const categoryOptions = fetchedData?.data?.category?.map((category) => (
-        <option key={category?.slug} value={category?.slug}>
-            {'\u00A0'.repeat(4 * 1)}
+    const categoryOptions = fetchedData?.category?.map((category) => (
+        <option key={category?.id} value={category?.id}>
             {category?.name}
         </option>
     ));

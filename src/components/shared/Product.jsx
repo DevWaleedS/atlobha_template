@@ -45,13 +45,13 @@ class Product extends Component {
         if (product?.compareAtPrice) {
             prices = (
                 <React.Fragment>
-                    <span className="product__new-price"><Currency value={product?.selling_price} /></span>
+                    <span className="product__new-price"><Currency value={Number(product?.selling_price)} /></span>
                     {' '}
-                    <span className="product__old-price"><Currency value={product?.selling_price} /></span>
+                    <span className="product__old-price"><Currency value={Number(product?.selling_price)} /></span>
                 </React.Fragment>
             );
         } else {
-            prices = <Currency value={product?.selling_price} />;
+            prices = <Currency value={Number(product?.selling_price)} />;
         }
 
         return (
@@ -99,7 +99,7 @@ class Product extends Component {
                         <h1 className="product__name">{product?.name}</h1>
                         <div className="product__rating">
                             <div className="product__rating-stars">
-                                <Rating value={product?.productRating} />
+                                <Rating value={Number(product?.productRating)} />
                             </div>
                             <div className="product__rating-legend">
                                 <Link to="/">{`${product?.productRatingCount} تقييم`}</Link>
@@ -126,11 +126,11 @@ class Product extends Component {
                                     <span className="text-danger">غير متوفر</span>
                                 }
                             </li>
-                            <li>
+                            {/*<li>
                                 العلامة التجارية:
                                 <Link to="/">Wakita</Link>
                             </li>
-                            <li>SKU: 83690/32</li>
+                            <li>SKU: 83690/32</li>*/}
                         </ul>
                     </div>
 
@@ -145,7 +145,7 @@ class Product extends Component {
                         </div>
 
                         <form className="product__options">
-                            <div className="form-group product__option">
+                            {/*<div className="form-group product__option">
                                 <div className="product__option-label">اللون</div>
                                 <div className="input-radio-color">
                                     <div className="input-radio-color__list">
@@ -206,7 +206,7 @@ class Product extends Component {
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                        </div>*/}
                             <div className="form-group product__option">
                                 <label htmlFor="product-quantity" className="product__option-label">الكمية</label>
                                 <div className="product__actions">
@@ -288,14 +288,15 @@ class Product extends Component {
                             </div>
                         </div>
 
-                        <div className="product__share-links share-links">
+                        {/*<div className="product__share-links share-links">
                             <ul className="share-links__list">
                                 <li className="share-links__item share-links__item--type--like"><Link to="/">Like</Link></li>
                                 <li className="share-links__item share-links__item--type--tweet"><Link to="/">Tweet</Link></li>
                                 <li className="share-links__item share-links__item--type--pin"><Link to="/">Pin It</Link></li>
                                 <li className="share-links__item share-links__item--type--counter"><Link to="/">4K</Link></li>
                             </ul>
-                        </div>
+                        </div>*/}
+
                     </div>
                 </div>
             </div>

@@ -17,6 +17,7 @@ import { ArrowRoundedDown9x6Svg } from "../../svg";
 import navLinks from "../../data/headerNavigation";
 
 function NavLinks(props) {
+    const { fetchedData } = props;
     const handleMouseEnter = (event) => {
         const { locale } = props;
         const { direction } = languages[locale];
@@ -57,7 +58,12 @@ function NavLinks(props) {
         if (item.submenu && item.submenu.type === "menu") {
             submenu = (
                 <div className="nav-links__menu">
-                    <Menu items={item.submenu.menu} />
+                    <Menu items={{
+                        id: 0, name: 'الصفحات', subcategory: fetchedData?.pages?.map((item) => ({
+                            id: item?.id,
+                            name: item?.title,
+                        }))
+                    }} />
                 </div>
             );
         }

@@ -10,9 +10,8 @@ import { toast } from 'react-toastify';
 // data stubs
 
 function ProductTabReviews({ data }) {
+    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5OTIxZjEyMy03MTlkLTRiNjctOTdkYi03YWQ0MWI2NjQ0MjAiLCJqdGkiOiI4MWIzZjU5NTc4MjE5ZTlmMWNlZTU4MWRjOTk3YmU4NmJkYjJkMjNjM2Y4ZGYxOGYyYWQzNTAzNDIyMmYyZjE4OWFlODNjMzU2MGU5MjE2YSIsImlhdCI6MTY4NTk2MDc3My4yODg2NzgsIm5iZiI6MTY4NTk2MDc3My4yODg2ODEsImV4cCI6MTcxNzU4MzE3My4yODMxOTMsInN1YiI6IjQiLCJzY29wZXMiOltdfQ.kg0QmEEzRyFGmjHM40ejtz3VbBMUFspTXlMSII6PXWGCIwYcqDCj3PhqQ7-UDKCxYsBOh8QwYt1be9UpCwNkZUeRimI-AQhIgcsWO8CYdwFrfoiwZ2oz25nAh8qcka-blz-Ud2jcQERBpNbz-Bu0_QK8v_3cgX7OKyiw6ZN_8H-SvEIQWDEpV647OfVomYybksB-5gLSc9hBGL6WXYlv8WftxRmY1LacwRSz7jw3ePqBMmJv70BK_MJUXTxsZ9Vgb_1ShZzjYzue1AdthfLAK5C-WA3xBWjdef0kCTGv_PxhfQBMkD9aKV5Iz13Dsl1uPzvnraczvUj6cx2FMKHKxT5HvgSNtFfNvH_RGTDsTvFAXeZ32uaOwNqydRh66RxLY9gSoncvMjGxDxRBWrL--PwJazfhmHBNoMVDE1RB9irRL4yedcz17X-WgSdv_xyANroFoEu-auTeSGG10EqicT8y-NzzogQyjt95Bz-cjHJgKSBfwU5GWkzFDhEOm3Kemit-Mr6euCkN0rcUEBxQw-EcWsEmO9rbP_wEMuWjNECYnqu4KMrMZyQ69V9eUz1mHnP0mWfGkgkvR4cCk6Poby3E12HS9mwvKep4fLrwwA1Pjo2TVpkJpopIvf8CND5n2W3NFyoYloWI4uNPlQhfjUhZK2FiR2SBq-z8eablfjw';
     const [comment, setComment] = useState({
-        username: '',
-        email: '',
         commentText: '',
         rateing: ''
     });
@@ -30,7 +29,7 @@ function ProductTabReviews({ data }) {
             .post(`https://backend.atlbha.com/api/addComment/${data?.product?.id}`, commentData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    // Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             })
             .then((res) => {
@@ -48,7 +47,7 @@ function ProductTabReviews({ data }) {
                 <div className=" review__content">
                     <div className=" review__author">{comment?.user?.name}</div>
                     <div className=" review__rating">
-                        <Rating value={comment?.rateing} />
+                        <Rating value={Number(comment?.rateing)} />
                     </div>
                     <div className=" review__text">{comment?.comment_text}</div>
                     <div className=" review__date">{comment?.created_at}</div>
@@ -115,14 +114,14 @@ function ProductTabReviews({ data }) {
                                     <option value={1}>تقييم 1 نجوم</option>
                                 </select>
                             </div>
-                            <div className="form-group col-md-4">
+                            {/*<div className="form-group col-md-4">
                                 <label htmlFor="review-author">اسمك</label>
                                 <input value={comment?.username} onChange={(e) => setComment({ ...comment, username: e.target.value })} type="text" className="form-control" id="review-author" placeholder="اسم المستخدم" />
-                            </div>
-                            <div className="form-group col-md-4">
+                            </div>*/}
+                            {/*<div className="form-group col-md-4">
                                 <label htmlFor="review-email">البريد الاكتروني</label>
                                 <input value={comment?.email} onChange={(e) => setComment({ ...comment, email: e.target.value })} type="text" className="form-control" id="review-email" placeholder="البريد الالكتروني" />
-                            </div>
+                        </div>*/}
                         </div>
                         <div className="form-group">
                             <label htmlFor="review-text">أكتب تقييمك</label>

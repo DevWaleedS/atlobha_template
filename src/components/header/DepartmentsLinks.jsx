@@ -33,7 +33,7 @@ function DepartmentsLinks({ fetchedData }) {
 
         return (
             <li key={index} className={`departments__item ${itemClass}`}>
-                <Link to={department?.id}>
+                <Link to={`/shop/products-by-category/${department?.id}`}>
                     {department?.name}
                     {arrow}
                 </Link>

@@ -13,21 +13,20 @@ export default [
         url: "/",
     },
     {
-        type: "link",
-        label: "المنتجات",
-        url: "/shop/catalog",
+        type: 'link',
+        label: 'المنتجات',
+        url: '/shop/products',
     },
     {
-        type: "link",
-        label: "المقالات",
-        url: "/blog/category-classic",
+        type: 'link',
+        label: 'المقالات',
+        url: '/blog/posts',
     },
     {
         type: "link",
         label: "الاستبدال والاسترجاع",
         url: "/",
     },
-
     {
         type: "link",
         label: "الصفحات",

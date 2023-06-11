@@ -3,14 +3,17 @@ export default [
         title: "الرئيسية",
         url: "/",
     },
-
+    {
+        title: "تواصل معنا",
+        url: "/site/contact-us",
+    },
     {
         title: "المنتجات",
-        url: "/shop/catalog",
+        url: "/shop/products",
     },
     {
         title: "المقالات",
-        url: "/blog/category-classic",
+        url: "/blog/posts",
     },
     {
         title: "الاستبدال والاسترجاع",

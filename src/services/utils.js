@@ -1,7 +1,7 @@
 export const url = {
     home: () => '/',
 
-    catalog: () => '/shop/catalog',
+    catalog: () => '/shop/products',
 
     category: (category) => `/shop/catalog/${category.slug}`,
 

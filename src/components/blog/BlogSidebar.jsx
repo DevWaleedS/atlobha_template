@@ -7,14 +7,14 @@ import PropTypes from 'prop-types';
 // widgets
 import WidgetAboutus from '../widgets/WidgetAboutus';
 import WidgetCategories from '../widgets/WidgetCategories';
-import WidgetComments from '../widgets/WidgetComments';
+// import WidgetComments from '../widgets/WidgetComments';
 import WidgetNewsletter from '../widgets/WidgetNewsletter';
 import WidgetPosts from '../widgets/WidgetPosts';
 import WidgetSearch from '../widgets/WidgetSearch';
 import WidgetTags from '../widgets/WidgetTags';
 
 // data stubs
-import comments from '../../data/blogWidgetLatestComments';
+// import comments from '../../data/blogWidgetLatestComments';
 
 export default function BlogSidebar(props) {
     const { position, fetchedData } = props;
@@ -36,11 +36,11 @@ export default function BlogSidebar(props) {
             <div className="block-sidebar__item">
                 <WidgetNewsletter />
             </div>
-            <div className="block-sidebar__item">
+            {/*<div className="block-sidebar__item">
                 <WidgetComments comments={comments.slice(0, 3)} />
-            </div>
+            </div>*/}
             <div className="block-sidebar__item">
-                <WidgetTags />
+                <WidgetTags tags={fetchedData?.tags} />
             </div>
         </div>
     );

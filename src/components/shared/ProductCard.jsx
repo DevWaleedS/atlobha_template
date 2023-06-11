@@ -74,7 +74,7 @@ function ProductCard(props) {
     } else {
         price = (
             <div className="product-card__prices">
-                <Currency value={product?.selling_price || 0} />
+                <Currency value={Number(product?.selling_price) || 0} />
             </div>
         );
     }
@@ -109,9 +109,39 @@ function ProductCard(props) {
             <div className="product-card__info">
                 <div className="product-card__name">
                     <Link to={`/shop/products/${product?.id}`}>{product.name}</Link>
+                    <div className="buttons">
+                        <AsyncAction
+                            action={() => wishlistAddItem(product)}
+                            render={({ run, loading }) => (
+                                <button
+                                    type="button"
+                                    onClick={run}
+                                    className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
+                                        'btn-loading': loading,
+                                    })}
+                                >
+                                    <Wishlist16Svg />
+                                </button>
+                            )}
+                        />
+                        <AsyncAction
+                            action={() => compareAddItem(product)}
+                            render={({ run, loading }) => (
+                                <button
+                                    type="button"
+                                    onClick={run}
+                                    className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
+                                        'btn-loading': loading,
+                                    })}
+                                >
+                                    <Compare16Svg />
+                                </button>
+                            )}
+                        />
+                    </div>
                 </div>
                 <div className="product-card__rating">
-                    <Rating value={product?.productRating} />
+                    <Rating value={Number(product?.productRating)} />
                     <div className=" product-card__rating-legend">{`${product?.productRatingCount} تقييم`}</div>
                 </div>
                 {features}
@@ -150,34 +180,6 @@ function ProductCard(props) {
                                     اضافة إلى السلة
                                 </button>
                             </React.Fragment>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => wishlistAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Wishlist16Svg />
-                            </button>
-                        )}
-                    />
-                    <AsyncAction
-                        action={() => compareAddItem(product)}
-                        render={({ run, loading }) => (
-                            <button
-                                type="button"
-                                onClick={run}
-                                className={classNames('btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare', {
-                                    'btn-loading': loading,
-                                })}
-                            >
-                                <Compare16Svg />
-                            </button>
                         )}
                     />
                 </div>

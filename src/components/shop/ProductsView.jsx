@@ -1,5 +1,5 @@
 // react
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 // third-party
 import classNames from 'classnames';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // application
-import Pagination from '../shared/Pagination';
+import ProductPagination from '../shared/ProductPagination';
 import ProductCard from '../shared/ProductCard';
 import {
     Filters16Svg,
@@ -42,7 +42,6 @@ function ProductsView(props) {
         sidebarOpen,
     } = props;
     const [layout, setLayout] = useState(propsLayout);
-
     const handlePageChange = useSetOption('page', parseFloat, dispatch);
     const handleSortChange = useSetOption('sort', (event) => event.target.value, dispatch);
     const handleLimitChange = useSetOption('limit', (event) => parseFloat(event.target.value), dispatch);
@@ -76,8 +75,8 @@ function ProductsView(props) {
         );
     });
 
-    const productsListItems = productsList.items.map((product) => (
-        <div key={product.id} className="products-list__item">
+    const productsListItems = productsList?.Products?.map((product) => (
+        <div key={product?.id} className="products-list__item">
             <ProductCard product={product} />
         </div>
     ));
@@ -93,7 +92,7 @@ function ProductsView(props) {
 
     let content;
 
-    if (productsListItems.length > 0) {
+    if (productsListItems?.length > 0) {
         content = (
             <div className="products-view__content">
                 <div className="products-view__options">
@@ -113,7 +112,7 @@ function ProductsView(props) {
                             </div>
                         </div>
                         <div className="view-options__legend">
-                            {`عرض ${productsList.from}—${productsList.to} من ${productsList.total} عنصر`}
+                            {`عرض ${productsList?.from}—${productsList?.to} من ${productsList?.total} عنصر`}
                         </div>
                         <div className="view-options__divider" />
                         <div className="view-options__control">
@@ -125,9 +124,9 @@ function ProductsView(props) {
                                     value={options.sort || productsList.sort}
                                     onChange={handleSortChange}
                                 >
-                                    <option value="default">الافتراضي</option>
-                                    <option value="name_asc">الاسم (A-Z)</option>
-                                    <option value="name_desc">الاسم (Z-A)</option>
+                                    <option value="">الافتراضي</option>
+                                    <option value="asc">الاسم (أ-ي)</option>
+                                    <option value="desc">الاسم (ي-أ)</option>
                                 </select>
                             </div>
                         </div>
@@ -161,7 +160,7 @@ function ProductsView(props) {
                 </div>
 
                 <div className="products-view__pagination">
-                    <Pagination
+                    <ProductPagination
                         current={options.page || productsList.page}
                         siblings={2}
                         total={productsList.pages}

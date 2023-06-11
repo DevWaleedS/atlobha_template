@@ -46,7 +46,7 @@ const shopApi = {
      *
      * @return {Promise<object>}
      */
-    getCategoryBySlug: (slug, options = {}) => {
+    getCategoryBySlug: async (slug, options = {}) => {
         /**
          * This is what your API endpoint might look like:
          *
@@ -56,11 +56,11 @@ const shopApi = {
          * - power-tools = slug
          * - 2           = options.depth
          */
-        // return fetch(`https://example.com/api/categories/${slug}.json?${qs.stringify(options)}`)
-        //     .then((response) => response.json());
+        const response = await fetch(`https://backend.atlbha.com/api/category/${slug}`);
+        return await response.json();
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getCategoryBySlug(slug, options);
+        //return getCategoryBySlug(slug, options);
     },
     /**
      * Returns product.
@@ -120,7 +120,9 @@ const shopApi = {
      *
      * @return {Promise<object>}
      */
-    getProductsList: (options = {}, filters = {}) => {
+    getProductsList: async (options = {}, filters = {}) => {
+        const price_from = filters?.price?.slice(0,filters?.price?.indexOf("-"));
+        const price_to =  filters?.price?.slice(Number(filters?.price?.indexOf("-")) + 1,filters?.price?.length);
         /**
          * This is what your API endpoint might look like:
          *
@@ -139,11 +141,11 @@ const shopApi = {
         //     params[`filter_${slug}`] = filters[slug];
         // });
         //
-        // return fetch(`https://example.com/api/products.json?${qs.stringify(params)}`)
-        //     .then((response) => response.json());
+        const response = await fetch(`https://backend.atlbha.com/api/storeProductCategory?store_id=1${options?.limit? `&limit=${options?.limit}`:'' }${options?.sort? `&sort=${options?.sort}`:'' }${options?.page? `&page=${options?.page}`:'' }${filters?.category? `&filter_category=${filters?.category}`:'' }${price_from? `&price_from=${Number(price_from)}`:'' }${price_to? `&price_to=${Number(price_to)}`:'' }`);
+        return await response.json();
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getProductsList(options, filters);
+        //return getProductsList(options, filters);
     },
     /**
      * Returns array of featured products.

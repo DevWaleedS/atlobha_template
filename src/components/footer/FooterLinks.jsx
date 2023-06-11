@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 
 export default function FooterLinks(props) {
     const { title, items } = props;
-
-
     const linksList = items?.map((item, index) => (
         <li key={index} className="footer-links__item">
             <Link to={`/site/SitePages/${item?.id}`} className="footer-links__link">

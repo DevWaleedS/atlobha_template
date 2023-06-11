@@ -8,15 +8,13 @@ import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 
 // application
-import BlogCommentsList from './BlogCommentsList';
+// import BlogCommentsList from './BlogCommentsList';
 
 // data stubs
-import comments from '../../data/blogPostComments';
-import posts from '../../data/blogPosts';
+// import comments from '../../data/blogPostComments';
 
 export default function BlogPost(props) {
     const { layout, data } = props;
-    console.log(data);
 
     const postClasses = classNames('post__content typography', {
         'typography--expanded': layout === 'full',
@@ -51,7 +49,7 @@ export default function BlogPost(props) {
                         {data?.user?.name}
                     </div>
                     <div className="post-header__meta-item">{moment(data?.created_at).format('MMMM.DD.YYYY')}</div>
-                    <div className="post-header__meta-item">4 التعليقات</div>
+                    {/*<div className="post-header__meta-item">4 التعليقات</div>*/}
                 </div>
             </div>
 
@@ -70,14 +68,14 @@ export default function BlogPost(props) {
                             ))}
                         </div>
                     </div>
-                    <div className="post__share-links share-links">
+                    {/*<div className="post__share-links share-links">
                         <ul className="share-links__list">
                             <li className="share-links__item share-links__item--type--like"><Link to="/">Like</Link></li>
                             <li className="share-links__item share-links__item--type--tweet"><Link to="/">Tweet</Link></li>
                             <li className="share-links__item share-links__item--type--pin"><Link to="/">Pin It</Link></li>
                             <li className="share-links__item share-links__item--type--counter"><Link to="/">4K</Link></li>
                         </ul>
-                    </div>
+                    </div>*/}
                 </div>
                 <div className="post-author">
                     <div className="post-author__avatar">
@@ -104,15 +102,14 @@ export default function BlogPost(props) {
                 </div>
             </section>
 
-            <section className="post__section">
+            {/*<section className="post__section">
                 <h4 className="post__section-title">{`التعليقات (${comments.count})`}</h4>
 
                 <BlogCommentsList comments={comments.items} />
-            </section>
+            </section>*/}
 
-            <section className="post__section">
+            {/*<section className="post__section">
                 <h4 className="post__section-title">اكتب </h4>
-
                 <form>
                     <div className="form-row">
                         <div className="form-group col-md-4">
@@ -136,7 +133,7 @@ export default function BlogPost(props) {
                         <button type="submit" className="btn btn-primary btn-lg">انشر التعليق</button>
                     </div>
                 </form>
-            </section>
+            </section>*/}
         </div>
     );
 }

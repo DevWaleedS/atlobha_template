@@ -22,7 +22,48 @@ function MobileMenu(props) {
         closeMobileMenu,
         changeLocale,
         changeCurrency,
+        fetchedData
     } = props;
+
+    const links = [
+        {
+            type: 'link',
+            label: 'الرئيسية',
+            url: '/',
+        },
+        {
+            type: 'link',
+            label: 'تواصل معنا',
+            url: '/site/contact-us',
+        },
+        {
+            type: 'link',
+            label: 'الاستبدال والاسترجاع',
+            url: '/',
+        },
+        {
+            type: 'link',
+            label: 'المنتجات',
+            url: '/shop/products',
+        },
+        {
+            type: 'link',
+            label: 'المقالات',
+            url: '/blog/posts',
+        },
+
+        {
+            type: 'link',
+            label: 'الصفحات',
+            url: '',
+            children:
+                fetchedData?.pages?.map((item) => ({
+                    type: 'link',
+                    label: item?.title,
+                    url: item?.id
+                }))
+        },
+    ];
 
     const classes = classNames('mobilemenu', {
         'mobilemenu--open': mobileMenuState.open,
@@ -55,13 +96,13 @@ function MobileMenu(props) {
             <div className="mobilemenu__backdrop" onClick={closeMobileMenu} />
             <div className="mobilemenu__body">
                 <div className="mobilemenu__header">
-                    <div className="mobilemenu__title">Menu</div>
+                    <div className="mobilemenu__title">القائمة</div>
                     <button type="button" className="mobilemenu__close" onClick={closeMobileMenu}>
                         <Cross20Svg />
                     </button>
                 </div>
                 <div className="mobilemenu__content">
-                    <MobileLinks links={mobileMenuLinks} onItemClick={handleItemClick} />
+                    <MobileLinks links={links} onItemClick={handleItemClick} />
                 </div>
             </div>
         </div>

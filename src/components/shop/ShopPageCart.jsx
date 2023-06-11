@@ -31,17 +31,16 @@ class ShopPageCart extends Component {
 
     getItemQuantity(item) {
         const { quantities } = this.state;
-        const quantity = quantities.find((x) => x.itemId === item.id);
-
-        return quantity ? quantity.value : item.quantity;
+        const quantity = quantities.find((x) => x.itemId === item?.id);
+        return quantity ? quantity.value : Number(item?.qty);
     }
 
     handleChangeQuantity = (item, quantity) => {
         this.setState((state) => {
-            const stateQuantity = state.quantities.find((x) => x.itemId === item.id);
+            const stateQuantity = state?.quantities.find((x) => x.itemId === item.id);
 
             if (!stateQuantity) {
-                state.quantities.push({ itemId: item.id, value: quantity });
+                state.quantities.push({ itemId: item?.id, value: quantity });
             } else {
                 stateQuantity.value = quantity;
             }
@@ -57,30 +56,30 @@ class ShopPageCart extends Component {
         const { cart } = this.props;
 
         return quantities.filter((x) => {
-            const item = cart.items.find((item) => item.id === x.itemId);
+            const item = cart?.items?.find((item) => item?.id === x.itemId);
 
-            return item && item.quantity !== x.value && x.value !== '';
+            return item && Number(item?.qty) !== x.value && x.value !== '';
         }).length > 0;
     }
 
     renderItems() {
         const { cart, cartRemoveItem } = this.props;
 
-        return cart.items.map((item) => {
+        return cart?.items?.map((item) => {
             let image;
             let options;
 
-            if (item.product.images.length > 0) {
+            if (item?.product?.cover) {
                 image = (
                     <div className="product-image">
-                        <Link to={url.product(item.product)} className="product-image__body">
-                            <img className="product-image__img" src={item.product.images[0]} alt="" />
+                        <Link to={`/shop/products/${item?.product?.id}`} className="product-image__body">
+                            <img className="product-image__img" src={item?.product?.cover} alt="" />
                         </Link>
                     </div>
                 );
             }
 
-            if (item.options.length > 0) {
+            if (item?.options?.length > 0) {
                 options = (
                     <ul className="cart-table__options">
                         {item.options.map((option, index) => (
@@ -92,7 +91,7 @@ class ShopPageCart extends Component {
 
             const removeButton = (
                 <AsyncAction
-                    action={() => cartRemoveItem(item.id)}
+                    action={() => cartRemoveItem(item?.product?.id)}
                     render={({ run, loading }) => {
                         const classes = classNames('btn btn-light btn-sm btn-svg-icon', {
                             'btn-loading': loading,
@@ -113,13 +112,13 @@ class ShopPageCart extends Component {
                         {image}
                     </td>
                     <td className="cart-table__column cart-table__column--product">
-                        <Link to={url.product(item.product)} className="cart-table__product-name">
-                            {item.product.name}
+                        <Link to={`/shop/products/${item?.product?.id}`} className="cart-table__product-name">
+                            {item?.product?.name}
                         </Link>
                         {options}
                     </td>
                     <td className="cart-table__column cart-table__column--price" data-title="Price">
-                        <Currency value={item.price} />
+                        <Currency value={Number(item?.price)} />
                     </td>
                     <td className="cart-table__column cart-table__column--quantity" data-title="Quantity">
                         <InputNumber
@@ -129,7 +128,7 @@ class ShopPageCart extends Component {
                         />
                     </td>
                     <td className="cart-table__column cart-table__column--total" data-title="Total">
-                        <Currency value={item.total} />
+                        <Currency value={Number(item?.sum)} />
                     </td>
                     <td className="cart-table__column cart-table__column--remove">
                         {removeButton}
@@ -142,22 +141,22 @@ class ShopPageCart extends Component {
     renderTotals() {
         const { cart } = this.props;
 
-        if (cart.extraLines.length <= 0) {
+        if (cart?.extraLines?.length <= 0) {
             return null;
         }
 
-        const extraLines = cart.extraLines.map((extraLine, index) => {
+        const extraLines = cart?.extraLines?.map((extraLine, index) => {
             let calcShippingLink;
 
-            if (extraLine.type === 'shipping') {
+            if (extraLine?.type === 'shipping') {
                 calcShippingLink = <div className="cart__calc-shipping"><Link to="/">حساب الشحن</Link></div>;
             }
 
             return (
                 <tr key={index}>
-                    <th>{extraLine.title}</th>
+                    <th>{extraLine?.title}</th>
                     <td>
-                        <Currency value={extraLine.price} />
+                        <Currency value={Number(extraLine?.price)} />
                         {calcShippingLink}
                     </td>
                 </tr>
@@ -169,7 +168,7 @@ class ShopPageCart extends Component {
                 <thead className="cart__totals-header">
                     <tr>
                         <th>السعر</th>
-                        <td><Currency value={cart.subtotal} /></td>
+                        <td><Currency value={Number(cart?.subtotal)} /></td>
                     </tr>
                 </thead>
                 <tbody className="cart__totals-body">
@@ -240,7 +239,7 @@ class ShopPageCart extends Component {
                                         <tfoot className="cart__totals-footer">
                                             <tr>
                                                 <th>الاجمالي</th>
-                                                <td><Currency value={cart.total} /></td>
+                                                <td><Currency value={Number(cart?.total)} /></td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -265,7 +264,7 @@ class ShopPageCart extends Component {
 
         let content;
 
-        if (cart.quantity) {
+        if (cart?.quantity) {
             content = this.renderCart();
         } else {
             content = (
