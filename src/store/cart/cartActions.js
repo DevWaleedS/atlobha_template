@@ -27,7 +27,7 @@ export function cartAddItem(product, options = [], quantity = 1) {
                 },
             });
             if (response?.data?.success === true) {
-                toast.success(`تم إضافة  "${productData?.name}"للسلة `, { theme: "colored" });
+                toast.success(`تم إضافة  "${productData?.name}" للسلة `, { theme: "colored" });
                 resultData = response?.data?.data;
             }
         } catch (err) {
