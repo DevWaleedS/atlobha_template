@@ -50,6 +50,7 @@ function NavLinks(props) {
     const linksList = navLinks.map((item, index) => {
         let arrow;
         let submenu;
+    
 
         if (item.submenu) {
             arrow = <ArrowRoundedDown9x6Svg className="nav-links__arrow" />;

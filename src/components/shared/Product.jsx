@@ -1,22 +1,22 @@
 // react
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // third-party
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 // application
-import AsyncAction from './AsyncAction';
-import Currency from './Currency';
-import InputNumber from './InputNumber';
-import ProductGallery from './ProductGallery';
-import Rating from './Rating';
-import { cartAddItem } from '../../store/cart';
-import { compareAddItem } from '../../store/compare';
-import { Wishlist16Svg, Compare16Svg } from '../../svg';
-import { wishlistAddItem } from '../../store/wishlist';
+import AsyncAction from "./AsyncAction";
+import Currency from "./Currency";
+import InputNumber from "./InputNumber";
+import ProductGallery from "./ProductGallery";
+import Rating from "./Rating";
+import { cartAddItem } from "../../store/cart";
+import { compareAddItem } from "../../store/compare";
+import { Wishlist16Svg, Compare16Svg } from "../../svg";
+import { wishlistAddItem } from "../../store/wishlist";
 
 class Product extends Component {
     constructor(props) {
@@ -32,22 +32,21 @@ class Product extends Component {
     };
 
     render() {
-        const {
-            product,
-            layout,
-            wishlistAddItem,
-            compareAddItem,
-            cartAddItem,
-        } = this.props;
+        const { product, layout, wishlistAddItem, compareAddItem, cartAddItem } = this.props;
         const { quantity } = this.state;
         let prices;
+
+        console.log(product)
 
         if (product?.compareAtPrice) {
             prices = (
                 <React.Fragment>
-                    <span className="product__new-price"><Currency value={Number(product?.selling_price)} /></span>
-                    {' '}
-                    <span className="product__old-price"><Currency value={Number(product?.selling_price)} /></span>
+                    <span className="product__new-price">
+                        <Currency value={Number(product?.selling_price)} />
+                    </span>{" "}
+                    <span className="product__old-price">
+                        <Currency value={Number(product?.selling_price)} />
+                    </span>
                 </React.Fragment>
             );
         } else {
@@ -70,8 +69,8 @@ class Product extends Component {
                                         data-placement="right"
                                         title="المفضلة"
                                         onClick={run}
-                                        className={classNames('btn btn-sm btn-light btn-svg-icon', {
-                                            'btn-loading': loading,
+                                        className={classNames("btn btn-sm btn-light btn-svg-icon", {
+                                            "btn-loading": loading,
                                         })}
                                     >
                                         <Wishlist16Svg />
@@ -87,8 +86,8 @@ class Product extends Component {
                                         data-placement="right"
                                         title="مقارنة"
                                         onClick={run}
-                                        className={classNames('btn btn-sm btn-light btn-svg-icon', {
-                                            'btn-loading': loading,
+                                        className={classNames("btn btn-sm btn-light btn-svg-icon", {
+                                            "btn-loading": loading,
                                         })}
                                     >
                                         <Compare16Svg />
@@ -107,9 +106,7 @@ class Product extends Component {
                                 <Link to="/">اكتب تقييماً</Link>
                             </div>
                         </div>
-                        <div className="product__description">
-                            {product?.description}
-                        </div>
+                        <div className="product__description">{product?.description}</div>
                         <ul className="product__features">
                             <li>Speed: 750 RPM</li>
                             <li>Power Source: Cordless-Electric</li>
@@ -120,11 +117,11 @@ class Product extends Component {
                         <ul className="product__meta">
                             <li className="product__meta-availability">
                                 المخزون:
-                                {product?.stock > 0 ?
+                                {product?.stock > 0 ? (
                                     <span className="text-success">متوفر</span>
-                                    :
+                                ) : (
                                     <span className="text-danger">غير متوفر</span>
-                                }
+                                )}
                             </li>
                             {/*<li>
                                 العلامة التجارية:
@@ -140,9 +137,7 @@ class Product extends Component {
                             <span className="text-success">متوفر</span>
                         </div>
 
-                        <div className="product__prices">
-                            {prices}
-                        </div>
+                        <div className="product__prices">{prices}</div>
 
                         <form className="product__options">
                             {/*<div className="form-group product__option">
@@ -208,7 +203,9 @@ class Product extends Component {
                                 </div>
                         </div>*/}
                             <div className="form-group product__option">
-                                <label htmlFor="product-quantity" className="product__option-label">الكمية</label>
+                                <label htmlFor="product-quantity" className="product__option-label">
+                                    الكمية
+                                </label>
                                 <div className="product__actions">
                                     <div className="product__actions-item">
                                         <InputNumber
@@ -229,8 +226,8 @@ class Product extends Component {
                                                     type="button"
                                                     onClick={run}
                                                     disabled={!quantity}
-                                                    className={classNames('btn btn-primary btn-lg', {
-                                                        'btn-loading': loading,
+                                                    className={classNames("btn btn-primary btn-lg", {
+                                                        "btn-loading": loading,
                                                     })}
                                                 >
                                                     اضافة إلى السلة
@@ -247,11 +244,11 @@ class Product extends Component {
                                                     data-toggle="tooltip"
                                                     title="المفضلة"
                                                     onClick={run}
-                                                    className={classNames('btn btn-secondary btn-svg-icon btn-lg', {
-                                                        'btn-loading': loading,
+                                                    className={classNames("btn btn-secondary btn-svg-icon btn-lg", {
+                                                        "btn-loading": loading,
                                                     })}
                                                 >
-                                                    <Wishlist16Svg />
+                                                    <Wishlist16Svg fill="#ffff" />
                                                 </button>
                                             )}
                                         />
@@ -265,11 +262,11 @@ class Product extends Component {
                                                     data-toggle="tooltip"
                                                     title="مقارنة"
                                                     onClick={run}
-                                                    className={classNames('btn btn-secondary btn-svg-icon btn-lg', {
-                                                        'btn-loading': loading,
+                                                    className={classNames("btn btn-secondary btn-svg-icon btn-lg", {
+                                                        "btn-loading": loading,
                                                     })}
                                                 >
-                                                    <Compare16Svg />
+                                                    <Compare16Svg fill="#ffff" />
                                                 </button>
                                             )}
                                         />
@@ -282,8 +279,10 @@ class Product extends Component {
                     <div className="product__footer">
                         <div className="product__tags tags">
                             <div className="tags__list">
-                                {product?.subcategory?.map((sub,index)=>(
-                                    <Link key={index} to="/">{sub?.name}</Link>
+                                {product?.subcategory?.map((sub, index) => (
+                                    <Link key={index} to="/">
+                                        {sub?.name}
+                                    </Link>
                                 ))}
                             </div>
                         </div>
@@ -296,7 +295,6 @@ class Product extends Component {
                                 <li className="share-links__item share-links__item--type--counter"><Link to="/">4K</Link></li>
                             </ul>
                         </div>*/}
-
                     </div>
                 </div>
             </div>
@@ -308,11 +306,11 @@ Product.propTypes = {
     /** product object */
     product: PropTypes.object.isRequired,
     /** one of ['standard', 'sidebar', 'columnar', 'quickview'] (default: 'standard') */
-    layout: PropTypes.oneOf(['standard', 'sidebar', 'columnar', 'quickview']),
+    layout: PropTypes.oneOf(["standard", "sidebar", "columnar", "quickview"]),
 };
 
 Product.defaultProps = {
-    layout: 'standard',
+    layout: "standard",
 };
 
 const mapDispatchToProps = {
@@ -321,7 +319,4 @@ const mapDispatchToProps = {
     compareAddItem,
 };
 
-export default connect(
-    () => ({}),
-    mapDispatchToProps,
-)(Product);
+export default connect(() => ({}), mapDispatchToProps)(Product);
