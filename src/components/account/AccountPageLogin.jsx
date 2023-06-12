@@ -1,13 +1,14 @@
 // react
-import React from 'react';
-
+import React, { useState } from 'react';
 // third-party
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-
+import { useHistory } from "react-router";
 // application
 import PageHeader from '../shared/PageHeader';
 import { Check9x7Svg } from '../../svg';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // data stubs
 import theme from '../../data/theme';
@@ -17,6 +18,43 @@ export default function AccountPageLogin() {
         { title: 'الرئيسية', url: '' },
         { title: 'حسابي', url: '' },
     ];
+    const token = localStorage.getItem('token');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [EmailError, setrEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    let history = useHistory();
+
+    const Login = () => {
+        setrEmailError('');
+        setPasswordError('');
+        const data = {
+            user_name: email,
+            password: password,
+        };
+        axios.post('https://backend.atlbha.com/api/loginapi', data).then((res) => {
+            if (res?.data?.success === true && res?.data?.data?.status === 200) {
+                toast.success(res?.data?.message?.ar, { theme: 'colored' });
+                localStorage.setItem('token', res?.data?.data?.token);
+                history.push("/");
+            } else {
+                setrEmailError(res?.data?.message?.en?.user_name?.[0]);
+                setPasswordError(res?.data?.message?.en?.password?.[0]);
+            }
+        });
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            Login();
+        }
+    };
+
+    if(token){
+        history.push("/");
+    };
+
 
     return (
         <React.Fragment>
@@ -41,7 +79,14 @@ export default function AccountPageLogin() {
                                                 type="email"
                                                 className="form-control"
                                                 placeholder="البريد الالكتروني"
+                                                name='email'
+                                                value={email}
+                                                onKeyDown={handleKeyDown}
+                                                onChange={(e) => {
+                                                    setEmail(e.target.value);
+                                                }}
                                             />
+                                            <span className='text-danger'>{EmailError && EmailError}</span>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="login-password">كلمة المرور</label>
@@ -50,7 +95,14 @@ export default function AccountPageLogin() {
                                                 type="password"
                                                 className="form-control"
                                                 placeholder="كلمة المرور"
+                                                name='password'
+                                                value={password}
+                                                onKeyDown={handleKeyDown}
+                                                onChange={(e) => {
+                                                    setPassword(e.target.value);
+                                                }}
                                             />
+                                            <span className='text-danger'>{passwordError && passwordError}</span>
                                             <small className="form-text text-muted">
                                                 <Link to="/">نسيت كلمة المرور</Link>
                                             </small>
@@ -73,7 +125,7 @@ export default function AccountPageLogin() {
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="submit" className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
+                                        <button type="button" onClick={Login} className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
                                             تسجيل الدخول
                                         </button>
                                     </form>

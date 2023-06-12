@@ -314,3 +314,7 @@ Table of Contents:
 @import "widgets/widget-tags";
 
 @import "custom";
+
+iframe {
+    pointer-events: none;
+}
