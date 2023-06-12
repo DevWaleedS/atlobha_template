@@ -27,7 +27,7 @@ function BlogPosts(props) {
 
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
-        { title: 'المقالات', url: '' },
+        { title: 'المقالات', url: '/blog/posts' },
     ];
     let sidebarStart;
     let sidebarEnd;

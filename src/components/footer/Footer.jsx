@@ -30,10 +30,10 @@ export default function Footer({ fetchedData }) {
 
                 <div className="site-footer__bottom">
                     <div className="site-footer__copyright">
-                        صنع بكل حب 2023 &copy;
+                        ريادة الأعمال 2023 &copy;
                         <a href="https://faz-it.net/" rel="noopener noreferrer" target="_blank">
                             {" "}
-                            شبكة فاز{" "}
+                            منصة أطلبها{" "}
                         </a>
                     </div>
                     <div className="site-footer__payments">

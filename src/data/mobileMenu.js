@@ -13,19 +13,19 @@ export default [
         url: "/",
     },
     {
-        type: 'link',
-        label: 'المنتجات',
-        url: '/shop/products',
-    },
-    {
-        type: 'link',
-        label: 'المقالات',
-        url: '/blog/posts',
+        type: "link",
+        label: "المنتجات",
+        url: "/shop/products",
     },
     {
         type: "link",
-        label: "الاستبدال والاسترجاع",
-        url: "/",
+        label: "المقالات",
+        url: "/blog/posts",
+    },
+    {
+        type: "link",
+        label: "تواصل معنا Alt",
+        url: "/site/contact-us",
     },
     {
         type: "link",
