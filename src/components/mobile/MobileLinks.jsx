@@ -20,6 +20,7 @@ function MobileLinks(props) {
 
     const linksList = links.map((link, index) => {
         let item;
+     
 
         if (link.type === "link" || link.type === "button") {
             item = (
@@ -47,7 +48,7 @@ function MobileLinks(props) {
                         if (link.type === "link") {
                             linkOrButton = (
                                 <AppLink
-                                    to={link.url}
+                                    to={`/site/SitePages/${link?.url}`}
                                     className="mobile-links__item-link"
                                     onClick={() => handleItemClick(link)}
                                 >
