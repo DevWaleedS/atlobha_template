@@ -60,7 +60,7 @@ export default function BlogPagePost(props) {
 
     const breadcrumbs = [
         { title: 'الرئيسية', url: '' },
-        { title: 'المقالات', url: '' },
+        { title: 'المقالات', url: '/blog/posts' },
         { title: 'اخر مقال', url: '' },
     ];
 

@@ -1,22 +1,22 @@
 // react
-import React from 'react';
+import React from "react";
 
 // third-party
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
 // application
-import PageHeader from '../shared/PageHeader';
+import PageHeader from "../shared/PageHeader";
 
 // blocks
-import BlockMap from '../blocks/BlockMap';
+import BlockMap from "../blocks/BlockMap";
 
 // data stubs
-import theme from '../../data/theme';
+import theme from "../../data/theme";
 
 function SitePageContactUs() {
     const breadcrumb = [
-        { title: 'الرئيسية', url: '' },
-        { title: 'تواصل معنا', url: '' },
+        { title: "الرئيسية", url: "" },
+        { title: "تواصل معنا", url: "" },
     ];
 
     return (
@@ -24,8 +24,9 @@ function SitePageContactUs() {
             <Helmet>
                 <title>{`تواصل معنا — ${theme.name}`}</title>
             </Helmet>
-
-            <BlockMap />
+            {/**
+<BlockMap />
+ */}
 
             <PageHeader header="تواصل معنا" breadcrumb={breadcrumb} />
 
@@ -58,13 +59,11 @@ function SitePageContactUs() {
                                             </p>
 
                                             <p>
-
                                                 <strong>ملاحظة</strong>
                                                 <br />
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                elit. Curabitur suscipit suscipit mi, non tempor
-                                                nulla finibus eget. Lorem ipsum dolor sit amet,
-                                                consectetur adipiscing elit.
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+                                                suscipit suscipit mi, non tempor nulla finibus eget. Lorem ipsum dolor
+                                                sit amet, consectetur adipiscing elit.
                                             </p>
                                         </div>
                                     </div>
@@ -76,7 +75,12 @@ function SitePageContactUs() {
                                             <div className="form-row">
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="form-name">اسمك بالكامل</label>
-                                                    <input type="text" id="form-name" className="form-control" placeholder="اسمك بالكامل" />
+                                                    <input
+                                                        type="text"
+                                                        id="form-name"
+                                                        className="form-control"
+                                                        placeholder="اسمك بالكامل"
+                                                    />
                                                 </div>
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="form-email">البريد الالكتروني</label>
@@ -90,15 +94,21 @@ function SitePageContactUs() {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="form-subject">موضوع الرسالة</label>
-                                                <input type="text" id="form-subject" className="form-control" placeholder="موضوع الرسالة" />
+                                                <input
+                                                    type="text"
+                                                    id="form-subject"
+                                                    className="form-control"
+                                                    placeholder="موضوع الرسالة"
+                                                />
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="form-message">الرسالة</label>
                                                 <textarea id="form-message" className="form-control" rows="4" />
                                             </div>
-                                            <button type="submit" className="btn btn-primary">ارسال</button>
+                                            <button type="submit" className="btn btn-primary">
+                                                ارسال
+                                            </button>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>

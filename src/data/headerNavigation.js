@@ -3,10 +3,7 @@ export default [
         title: "الرئيسية",
         url: "/",
     },
-    {
-        title: "تواصل معنا",
-        url: "/site/contact-us",
-    },
+
     {
         title: "المنتجات",
         url: "/shop/products",
@@ -16,9 +13,10 @@ export default [
         url: "/blog/posts",
     },
     {
-        title: "الاستبدال والاسترجاع",
-        url: "/",
+        title: "تواصل معنا",
+        url: "/site/contact-us",
     },
+
     {
         title: "الصفحات",
         url: "/",
