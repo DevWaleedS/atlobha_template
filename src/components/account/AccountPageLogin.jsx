@@ -9,6 +9,7 @@ import PageHeader from '../shared/PageHeader';
 import { Check9x7Svg } from '../../svg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { fetchCartData } from '../../store/cart';
 
 // data stubs
 import theme from '../../data/theme';
@@ -23,9 +24,11 @@ export default function AccountPageLogin() {
     const [password, setPassword] = useState('');
     const [EmailError, setrEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [disabledLogin, setDisabledLogin] = useState(false);
     let history = useHistory();
 
     const Login = () => {
+        setDisabledLogin(true);
         setrEmailError('');
         setPasswordError('');
         const data = {
@@ -37,9 +40,12 @@ export default function AccountPageLogin() {
                 toast.success(res?.data?.message?.ar, { theme: 'colored' });
                 localStorage.setItem('token', res?.data?.data?.token);
                 history.push("/");
+                fetchCartData();
+                setDisabledLogin(false);
             } else {
                 setrEmailError(res?.data?.message?.en?.user_name?.[0]);
                 setPasswordError(res?.data?.message?.en?.password?.[0]);
+                setDisabledLogin(false);
             }
         });
     };
@@ -125,7 +131,7 @@ export default function AccountPageLogin() {
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="button" onClick={Login} className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
+                                        <button type="button" disabled={disabledLogin} onClick={Login} className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
                                             تسجيل الدخول
                                         </button>
                                     </form>

@@ -5,10 +5,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // widgets
-import WidgetAboutus from '../widgets/WidgetAboutus';
+// import WidgetAboutus from '../widgets/WidgetAboutus';
 import WidgetCategories from '../widgets/WidgetCategories';
 // import WidgetComments from '../widgets/WidgetComments';
-import WidgetNewsletter from '../widgets/WidgetNewsletter';
+// import WidgetNewsletter from '../widgets/WidgetNewsletter';
 import WidgetPosts from '../widgets/WidgetPosts';
 import WidgetSearch from '../widgets/WidgetSearch';
 import WidgetTags from '../widgets/WidgetTags';
@@ -17,25 +17,25 @@ import WidgetTags from '../widgets/WidgetTags';
 // import comments from '../../data/blogWidgetLatestComments';
 
 export default function BlogSidebar(props) {
-    const { position, fetchedData } = props;
+    const { position, fetchedData,getSearchData } = props;
 
     return (
         <div className={`block block-sidebar block-sidebar--position--${position}`}>
             <div className="block-sidebar__item">
-                <WidgetSearch />
+                <WidgetSearch getSearchData={getSearchData}/>
             </div>
-            <div className="block-sidebar__item">
+            {/*<div className="block-sidebar__item">
                 <WidgetAboutus />
-            </div>
+            </div>*/}
             <div className="block-sidebar__item">
                 <WidgetCategories categories={fetchedData?.postCategory} />
             </div>
             <div className="block-sidebar__item">
                 <WidgetPosts posts={fetchedData?.lastPosts?.slice(0, 3)} />
             </div>
-            <div className="block-sidebar__item">
+            {/*<div className="block-sidebar__item">
                 <WidgetNewsletter />
-            </div>
+            </div>*/}
             {/*<div className="block-sidebar__item">
                 <WidgetComments comments={comments.slice(0, 3)} />
             </div>*/}

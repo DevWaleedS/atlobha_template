@@ -12,9 +12,8 @@ import AsyncAction from '../shared/AsyncAction';
 import Currency from '../shared/Currency';
 import InputNumber from '../shared/InputNumber';
 import PageHeader from '../shared/PageHeader';
-import { cartRemoveItem, cartUpdateQuantities } from '../../store/cart';
+import { cartRemoveItem, cartUpdateQuantities,cartRemoveItemLocal } from '../../store/cart';
 import { Cross12Svg } from '../../svg';
-import { url } from '../../services/utils';
 
 // data stubs
 import theme from '../../data/theme';
@@ -63,7 +62,7 @@ class ShopPageCart extends Component {
     }
 
     renderItems() {
-        const { cart, cartRemoveItem } = this.props;
+        const { cart, cartRemoveItem,cartRemoveItemLocal,token } = this.props;
 
         return cart?.items?.map((item) => {
             let image;
@@ -90,8 +89,25 @@ class ShopPageCart extends Component {
             }
 
             const removeButton = (
+                token
+                ?
                 <AsyncAction
                     action={() => cartRemoveItem(item?.product?.id)}
+                    render={({ run, loading }) => {
+                        const classes = classNames('btn btn-light btn-sm btn-svg-icon', {
+                            'btn-loading': loading,
+                        });
+
+                        return (
+                            <button type="button" onClick={run} className={classes}>
+                                <Cross12Svg />
+                            </button>
+                        );
+                    }}
+                />
+                :
+                <AsyncAction
+                    action={() => cartRemoveItemLocal(item?.product?.id)}
                     render={({ run, loading }) => {
                         const classes = classNames('btn btn-light btn-sm btn-svg-icon', {
                             'btn-loading': loading,
@@ -302,6 +318,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     cartRemoveItem,
     cartUpdateQuantities,
+    cartRemoveItemLocal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopPageCart);

@@ -14,8 +14,6 @@ function Header(props) {
     const { layout, fetchedData } = props;
     let bannerSection;
 
-    console.log(fetchedData);
-
     if (layout === "default") {
         bannerSection = (
             <div className="site-header__middle container">
@@ -32,7 +30,7 @@ function Header(props) {
                         <FormattedMessage id="header.phoneLabel" defaultMessage="خدمة العملاء" />
                     </div>
                     <div className="site-header__phone-number">
-                        {fetchedData?.phonenumber?.slice(5)} 
+                        {fetchedData?.phonenumber?.slice(5)}
                     </div>
                 </div>
             </div>

@@ -1,11 +1,53 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CART_SET_ITEM, CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES } from "./cartActionTypes";
+import { CART_SET_ITEM, CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES,CART_ADD_ITEM_LOCAL,CART_REMOVE_ITEM_LOCAL,RESET_LOCAL_CART,AAD_LOCAL_CART_TO_DB } from "./cartActionTypes";
 
 export function cartUpdateQuantitiesSuccess(quantities) {
     return {
         type: CART_UPDATE_QUANTITIES,
         quantities,
+    };
+}
+
+export function cartAddItemSuccess(product, options = [], quantity = 1) {
+    toast.success(`منتج "${product.name}" تمت اضافته للسلة !`, { theme: 'colored' });
+
+    return {
+        type: CART_ADD_ITEM_LOCAL,
+        product,
+        options,
+        quantity,
+    };
+}
+
+export function cartAddItemLocal(product, options = [], quantity = 1) {
+    // sending request to server, timeout is used as a stub
+    return (dispatch) => (
+        new Promise((resolve) => {
+            setTimeout(() => {
+                dispatch(cartAddItemSuccess(product, options, quantity));
+                resolve();
+            }, 500);
+        })
+    );
+}
+
+export function cartRemoveItemLocal(itemId) {
+    // sending request to server, timeout is used as a stub
+    return (dispatch) => (
+        new Promise((resolve) => {
+            setTimeout(() => {
+                dispatch(cartRemoveItemSuccess(itemId));
+                resolve();
+            }, 500);
+        })
+    );
+}
+
+export function cartRemoveItemSuccess(itemId) {
+    return {
+        type: CART_REMOVE_ITEM_LOCAL,
+        itemId,
     };
 }
 
@@ -94,5 +136,17 @@ export function fetchCartData() {
             type: CART_SET_ITEM,
             data: resultData,
         });
+    };
+}
+
+export function resetCartLocal() {
+    return {
+        type: RESET_LOCAL_CART,
+    };
+}
+
+export function addLocalCartToDB() {
+    return {
+        type: AAD_LOCAL_CART_TO_DB,
     };
 }

@@ -12,15 +12,15 @@ import AsyncAction from '../shared/AsyncAction';
 import Currency from '../shared/Currency';
 import PageHeader from '../shared/PageHeader';
 import Rating from '../shared/Rating';
-import { cartAddItem } from '../../store/cart';
+import { cartAddItem, cartAddItemLocal } from '../../store/cart';
 import { compareRemoveItem } from '../../store/compare';
-import { url } from '../../services/utils';
 
 // data stubs
 import theme from '../../data/theme';
 
 function ShopPageCompare(props) {
-    const { products, compareRemoveItem, cartAddItem } = props;
+    const token = localStorage.getItem('token');
+    const { products, compareRemoveItem, cartAddItem, cartAddItemLocal } = props;
     const breadcrumb = [
         { title: 'الرئيسية', url: '' },
         { title: 'المقارنة', url: '' },
@@ -79,10 +79,10 @@ function ShopPageCompare(props) {
         const availabilityRow = products?.map((product) => {
             let badge;
 
-            if (product?.stock > 0 ) {
+            if (product?.stock > 0) {
                 badge = <span className="compare-table__product-badge badge badge-success">متوفر</span>;
             }
-            else{
+            else {
                 badge = <span className="compare-table__product-badge badge badge-danger">غير متوفر</span>;
             }
 
@@ -106,10 +106,21 @@ function ShopPageCompare(props) {
 
             return (
                 <td key={product?.id}>
-                    <AsyncAction
-                        action={() => cartAddItem(product)}
-                        render={renderButton}
-                    />
+                    {token ?
+                        (
+                            <AsyncAction
+                                action={() => cartAddItem(product)}
+                                render={renderButton}
+                            />
+                        )
+                        :
+                        (
+                            <AsyncAction
+                                action={() => cartAddItemLocal(product)}
+                                render={renderButton}
+                            />
+                        )
+                    }
                 </td>
             );
         });
@@ -218,6 +229,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     cartAddItem,
     compareRemoveItem,
+    cartAddItemLocal,
 };
 
 export default connect(

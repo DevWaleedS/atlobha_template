@@ -18,12 +18,18 @@ import theme from '../../data/theme';
 
 function BlogPosts(props) {
     const { fetchedData, loading } = useFetch('https://backend.atlbha.com/api/postStore/1');
+    const [search, setSearch] = useState('');
     const { layout, sidebarPosition } = props;
+    const posts = fetchedData?.data?.posts?.filter((post) => post?.title?.includes(search));
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = fetchedData?.data?.posts?.slice(indexOfFirstPost, indexOfLastPost);
+    const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
+
+    const getSearchData = (search) => {
+        setSearch(search);
+    }
 
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
@@ -32,7 +38,7 @@ function BlogPosts(props) {
     let sidebarStart;
     let sidebarEnd;
 
-    const sidebar = <BlogSidebar fetchedData={fetchedData?.data} position={sidebarPosition} />;
+    const sidebar = <BlogSidebar fetchedData={fetchedData?.data} position={sidebarPosition} getSearchData={getSearchData} />;
 
     if (sidebarPosition === 'start') {
         sidebarStart = <div className="col-12 col-lg-4 order-1 order-lg-0">{sidebar}</div>;
@@ -84,27 +90,36 @@ function BlogPosts(props) {
             <div className="container">
                 <div className="row">
                     {sidebarStart}
-                    <div className="col-12 col-lg-8">
-                        <div className="block">
-                            <div className="posts-view">
-                                <div className={`posts-view__list posts-list posts-list--layout--${layout}`}>
-                                    <div className="posts-list__body">
-                                        {postsList}
+                    {posts?.length > 0 ?
+                        (
+                            <div className="col-12 col-lg-8">
+                                <div className="block">
+                                    <div className="posts-view">
+                                        <div className={`posts-view__list posts-list posts-list--layout--${layout}`}>
+                                            <div className="posts-list__body">
+                                                {postsList}
+                                            </div>
+                                        </div>
+                                        <div className="posts-view__pagination">
+                                            <Pagination
+                                                postsPerPage={postsPerPage}
+                                                totalPosts={fetchedData?.data?.posts?.length}
+                                                paginate={paginate}
+                                                previousPage={previousPage}
+                                                nextPage={nextPage}
+                                                currentPage={currentPage}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="posts-view__pagination">
-                                    <Pagination
-                                        postsPerPage={postsPerPage}
-                                        totalPosts={fetchedData?.data?.posts?.length}
-                                        paginate={paginate}
-                                        previousPage={previousPage}
-                                        nextPage={nextPage}
-                                        currentPage={currentPage}
-                                    />
-                                </div>
                             </div>
-                        </div>
-                    </div>
+                        )
+                        :
+                        (
+                            <div className="col-12 col-lg-8">
+                                <p>لاتوجد مقالات في هذا القسم</p>
+                            </div>
+                        )}
                     {sidebarEnd}
                 </div>
             </div>

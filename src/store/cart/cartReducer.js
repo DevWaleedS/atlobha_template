@@ -1,4 +1,6 @@
-import { CART_SET_ITEM,CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES } from './cartActionTypes';
+import axios from "axios";
+import { toast } from "react-toastify";
+import { CART_SET_ITEM, CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES, CART_ADD_ITEM_LOCAL, CART_REMOVE_ITEM_LOCAL, RESET_LOCAL_CART, AAD_LOCAL_CART_TO_DB } from './cartActionTypes';
 
 /**
  * @param {array} items
@@ -44,9 +46,9 @@ function addItem(state, data) {
         ...state,
         items: data?.cartDetail,
         quantity: data?.count,
-        subtotal:data?.total,
-        total:data?.total,
-        lastItemId:data?.cartDetail?.[data?.cartDetail?.length- 1]?.product?.id,
+        subtotal: data?.total,
+        total: data?.total,
+        lastItemId: data?.cartDetail?.[data?.cartDetail?.length - 1]?.product?.id,
     };
 }
 
@@ -55,8 +57,8 @@ function removeItem(state, data) {
         ...state,
         items: data?.cartDetail,
         quantity: data?.count,
-        subtotal:data?.total,
-        total:data?.total,
+        subtotal: data?.total,
+        total: data?.total,
     };
 }
 
@@ -82,7 +84,6 @@ function updateQuantities(state, quantities) {
     if (needUpdate) {
         const subtotal = calcSubtotal(newItems);
         const total = calcTotal(subtotal, state.extraLines);
-
         return {
             ...state,
             items: newItems,
@@ -98,11 +99,122 @@ function updateQuantities(state, quantities) {
 function getData(state, data) {
     return {
         ...state,
-        items: data?.cartDetail || [],
-        quantity: Number(data?.count) || 0,
-        subtotal: Number(data?.total) || 0,
-        total: Number(data?.total) || 0,
+        items: data?.cartDetail || state?.items || [],
+        quantity: Number(data?.count) || state?.quantity || 0,
+        subtotal: Number(data?.total) || state?.subtotal || 0,
+        total: Number(data?.total) || state?.total || 0,
+        lastItemId: data?.cartDetail?.[data?.cartDetail?.length - 1]?.product?.id || state?.lastItemId || null,
     };
+}
+
+function addItemLocal(state, product, options, quantity) {
+    const itemIndex = findItemIndex(state.items, product, options);
+
+    let newItems;
+    let { lastItemId } = state;
+
+    if (itemIndex === -1) {
+        lastItemId += 1;
+        newItems = [...state.items, {
+            id: lastItemId,
+            product: JSON.parse(JSON.stringify(product)),
+            options: JSON.parse(JSON.stringify(options)),
+            price: Number(product?.selling_price),
+            total: Number(product?.selling_price) * quantity,
+            quantity,
+        }];
+    } else {
+        const item = state.items[itemIndex];
+
+        newItems = [
+            ...state.items.slice(0, itemIndex),
+            {
+                ...item,
+                quantity: item.quantity + quantity,
+                total: (item.quantity + quantity) * Number(item?.product?.selling_price),
+            },
+            ...state.items.slice(itemIndex + 1),
+        ];
+    }
+
+    const subtotal = calcSubtotal(newItems);
+    const total = calcTotal(subtotal, state.extraLines);
+
+    return {
+        ...state,
+        lastItemId,
+        subtotal,
+        total,
+        items: newItems,
+        quantity: calcQuantity(newItems),
+    };
+}
+
+function removeItemLocal(state, itemId) {
+    const { items } = state;
+    const newItems = items.filter((item) => item?.product?.id !== itemId);
+
+    const subtotal = calcSubtotal(newItems);
+    const total = calcTotal(subtotal, state.extraLines);
+
+    return {
+        ...state,
+        items: newItems,
+        quantity: calcQuantity(newItems),
+        subtotal,
+        total,
+    };
+}
+
+function resetLocalCart(state) {
+    return {
+        ...state,
+        lastItemId: 0,
+        quantity: 0,
+        items: [],
+        subtotal: 0,
+        extraLines: [ // shipping, taxes, fees, .etc
+            {
+                type: 'shipping',
+                title: 'الشحن',
+                price: 25,
+            },
+            {
+                type: 'tax',
+                title: 'الضريبة',
+                price: 0,
+            },
+        ],
+        total: 0,
+    };
+}
+
+function addCartToDB(state) {
+    var formData = new FormData;
+    const token = localStorage.getItem("token");
+    const productData = state?.items?.map((item) => ({
+        id: item?.product?.id,
+        name: item?.product?.name,
+        price: item?.product?.selling_price,
+        qty: item?.quantity,
+    }));
+
+    async function addData() {
+        try {
+            const response = await axios.post(`https://backend.atlbha.com/api/addCart`, ...productData, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response?.data?.success === true) {
+                this.addItem(state,response?.data?.data);
+            }
+        } catch (err) {
+            toast.error(err, { theme: "colored" });
+        }
+    };
+    addData();
 }
 
 /*
@@ -146,19 +258,27 @@ const initialState = {
 
 export default function cartReducer(state = initialState, action) {
     switch (action.type) {
-    case CART_SET_ITEM:
-        return getData(state,action.data);
+        case CART_SET_ITEM:
+            return getData(state, action.data);
 
-    case CART_ADD_ITEM:
-        return addItem(state, action.data);
+        case CART_ADD_ITEM:
+            return addItem(state, action.data);
 
-    case CART_REMOVE_ITEM:
-        return removeItem(state, action.data);
+        case CART_REMOVE_ITEM:
+            return removeItem(state, action.data);
 
-    case CART_UPDATE_QUANTITIES:
-        return updateQuantities(state, action.quantities);
+        case CART_UPDATE_QUANTITIES:
+            return updateQuantities(state, action.quantities);
 
-    default:
-        return state;
+        case CART_ADD_ITEM_LOCAL:
+            return addItemLocal(state, action.product, action.options, action.quantity);
+        case CART_REMOVE_ITEM_LOCAL:
+            return removeItemLocal(state, action.itemId);
+        case RESET_LOCAL_CART:
+            return resetLocalCart(state);
+        case AAD_LOCAL_CART_TO_DB:
+            return addCartToDB(state);
+        default:
+            return state;
     }
 }

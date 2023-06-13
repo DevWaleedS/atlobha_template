@@ -50,7 +50,7 @@ function NavLinks(props) {
     const linksList = navLinks.map((item, index) => {
         let arrow;
         let submenu;
-    
+
 
         if (item.submenu) {
             arrow = <ArrowRoundedDown9x6Svg className="nav-links__arrow" />;
@@ -70,7 +70,6 @@ function NavLinks(props) {
         }
 
         if (item.submenu && item.submenu.type === "megamenu") {
-            console.log(item.submenu.menu);
             submenu = (
                 <div className={`nav-links__megamenu nav-links__megamenu--size--${item.submenu.menu.size}`}>
                     <Megamenu menu={item.submenu.menu} />
@@ -83,7 +82,7 @@ function NavLinks(props) {
         });
 
         return (
-       
+
             <li key={index} className={classes} onMouseEnter={handleMouseEnter}>
                 <AppLink to={item.url} {...item.props}>
                     <span>

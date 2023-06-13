@@ -3,15 +3,17 @@ import React, { useState } from 'react';
 
 // third-party
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useHistory } from "react-router";
-
+import { fetchCartData,resetCartLocal,addLocalCartToDB } from '../../store/cart';
 // application
 import Indicator from './Indicator';
 import { Person20Svg } from '../../svg';
 
-export default function IndicatorAccount() {
+function IndicatorAccount(props) {
+    const { fetchCartData,resetCartLocal,addLocalCartToDB } = props;
     const token = localStorage.getItem('token');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,6 +36,8 @@ export default function IndicatorAccount() {
                 localStorage.setItem('token', res?.data?.data?.token);
                 history.push('/');
                 setDisabledLogin(false);
+                addLocalCartToDB();
+                // fetchCartData();
             } else {
                 setrEmailError(res?.data?.message?.en?.user_name?.[0]);
                 setPasswordError(res?.data?.message?.en?.password?.[0]);
@@ -50,10 +54,10 @@ export default function IndicatorAccount() {
     };
 
     const Logout = () => {
+        resetCartLocal();
         localStorage.removeItem("token");
         toast.success('تم تسجيل الخروج بنجاح', { theme: 'colored' });
         history.push('/');
-
     }
 
     const dropdown = (
@@ -139,3 +143,13 @@ export default function IndicatorAccount() {
         <Indicator url="/account" dropdown={dropdown} icon={<Person20Svg />} />
     );
 }
+const mapStateToProps = (state) => ({
+    cart: state.cart,
+});
+
+const mapDispatchToProps = {
+    fetchCartData,
+    resetCartLocal,
+    addLocalCartToDB,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(IndicatorAccount);

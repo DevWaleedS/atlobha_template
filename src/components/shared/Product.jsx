@@ -13,7 +13,7 @@ import Currency from "./Currency";
 import InputNumber from "./InputNumber";
 import ProductGallery from "./ProductGallery";
 import Rating from "./Rating";
-import { cartAddItem } from "../../store/cart";
+import { cartAddItem, cartAddItemLocal } from "../../store/cart";
 import { compareAddItem } from "../../store/compare";
 import { Wishlist16Svg, Compare16Svg } from "../../svg";
 import { wishlistAddItem } from "../../store/wishlist";
@@ -32,11 +32,9 @@ class Product extends Component {
     };
 
     render() {
-        const { product, layout, wishlistAddItem, compareAddItem, cartAddItem } = this.props;
+        const { product, layout, wishlistAddItem, compareAddItem, cartAddItem, cartAddItemLocal, token } = this.props;
         const { quantity } = this.state;
         let prices;
-
-        console.log(product)
 
         if (product?.compareAtPrice) {
             prices = (
@@ -219,21 +217,44 @@ class Product extends Component {
                                         />
                                     </div>
                                     <div className="product__actions-item product__actions-item--addtocart">
-                                        <AsyncAction
-                                            action={() => cartAddItem(product, [], quantity)}
-                                            render={({ run, loading }) => (
-                                                <button
-                                                    type="button"
-                                                    onClick={run}
-                                                    disabled={!quantity}
-                                                    className={classNames("btn btn-primary btn-lg", {
-                                                        "btn-loading": loading,
-                                                    })}
-                                                >
-                                                    اضافة إلى السلة
-                                                </button>
-                                            )}
-                                        />
+
+                                        {token ?
+                                            (
+                                                <AsyncAction
+                                                    action={() => cartAddItem(product, [], quantity)}
+                                                    render={({ run, loading }) => (
+                                                        <button
+                                                            type="button"
+                                                            onClick={run}
+                                                            disabled={!quantity}
+                                                            className={classNames("btn btn-primary btn-lg", {
+                                                                "btn-loading": loading,
+                                                            })}
+                                                        >
+                                                            اضافة إلى السلة
+                                                        </button>
+                                                    )}
+                                                />
+                                            )
+                                            :
+                                            (
+                                                <AsyncAction
+                                                    action={() => cartAddItemLocal(product, [], quantity)}
+                                                    render={({ run, loading }) => (
+                                                        <button
+                                                            type="button"
+                                                            onClick={run}
+                                                            disabled={!quantity}
+                                                            className={classNames("btn btn-primary btn-lg", {
+                                                                "btn-loading": loading,
+                                                            })}
+                                                        >
+                                                            اضافة إلى السلة
+                                                        </button>
+                                                    )}
+                                                />
+                                            )
+                                        }
                                     </div>
                                     <div className="product__actions-item product__actions-item--wishlist">
                                         <AsyncAction
@@ -317,6 +338,7 @@ const mapDispatchToProps = {
     cartAddItem,
     wishlistAddItem,
     compareAddItem,
+    cartAddItemLocal,
 };
 
 export default connect(() => ({}), mapDispatchToProps)(Product);

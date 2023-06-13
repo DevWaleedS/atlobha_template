@@ -11,13 +11,14 @@ import { Link } from 'react-router-dom';
 import AsyncAction from './AsyncAction';
 import Currency from './Currency';
 import Rating from './Rating';
-import { cartAddItem } from '../../store/cart';
+import { cartAddItem, cartAddItemLocal } from '../../store/cart';
 import { Compare16Svg, Quickview16Svg, Wishlist16Svg } from '../../svg';
 import { compareAddItem } from '../../store/compare';
 import { quickviewOpen } from '../../store/quickview';
 import { wishlistAddItem } from '../../store/wishlist';
 
 function ProductCard(props) {
+    const token = localStorage.getItem('token');
     const {
         product,
         layout,
@@ -25,6 +26,7 @@ function ProductCard(props) {
         cartAddItem,
         wishlistAddItem,
         compareAddItem,
+        cartAddItemLocal,
     } = props;
     const containerClasses = classNames('product-card', {
         'product-card--layout--grid product-card--size--sm': layout === 'grid-sm',
@@ -157,31 +159,63 @@ function ProductCard(props) {
                 </div>
                 {price}
                 <div className="product-card__buttons">
-                    <AsyncAction
-                        action={() => cartAddItem(product)}
-                        render={({ run, loading }) => (
-                            <React.Fragment>
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-primary product-card__addtocart', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    اضافة إلى السلة
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={run}
-                                    className={classNames('btn btn-secondary product-card__addtocart product-card__addtocart--list', {
-                                        'btn-loading': loading,
-                                    })}
-                                >
-                                    اضافة إلى السلة
-                                </button>
-                            </React.Fragment>
-                        )}
-                    />
+                    {token ?
+                        (
+                            <AsyncAction
+                                action={() => cartAddItem(product)}
+                                render={({ run, loading }) => (
+                                    <React.Fragment>
+                                        <button
+                                            type="button"
+                                            onClick={run}
+                                            className={classNames('btn btn-primary product-card__addtocart', {
+                                                'btn-loading': loading,
+                                            })}
+                                        >
+                                            اضافة إلى السلة
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={run}
+                                            className={classNames('btn btn-secondary product-card__addtocart product-card__addtocart--list', {
+                                                'btn-loading': loading,
+                                            })}
+                                        >
+                                            اضافة إلى السلة
+                                        </button>
+                                    </React.Fragment>
+                                )}
+                            />
+                        )
+                        :
+                        (
+                            <AsyncAction
+                                action={() => cartAddItemLocal(product)}
+                                render={({ run, loading }) => (
+                                    <React.Fragment>
+                                        <button
+                                            type="button"
+                                            onClick={run}
+                                            className={classNames('btn btn-primary product-card__addtocart', {
+                                                'btn-loading': loading,
+                                            })}
+                                        >
+                                            اضافة إلى السلة
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={run}
+                                            className={classNames('btn btn-secondary product-card__addtocart product-card__addtocart--list', {
+                                                'btn-loading': loading,
+                                            })}
+                                        >
+                                            اضافة إلى السلة
+                                        </button>
+                                    </React.Fragment>
+                                )}
+                            />
+                        )
+                    }
                 </div>
             </div>
         </div>
@@ -207,6 +241,7 @@ const mapDispatchToProps = {
     wishlistAddItem,
     compareAddItem,
     quickviewOpen,
+    cartAddItemLocal,
 };
 
 export default connect(

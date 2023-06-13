@@ -70,7 +70,8 @@ const productLayouts = [
 function Layout(props) {
     const { match, headerLayout, homeComponent } = props;
     const { fetchedData } = useFetch("https://backend.atlbha.com/api/indexStore/1");
-  
+    const token = localStorage.getItem('token');
+
     return (
         <React.Fragment>
             <Helmet>
@@ -137,8 +138,8 @@ function Layout(props) {
                         {/* Following product layouts only for demonstration. */}
                         {productLayouts}
 
-                        <Route exact path="/shop/cart" render={() => (<PageCart />)} />
-                        <Route exact path="/shop/checkout" component={PageCheckout} />
+                        <Route exact path="/shop/cart" render={() => (<PageCart token={token}/>)} />
+                        <Route exact path="/shop/checkout" render={() => (<PageCheckout token={token} />)} />
                         <Route exact path="/shop/checkout/success" component={ShopPageOrderSuccess} />
                         <Route exact path="/shop/wishlist" component={PageWishlist} />
                         <Route exact path="/shop/compare" component={PageCompare} />
@@ -198,7 +199,7 @@ function Layout(props) {
                         */}
                         <Redirect exact from="/site" to="/" />
                         {/*
-                         // page that will come form api 
+                         // page that will come form api
                         */}
                         <Route exact path={"/site/SitePages/:id"} component={SitePages} />
                         {/*

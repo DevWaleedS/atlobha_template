@@ -20,13 +20,19 @@ import theme from '../../data/theme';
 function BlogPageCategory(props) {
     let { id } = useParams();
     const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postByCategory/${id}?id=1`);
+    const [search, setSearch] = useState('');
+    const posts = fetchedData?.data?.posts?.filter((post) => post?.title?.includes(search));
     const { layout, sidebarPosition } = props;
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(10);
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = fetchedData?.data?.posts?.slice(indexOfFirstPost, indexOfLastPost);
+    const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
     const categoryName = fetchedData?.data?.postCategory?.filter((item) => item?.id === Number(id));
+
+    const getSearchData = (search) => {
+        setSearch(search);
+    }
 
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
@@ -36,7 +42,7 @@ function BlogPageCategory(props) {
     let sidebarStart;
     let sidebarEnd;
 
-    const sidebar = <BlogSidebar fetchedData={fetchedData?.data} position={sidebarPosition} />;
+    const sidebar = <BlogSidebar fetchedData={fetchedData?.data} position={sidebarPosition} getSearchData={getSearchData} />;
 
     if (sidebarPosition === 'start') {
         sidebarStart = <div className="col-12 col-lg-4 order-1 order-lg-0">{sidebar}</div>;
@@ -88,7 +94,7 @@ function BlogPageCategory(props) {
             <div className="container">
                 <div className="row">
                     {sidebarStart}
-                    {fetchedData?.data?.posts?.length > 0 ?
+                    {posts?.length > 0 ?
                         (
                             <div className="col-12 col-lg-8">
                                 <div className="block">

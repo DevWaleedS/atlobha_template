@@ -282,7 +282,7 @@ const shopApi = {
      *
      * @return {Promise<Array<object>>}
      */
-    getSuggestions: (query, options = {}) => {
+    getSuggestions: async (query, options = {}) => {
         /**
          * This is what your API endpoint might look like:
          *
@@ -293,11 +293,11 @@ const shopApi = {
          * - limit    = options.limit
          * - category = options.category
          */
-        // return fetch(`https://example.com/api/search/suggestions.json?${qs.stringify({ ...options, query })}`)
-        //     .then((response) => response.json());
+        const response = await fetch(`https://backend.atlbha.com/api/productSearch?store_id=1&query=${query}${options?.category ? `&category=${options?.category}` : ''}`);
+        return await response.json();
 
         // This is for demonstration purposes only. Remove it and use the code above.
-        return getSuggestions(query, options);
+        //return getSuggestions(query, options);
     },
 };
 

@@ -52,7 +52,7 @@ function HomePageOne() {
         setActiveNewId(id);
         const resultFilter = id === 0
             ? fetchedData?.data?.resentArrivede
-            : newProducts?.filter((item) => item?.category?.id === id);
+            : fetchedData?.data?.resentArrivede?.filter((item) => item?.category?.id === id);
         setNewProducts(resultFilter);
     };
 
@@ -60,7 +60,7 @@ function HomePageOne() {
         setActiveMoreSalesId(id);
         const resultFilter = id === 0
             ? fetchedData?.data?.moreSales
-            : newMoreSales?.filter((item) => item?.category?.id === id);
+            : fetchedData?.data?.moreSales?.filter((item) => item?.category?.id === id);
         setNewMoreSales(resultFilter);
     };
 
