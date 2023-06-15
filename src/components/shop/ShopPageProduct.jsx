@@ -83,7 +83,7 @@ function ShopPageProduct(props) {
             <React.Fragment>
                 <div className="block">
                     <div className="container">
-                        <Product product={fetchedData?.data?.product} layout={layout} />
+                        <Product token={token} product={fetchedData?.data?.product} layout={layout} />
                         <ProductTabs data={fetchedData?.data} />
                     </div>
                 </div>

@@ -65,8 +65,8 @@ class ShopPageCheckout extends Component {
 
         const items = cart.items.map((item) => (
             <tr key={item.id}>
-                <td>{`${item.product.name} × ${item.quantity}`}</td>
-                <td><Currency value={Number(item.total)} /></td>
+                <td>{`${item.product.name} × ${item.qty}`}</td>
+                <td><Currency value={Number(item.sum)} /></td>
             </tr>
         ));
 

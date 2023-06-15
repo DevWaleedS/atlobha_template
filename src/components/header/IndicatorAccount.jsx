@@ -13,7 +13,7 @@ import Indicator from './Indicator';
 import { Person20Svg } from '../../svg';
 
 function IndicatorAccount(props) {
-    const { fetchCartData,resetCartLocal,addLocalCartToDB } = props;
+    const { fetchCartData,resetCartLocal,addLocalCartToDB,cart } = props;
     const token = localStorage.getItem('token');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,8 +36,7 @@ function IndicatorAccount(props) {
                 localStorage.setItem('token', res?.data?.data?.token);
                 history.push('/');
                 setDisabledLogin(false);
-                addLocalCartToDB();
-                // fetchCartData();
+                addLocalCartToDB(cart);
             } else {
                 setrEmailError(res?.data?.message?.en?.user_name?.[0]);
                 setPasswordError(res?.data?.message?.en?.password?.[0]);

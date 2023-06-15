@@ -52,24 +52,22 @@ export function cartRemoveItemSuccess(itemId) {
 }
 
 export function cartAddItem(product, options = [], quantity = 1) {
+    let formData = new FormData();
     const token = localStorage.getItem("token");
-    const productData = {
-        id: product?.id,
-        name: product?.name,
-        price: product?.selling_price,
-        qty: quantity,
-    };
+    formData.append('data[0][id]', product?.id);
+    formData.append('data[0][price]', product?.selling_price);
+    formData.append('data[0][qty]', quantity);
     let resultData = null;
     return async function (dispatch) {
         try {
-            const response = await axios.post(`https://backend.atlbha.com/api/addCart`, productData, {
+            const response = await axios.post(`https://backend.atlbha.com/api/addCart`, formData, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
             });
             if (response?.data?.success === true) {
-                toast.success(`تم إضافة  "${productData?.name}" للسلة `, { theme: "colored" });
+                toast.success(`تم إضافة  "${product?.name}" للسلة `, { theme: "colored" });
                 resultData = response?.data?.data;
             }
         } catch (err) {
@@ -145,8 +143,32 @@ export function resetCartLocal() {
     };
 }
 
-export function addLocalCartToDB() {
-    return {
-        type: AAD_LOCAL_CART_TO_DB,
+export function addLocalCartToDB(cartData) {
+    let formData = new FormData();
+    const token = localStorage.getItem("token");
+    for (let i = 0; i < cartData?.items?.length; i++) {
+        formData.append([`data[${i}][id]`], cartData?.items[i]?.product?.id);
+        formData.append([`data[${i}][price]`], Number(cartData?.items[i]?.product?.selling_price));
+        formData.append([`data[${i}][qty]`], cartData?.items[i]?.qty);
+    }
+    let resultData = null;
+    return async function (dispatch) {
+        try {
+            const response = await axios.post(`https://backend.atlbha.com/api/addCart`, formData, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response?.data?.success === true) {
+                resultData = response?.data?.data;
+            }
+        } catch (err) {
+            toast.error(err, { theme: "colored" });
+        }
+        dispatch({
+            type: AAD_LOCAL_CART_TO_DB,
+            data: resultData,
+        });
     };
 }

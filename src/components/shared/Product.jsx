@@ -217,7 +217,6 @@ class Product extends Component {
                                         />
                                     </div>
                                     <div className="product__actions-item product__actions-item--addtocart">
-
                                         {token ?
                                             (
                                                 <AsyncAction
@@ -253,8 +252,7 @@ class Product extends Component {
                                                         </button>
                                                     )}
                                                 />
-                                            )
-                                        }
+                                            )}
                                     </div>
                                     <div className="product__actions-item product__actions-item--wishlist">
                                         <AsyncAction

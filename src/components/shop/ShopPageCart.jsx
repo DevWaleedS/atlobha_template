@@ -280,7 +280,7 @@ class ShopPageCart extends Component {
 
         let content;
 
-        if (cart?.quantity) {
+        if (cart?.qty) {
             content = this.renderCart();
         } else {
             content = (

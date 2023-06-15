@@ -1,8 +1,5 @@
 // react
 import React from "react";
-
-
-
 export default function FooterContacts({ fetchedData }) {
     return (
         <div className="site-footer__widget footer-contacts">
@@ -24,7 +21,7 @@ export default function FooterContacts({ fetchedData }) {
                     {fetchedData?.phonenumber}
                 </li>
 
-                {/** 
+                {/**
                 <li>
                     <i className="footer-contacts__icon far fa-clock" />
                     Mon-Sat 10:00pm - 7:00pm

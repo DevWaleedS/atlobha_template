@@ -117,7 +117,7 @@ function IndicatorCart(props) {
         );
     });
 
-    if (cart?.quantity) {
+    if (cart?.qty) {
         dropdown = (
             <div className="dropcart">
                 <div className="dropcart__products-list">
@@ -153,7 +153,7 @@ function IndicatorCart(props) {
     }
 
     return (
-        <Indicator url="/shop/cart" dropdown={dropdown} value={cart?.quantity} icon={<Cart20Svg />} />
+        <Indicator url="/shop/cart" dropdown={dropdown} value={cart?.qty} icon={<Cart20Svg />} />
     );
 }
 

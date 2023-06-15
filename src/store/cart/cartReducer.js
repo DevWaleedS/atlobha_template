@@ -1,5 +1,3 @@
-import axios from "axios";
-import { toast } from "react-toastify";
 import { CART_SET_ITEM, CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES, CART_ADD_ITEM_LOCAL, CART_REMOVE_ITEM_LOCAL, RESET_LOCAL_CART, AAD_LOCAL_CART_TO_DB } from './cartActionTypes';
 
 /**
@@ -9,15 +7,15 @@ import { CART_SET_ITEM, CART_ADD_ITEM, CART_REMOVE_ITEM, CART_UPDATE_QUANTITIES,
  * @return {number}
  */
 function findItemIndex(items, product, options) {
-    return items.findIndex((item) => {
-        if (item.product.id !== product.id || item.options.length !== options.length) {
+    return items?.findIndex((item) => {
+        if (item?.product?.id !== product?.id || item?.options?.length !== options?.length) {
             return false;
         }
 
-        for (let i = 0; i < options.length; i += 1) {
+        for (let i = 0; i < options?.length; i += 1) {
             const option = options[i];
-            const itemOption = item.options.find((itemOption) => (
-                itemOption.optionId === option.optionId && itemOption.valueId === option.valueId
+            const itemOption = item?.options?.find((itemOption) => (
+                itemOption?.optionId === option?.optionId && itemOption?.valueId === option?.valueId
             ));
 
             if (!itemOption) {
@@ -30,22 +28,22 @@ function findItemIndex(items, product, options) {
 }
 
 function calcSubtotal(items) {
-    return items.reduce((subtotal, item) => subtotal + item.total, 0);
+    return items.reduce((subtotal, item) => subtotal + item?.sum, 0);
 }
 
 function calcQuantity(items) {
-    return items.reduce((quantity, item) => quantity + item.quantity, 0);
+    return items.reduce((quantity, item) => quantity + item?.qty, 0);
 }
 
 function calcTotal(subtotal, extraLines) {
-    return subtotal + extraLines.reduce((total, extraLine) => total + extraLine.price, 0);
+    return subtotal + extraLines.reduce((total, extraLine) => total + extraLine?.price, 0);
 }
 
 function addItem(state, data) {
     return {
         ...state,
         items: data?.cartDetail,
-        quantity: data?.count,
+        qty: data?.count,
         subtotal: data?.total,
         total: data?.total,
         lastItemId: data?.cartDetail?.[data?.cartDetail?.length - 1]?.product?.id,
@@ -56,7 +54,7 @@ function removeItem(state, data) {
     return {
         ...state,
         items: data?.cartDetail,
-        quantity: data?.count,
+        qty: data?.count,
         subtotal: data?.total,
         total: data?.total,
     };
@@ -66,8 +64,7 @@ function updateQuantities(state, quantities) {
     let needUpdate = false;
 
     const newItems = state.items.map((item) => {
-        const quantity = quantities.find((x) => x.itemId === item.id && x.value !== item.quantity);
-
+        const quantity = quantities.find((x) => x.itemId === item.id && x.value !== item.qty);
         if (!quantity) {
             return item;
         }
@@ -76,8 +73,8 @@ function updateQuantities(state, quantities) {
 
         return {
             ...item,
-            quantity: quantity.value,
-            total: quantity.value * item.price,
+            qty: quantity.value,
+            sum: quantity.value * item.price,
         };
     });
 
@@ -87,7 +84,7 @@ function updateQuantities(state, quantities) {
         return {
             ...state,
             items: newItems,
-            quantity: calcQuantity(newItems),
+            qty: calcQuantity(newItems),
             subtotal,
             total,
         };
@@ -100,7 +97,7 @@ function getData(state, data) {
     return {
         ...state,
         items: data?.cartDetail || state?.items || [],
-        quantity: Number(data?.count) || state?.quantity || 0,
+        qty: Number(data?.count) || state?.qty || 0,
         subtotal: Number(data?.total) || state?.subtotal || 0,
         total: Number(data?.total) || state?.total || 0,
         lastItemId: data?.cartDetail?.[data?.cartDetail?.length - 1]?.product?.id || state?.lastItemId || null,
@@ -120,8 +117,8 @@ function addItemLocal(state, product, options, quantity) {
             product: JSON.parse(JSON.stringify(product)),
             options: JSON.parse(JSON.stringify(options)),
             price: Number(product?.selling_price),
-            total: Number(product?.selling_price) * quantity,
-            quantity,
+            sum: Number(product?.selling_price) * quantity,
+            qty:quantity,
         }];
     } else {
         const item = state.items[itemIndex];
@@ -130,8 +127,8 @@ function addItemLocal(state, product, options, quantity) {
             ...state.items.slice(0, itemIndex),
             {
                 ...item,
-                quantity: item.quantity + quantity,
-                total: (item.quantity + quantity) * Number(item?.product?.selling_price),
+                qty: item.qty + quantity,
+                sum: (item.qty + quantity) * Number(item?.product?.selling_price),
             },
             ...state.items.slice(itemIndex + 1),
         ];
@@ -146,7 +143,7 @@ function addItemLocal(state, product, options, quantity) {
         subtotal,
         total,
         items: newItems,
-        quantity: calcQuantity(newItems),
+        qty: calcQuantity(newItems),
     };
 }
 
@@ -160,7 +157,7 @@ function removeItemLocal(state, itemId) {
     return {
         ...state,
         items: newItems,
-        quantity: calcQuantity(newItems),
+        qty: calcQuantity(newItems),
         subtotal,
         total,
     };
@@ -170,7 +167,7 @@ function resetLocalCart(state) {
     return {
         ...state,
         lastItemId: 0,
-        quantity: 0,
+        qty: 0,
         items: [],
         subtotal: 0,
         extraLines: [ // shipping, taxes, fees, .etc
@@ -189,32 +186,15 @@ function resetLocalCart(state) {
     };
 }
 
-function addCartToDB(state) {
-    var formData = new FormData;
-    const token = localStorage.getItem("token");
-    const productData = state?.items?.map((item) => ({
-        id: item?.product?.id,
-        name: item?.product?.name,
-        price: item?.product?.selling_price,
-        qty: item?.quantity,
-    }));
-
-    async function addData() {
-        try {
-            const response = await axios.post(`https://backend.atlbha.com/api/addCart`, ...productData, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (response?.data?.success === true) {
-                this.addItem(state,response?.data?.data);
-            }
-        } catch (err) {
-            toast.error(err, { theme: "colored" });
-        }
+function addCartToDB(state,data) {
+    return {
+        ...state,
+        items: data?.cartDetail,
+        qty: data?.count,
+        subtotal: data?.total,
+        total: data?.total,
+        lastItemId: data?.cartDetail?.[data?.cartDetail?.length - 1]?.product?.id,
     };
-    addData();
 }
 
 /*
@@ -238,7 +218,7 @@ function addCartToDB(state) {
 */
 const initialState = {
     lastItemId: 0,
-    quantity: 0,
+    qty: 0,
     items: [],
     subtotal: 0,
     extraLines: [ // shipping, taxes, fees, .etc
@@ -272,12 +252,16 @@ export default function cartReducer(state = initialState, action) {
 
         case CART_ADD_ITEM_LOCAL:
             return addItemLocal(state, action.product, action.options, action.quantity);
+
         case CART_REMOVE_ITEM_LOCAL:
             return removeItemLocal(state, action.itemId);
+
         case RESET_LOCAL_CART:
             return resetLocalCart(state);
+
         case AAD_LOCAL_CART_TO_DB:
-            return addCartToDB(state);
+            return addCartToDB(state,action.data);
+
         default:
             return state;
     }

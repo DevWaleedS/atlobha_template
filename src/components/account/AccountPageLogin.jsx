@@ -4,17 +4,19 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router";
+import { connect } from 'react-redux';
 // application
 import PageHeader from '../shared/PageHeader';
 import { Check9x7Svg } from '../../svg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { fetchCartData } from '../../store/cart';
+import { fetchCartData,addLocalCartToDB } from '../../store/cart';
 
 // data stubs
 import theme from '../../data/theme';
 
-export default function AccountPageLogin() {
+function AccountPageLogin(props) {
+    const { fetchCartData,addLocalCartToDB } = props;
     const breadcrumb = [
         { title: 'الرئيسية', url: '' },
         { title: 'حسابي', url: '' },
@@ -40,6 +42,7 @@ export default function AccountPageLogin() {
                 toast.success(res?.data?.message?.ar, { theme: 'colored' });
                 localStorage.setItem('token', res?.data?.data?.token);
                 history.push("/");
+                addLocalCartToDB();
                 fetchCartData();
                 setDisabledLogin(false);
             } else {
@@ -183,3 +186,12 @@ export default function AccountPageLogin() {
         </React.Fragment>
     );
 }
+const mapStateToProps = (state) => ({
+    cart: state.cart,
+});
+
+const mapDispatchToProps = {
+    fetchCartData,
+    addLocalCartToDB,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AccountPageLogin);
