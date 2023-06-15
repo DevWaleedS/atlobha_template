@@ -133,17 +133,17 @@ class ShopPageCart extends Component {
                         </Link>
                         {options}
                     </td>
-                    <td className="cart-table__column cart-table__column--price" data-title="Price">
+                    <td className="cart-table__column cart-table__column--price" data-title="السعر">
                         <Currency value={Number(item?.price)} />
                     </td>
-                    <td className="cart-table__column cart-table__column--quantity" data-title="Quantity">
+                    <td className="cart-table__column cart-table__column--quantity" data-title="الكمية">
                         <InputNumber
                             onChange={(quantity) => this.handleChangeQuantity(item, quantity)}
                             value={this.getItemQuantity(item)}
                             min={1}
                         />
                     </td>
-                    <td className="cart-table__column cart-table__column--total" data-title="Total">
+                    <td className="cart-table__column cart-table__column--total" data-title="الاجمالي">
                         <Currency value={Number(item?.sum)} />
                     </td>
                     <td className="cart-table__column cart-table__column--remove">

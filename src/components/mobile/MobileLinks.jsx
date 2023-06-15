@@ -20,9 +20,14 @@ function MobileLinks(props) {
 
     const linksList = links.map((link, index) => {
         let item;
-     
 
-        if (link.type === "link" || link.type === "button") {
+        if (
+            link.type === "link" ||
+            link.type === "button" ||
+            link.type === "main-link" ||
+            link.type === "shop-links" ||
+            link.type === "account"
+        ) {
             item = (
                 <Collapse
                     toggleClass="mobile-links__item--open"
@@ -47,23 +52,15 @@ function MobileLinks(props) {
 
                         if (link.type === "link") {
                             linkOrButton = (
-                                <AppLink
-                                    to={`/site/SitePages/${link?.url}`}
-                                    className="mobile-links__item-link"
-                                    onClick={() => handleItemClick(link)}
-                                >
+                                <AppLink to={`/site/SitePages/${link?.url}`} className="mobile-links__item-link">
                                     {link.label}
                                 </AppLink>
                             );
-                        } else {
+                        } else if (link.type === "main-link" || link.type === "shop-links" || link.type === "account") {
                             linkOrButton = (
-                                <button
-                                    type="button"
-                                    className="mobile-links__item-link"
-                                    onClick={() => handleItemClick(link)}
-                                >
+                                <AppLink to={link?.url} className="mobile-links__item-link">
                                     {link.label}
-                                </button>
+                                </AppLink>
                             );
                         }
 
