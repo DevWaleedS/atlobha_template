@@ -4,16 +4,19 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router";
+import { connect } from 'react-redux';
 // application
 import PageHeader from '../shared/PageHeader';
 import { Check9x7Svg } from '../../svg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { fetchCartData,addLocalCartToDB } from '../../store/cart';
 
 // data stubs
 import theme from '../../data/theme';
 
-export default function AccountPageLogin() {
+function AccountPageLogin(props) {
+    const { fetchCartData,addLocalCartToDB } = props;
     const breadcrumb = [
         { title: 'الرئيسية', url: '' },
         { title: 'حسابي', url: '' },
@@ -23,9 +26,11 @@ export default function AccountPageLogin() {
     const [password, setPassword] = useState('');
     const [EmailError, setrEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [disabledLogin, setDisabledLogin] = useState(false);
     let history = useHistory();
 
     const Login = () => {
+        setDisabledLogin(true);
         setrEmailError('');
         setPasswordError('');
         const data = {
@@ -37,9 +42,13 @@ export default function AccountPageLogin() {
                 toast.success(res?.data?.message?.ar, { theme: 'colored' });
                 localStorage.setItem('token', res?.data?.data?.token);
                 history.push("/");
+                addLocalCartToDB();
+                fetchCartData();
+                setDisabledLogin(false);
             } else {
                 setrEmailError(res?.data?.message?.en?.user_name?.[0]);
                 setPasswordError(res?.data?.message?.en?.password?.[0]);
+                setDisabledLogin(false);
             }
         });
     };
@@ -125,7 +134,7 @@ export default function AccountPageLogin() {
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="button" onClick={Login} className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
+                                        <button type="button" disabled={disabledLogin} onClick={Login} className="btn btn-primary mt-2 mt-md-3 mt-lg-4">
                                             تسجيل الدخول
                                         </button>
                                     </form>
@@ -177,3 +186,12 @@ export default function AccountPageLogin() {
         </React.Fragment>
     );
 }
+const mapStateToProps = (state) => ({
+    cart: state.cart,
+});
+
+const mapDispatchToProps = {
+    fetchCartData,
+    addLocalCartToDB,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AccountPageLogin);

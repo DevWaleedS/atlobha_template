@@ -62,7 +62,7 @@ function Search(props) {
     const [hasSuggestions, setHasSuggestions] = useState(false);
     const [suggestedProducts, setSuggestedProducts] = useState([]);
     const [query, setQuery] = useState('');
-    const [category, setCategory] = useState('[all]');
+    const [category, setCategory] = useState('');
     const categories = useCategories();
     const wrapper = useRef(null);
     const close = useCallback(() => {
@@ -119,7 +119,7 @@ function Search(props) {
             timer = setTimeout(() => {
                 const options = { limit: 5 };
 
-                if (category !== '[all]') {
+                if (category !== '') {
                     options.category = category;
                 }
 
@@ -127,12 +127,11 @@ function Search(props) {
                     if (canceled) {
                         return;
                     }
-
-                    setSuggestedProducts(products);
-                    setHasSuggestions(products.length > 0);
+                    setSuggestedProducts(products?.data?.searchProducts);
+                    setHasSuggestions(products?.data?.searchProducts?.length > 0);
                     setSuggestionsOpen(true);
                 });
-            }, 100);
+            }, 500);
         }
 
         setCancelFn(() => newCancelFn);
@@ -188,7 +187,7 @@ function Search(props) {
                             onFocus={close}
                             onChange={handleChangeCategory}
                         >
-                            <option value="[all]">جميع التصنيفات</option>
+                            <option value="">جميع التصنيفات</option>
                             {categoryOptions}
                         </select>
                     )}
@@ -212,7 +211,7 @@ function Search(props) {
                     <div className="search__border" />
                 </form>
 
-                <Suggestions className="search__suggestions" context={context} products={suggestedProducts} />
+                <Suggestions className="search__suggestions" context={context} products={suggestedProducts?.slice(0,5)} />
             </div>
         </div>
     );

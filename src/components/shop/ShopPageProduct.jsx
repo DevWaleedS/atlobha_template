@@ -25,6 +25,7 @@ import categories from '../../data/shopWidgetCategories';
 import theme from '../../data/theme';
 
 function ShopPageProduct(props) {
+    const token = localStorage.getItem('token');
     const { productSlug, layout, sidebarPosition } = props;
     const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/productPage/${productSlug}`);
 
@@ -60,7 +61,7 @@ function ShopPageProduct(props) {
                     {sidebarPosition === 'start' && sidebar}
                     <div className=" shop-layout__content">
                         <div className=" block">
-                            <Product product={fetchedData?.data?.product} layout={layout} />
+                            <Product token={token} product={fetchedData?.data?.product} layout={layout} />
                             <ProductTabs withSidebar />
                         </div>
 
@@ -82,7 +83,7 @@ function ShopPageProduct(props) {
             <React.Fragment>
                 <div className="block">
                     <div className="container">
-                        <Product product={fetchedData?.data?.product} layout={layout} />
+                        <Product token={token} product={fetchedData?.data?.product} layout={layout} />
                         <ProductTabs data={fetchedData?.data} />
                     </div>
                 </div>

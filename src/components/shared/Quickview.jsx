@@ -11,12 +11,13 @@ import { Cross20Svg } from '../../svg';
 import { quickviewClose } from '../../store/quickview';
 
 function Quickview(props) {
+    const token = localStorage.getItem('token');
     const { product, open, quickviewClose } = props;
 
     let productView;
 
     if (product !== null) {
-        productView = <Product product={product} layout="quickview" />;
+        productView = <Product token={token} product={product} layout="quickview" />;
     }
 
     return (

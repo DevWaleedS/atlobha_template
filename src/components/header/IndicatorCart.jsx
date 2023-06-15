@@ -11,11 +11,12 @@ import AsyncAction from '../shared/AsyncAction';
 import Currency from '../shared/Currency';
 import Indicator from './Indicator';
 import { Cart20Svg, Cross10Svg } from '../../svg';
-import { cartRemoveItem,fetchCartData } from '../../store/cart';
+import { cartRemoveItem,fetchCartData,cartRemoveItemLocal } from '../../store/cart';
 import { useEffect } from 'react';
 
 function IndicatorCart(props) {
-    const { cart, cartRemoveItem,fetchCartData } = props;
+    const token = localStorage.getItem('token');
+    const { cart, cartRemoveItem,fetchCartData,cartRemoveItemLocal } = props;
     let dropdown;
     let totals;
 
@@ -35,7 +36,7 @@ function IndicatorCart(props) {
             <React.Fragment>
                 <tr>
                     <th>السعر</th>
-                    <td><Currency value={Number(cart?.total)} /></td>
+                    <td><Currency value={Number(cart?.subtotal)} /></td>
                 </tr>
                 {extraLines}
             </React.Fragment>
@@ -66,6 +67,7 @@ function IndicatorCart(props) {
         }
 
         const removeButton = (
+            token ?
             <AsyncAction
                 action={() => cartRemoveItem(item?.product?.id)}
                 render={({ run, loading }) => {
@@ -80,8 +82,22 @@ function IndicatorCart(props) {
                     );
                 }}
             />
-        );
+            :
+            <AsyncAction
+                action={() => cartRemoveItemLocal(item?.product?.id)}
+                render={({ run, loading }) => {
+                    const classes = classNames('dropcart__product-remove btn btn-light btn-sm btn-svg-icon', {
+                        'btn-loading': loading,
+                    });
 
+                    return (
+                        <button type="button" onClick={run} className={classes}>
+                            <Cross10Svg />
+                        </button>
+                    );
+                }}
+            />
+        );
         return (
             <div key={item?.id} className="dropcart__product">
                 {image}
@@ -91,7 +107,7 @@ function IndicatorCart(props) {
                     </div>
                     {options}
                     <div className="dropcart__product-meta">
-                        <span className="dropcart__product-quantity">{item?.qty}</span>
+                        <span className="dropcart__product-quantity">{item?.qty||item?.quantity}</span>
                         {' × '}
                         <span className="dropcart__product-price"><Currency value={Number(item?.price)} /></span>
                     </div>
@@ -101,7 +117,7 @@ function IndicatorCart(props) {
         );
     });
 
-    if (cart?.quantity) {
+    if (cart?.qty) {
         dropdown = (
             <div className="dropcart">
                 <div className="dropcart__products-list">
@@ -137,7 +153,7 @@ function IndicatorCart(props) {
     }
 
     return (
-        <Indicator url="/shop/cart" dropdown={dropdown} value={cart?.quantity} icon={<Cart20Svg />} />
+        <Indicator url="/shop/cart" dropdown={dropdown} value={cart?.qty} icon={<Cart20Svg />} />
     );
 }
 
@@ -147,7 +163,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     cartRemoveItem,
-    fetchCartData
+    fetchCartData,
+    cartRemoveItemLocal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(IndicatorCart);

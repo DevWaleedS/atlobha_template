@@ -12,7 +12,7 @@ import AsyncAction from '../shared/AsyncAction';
 import Currency from '../shared/Currency';
 import PageHeader from '../shared/PageHeader';
 import Rating from '../shared/Rating';
-import { cartAddItem } from '../../store/cart';
+import { cartAddItem, cartAddItemLocal } from '../../store/cart';
 import { Cross12Svg } from '../../svg';
 import { wishlistRemoveItem } from '../../store/wishlist';
 
@@ -20,7 +20,8 @@ import { wishlistRemoveItem } from '../../store/wishlist';
 import theme from '../../data/theme';
 
 function ShopPageWishlist(props) {
-    const { wishlist, cartAddItem, wishlistRemoveItem } = props;
+    const token = localStorage.getItem('token');
+    const { wishlist, cartAddItem, wishlistRemoveItem, cartAddItemLocal } = props;
     const breadcrumb = [
         { title: 'الرئيسية', url: '/' },
         { title: 'المفضلة', url: '' },
@@ -31,13 +32,13 @@ function ShopPageWishlist(props) {
     if (wishlist.length) {
         const itemsList = wishlist.map((item) => {
             let image;
-                image = (
-                    <div className="product-image">
-                        <Link to={`/shop/products/${item?.id}`} className="product-image__body">
-                            <img className="product-image__img" src={item?.cover} alt="" />
-                        </Link>
-                    </div>
-                );
+            image = (
+                <div className="product-image">
+                    <Link to={`/shop/products/${item?.id}`} className="product-image__body">
+                        <img className="product-image__img" src={item?.cover} alt="" />
+                    </Link>
+                </div>
+            );
 
             const renderAddToCarButton = ({ run, loading }) => {
                 const classes = classNames('btn btn-primary btn-sm', {
@@ -76,10 +77,21 @@ function ShopPageWishlist(props) {
                     </td>
                     <td className="wishlist__column wishlist__column--price"><Currency value={Number(item?.selling_price)} /></td>
                     <td className="wishlist__column wishlist__column--tocart">
-                        <AsyncAction
-                            action={() => cartAddItem(item)}
-                            render={renderAddToCarButton}
-                        />
+                        {token ?
+                            (
+                                <AsyncAction
+                                    action={() => cartAddItem(item)}
+                                    render={renderAddToCarButton}
+                                />
+                            )
+                            :
+                            (
+                                <AsyncAction
+                                    action={() => cartAddItemLocal(item)}
+                                    render={renderAddToCarButton}
+                                />
+                            )
+                        }
                     </td>
                     <td className="wishlist__column wishlist__column--remove">
                         <AsyncAction
@@ -147,6 +159,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     cartAddItem,
     wishlistRemoveItem,
+    cartAddItemLocal,
 };
 
 export default connect(
