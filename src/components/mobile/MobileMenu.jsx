@@ -1,81 +1,101 @@
 // react
-import React from 'react';
+import React from "react";
 
 // third-party
-import classNames from 'classnames';
-import { connect } from 'react-redux';
+import classNames from "classnames";
+import { connect } from "react-redux";
 
 // application
-import MobileLinks from './MobileLinks';
-import { Cross20Svg } from '../../svg';
-import { currencyChange } from '../../store/currency';
-import { localeChange } from '../../store/locale';
-import { mobileMenuClose } from '../../store/mobile-menu';
+import MobileLinks from "./MobileLinks";
+import { Cross20Svg } from "../../svg";
+import { currencyChange } from "../../store/currency";
+import { localeChange } from "../../store/locale";
+import { mobileMenuClose } from "../../store/mobile-menu";
 
 // data stubs
-import currencies from '../../data/shopCurrencies';
-import mobileMenuLinks from '../../data/mobileMenu';
+import currencies from "../../data/shopCurrencies";
 
 function MobileMenu(props) {
-    const {
-        mobileMenuState,
-        closeMobileMenu,
-        changeLocale,
-        changeCurrency,
-        fetchedData
-    } = props;
+    const { mobileMenuState, closeMobileMenu, changeLocale, changeCurrency, fetchedData } = props;
 
     const links = [
         {
-            type: 'link',
-            label: 'الرئيسية',
-            url: '/',
-        },
-        {
-            type: 'link',
-            label: 'تواصل معنا',
-            url: '/site/contact-us',
-        },
-        {
-            type: 'link',
-            label: 'الاستبدال والاسترجاع',
-            url: '/',
-        },
-        {
-            type: 'link',
-            label: 'المنتجات',
-            url: '/shop/products',
-        },
-        {
-            type: 'link',
-            label: 'المقالات',
-            url: '/blog/posts',
+            type: "main-link",
+            label: "الرئيسية",
+            url: "/",
         },
 
         {
-            type: 'link',
-            label: 'الصفحات',
-            url: '',
-            children:
-                fetchedData?.pages?.map((item) => ({
-                    type: 'link',
-                    label: item?.title,
-                    url: item?.id
-                }))
+            type: "main-link",
+            label: "المنتجات",
+            url: "/shop/products",
+        },
+        {
+            type: "main-link",
+            label: "المقالات",
+            url: "/blog/posts",
+        },
+        {
+            type: "main-link",
+            label: "تواصل معنا",
+            url: "/site/contact-us",
+        },
+
+        {
+            type: "link",
+            label: "الصفحات",
+            url: "",
+            children: fetchedData?.pages?.map((item) => ({
+                type: "link",
+                label: item?.title,
+                url: item?.id,
+            })),
+        },
+        {
+            type: "link",
+            label: "التسوق",
+            url: "",
+            children: [
+                {
+                    type: "shop-links",
+                    label: "المقارنات",
+                    url: "/shop/compare",
+                },
+                {
+                    type: "shop-links",
+                    label: "المفضله",
+                    url: "/shop/wishlist",
+                },
+            ],
+        },
+
+        {
+            type: "link",
+            label: "حسابي",
+            url: "",
+            children: [
+                
+                {
+                    type: "account",
+                    label: "لوحة التحكم",
+                    url: "/account/dashboard",
+                },
+                
+            ],
         },
     ];
 
-    const classes = classNames('mobilemenu', {
-        'mobilemenu--open': mobileMenuState.open,
+    const classes = classNames("mobilemenu", {
+        "mobilemenu--open": mobileMenuState.open,
     });
 
     const handleItemClick = (item) => {
         if (item.data) {
-            if (item.data.type === 'language') {
+            if (item.data.type === "language") {
                 changeLocale(item.data.locale);
                 closeMobileMenu();
             }
-            if (item.data.type === 'currency') {
+            if (item.data.type === "currency") {
                 const currency = currencies.find((x) => x.currency.code === item.data.code);
 
                 if (currency) {
@@ -84,7 +104,7 @@ function MobileMenu(props) {
                 }
             }
         }
-        if (item.type === 'link') {
+        if (item.type === "link") {
             closeMobileMenu();
         }
     };

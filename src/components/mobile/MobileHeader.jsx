@@ -11,6 +11,7 @@ import Indicator from "../header/Indicator";
 import { Menu18x14Svg, Search20Svg, Heart20Svg, Cart20Svg } from "../../svg";
 import { mobileMenuOpen } from "../../store/mobile-menu";
 import Search from "../header/Search";
+import IndicatorAccount from "../header/IndicatorAccount";
 
 class MobileHeader extends Component {
     constructor(props) {
@@ -41,6 +42,7 @@ class MobileHeader extends Component {
     render() {
         const { openMobileMenu, wishlist, cart, fetchedData } = this.props;
         const { searchOpen } = this.state;
+   
         const searchClasses = classNames("mobile-header__search", {
             "mobile-header__search--open": searchOpen,
         });
@@ -71,15 +73,17 @@ class MobileHeader extends Component {
                                 <Indicator
                                     className="indicator--mobile d-sm-flex d-none"
                                     url="/shop/wishlist"
-                                    value={wishlist.length}
+                                    value={wishlist?.length}
                                     icon={<Heart20Svg />}
                                 />
                                 <Indicator
                                     className="indicator--mobile"
                                     url="/shop/cart"
-                                    value={cart.quantity}
+                                    value={cart?.qty}
                                     icon={<Cart20Svg />}
                                 />
+
+                                <IndicatorAccount />
                             </div>
                         </div>
                     </div>
