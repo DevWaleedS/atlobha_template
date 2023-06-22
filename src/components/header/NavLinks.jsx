@@ -63,6 +63,7 @@ function NavLinks(props) {
                         id: 0, name: 'الصفحات', subcategory: fetchedData?.pages?.map((item) => ({
                             id: item?.id,
                             name: item?.title,
+                            type:'links',
                         }))
                     }} />
                 </div>
