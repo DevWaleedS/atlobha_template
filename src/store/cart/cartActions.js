@@ -116,11 +116,12 @@ export function cartUpdateQuantities(quantities) {
 }
 
 export function fetchCartData() {
+    const domain = window.location.pathname.split('/')[1];
     const token = localStorage.getItem("token");
     let resultData = null;
     return async function (dispatch) {
         try {
-            const response = await axios.get("https://backend.atlbha.com/api/cartShow/1", {
+            const response = await axios.get(`https://backend.atlbha.com/api/cartShow/${domain}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,

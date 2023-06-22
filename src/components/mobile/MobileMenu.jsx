@@ -16,29 +16,30 @@ import { mobileMenuClose } from "../../store/mobile-menu";
 import currencies from "../../data/shopCurrencies";
 
 function MobileMenu(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { mobileMenuState, closeMobileMenu, changeLocale, changeCurrency, fetchedData } = props;
 
     const links = [
         {
             type: "main-link",
             label: "الرئيسية",
-            url: "/",
+            url: `/${domain}`,
         },
 
         {
             type: "main-link",
             label: "المنتجات",
-            url: "/shop/products",
+            url: `/${domain}/shop/products`,
         },
         {
             type: "main-link",
             label: "المقالات",
-            url: "/blog/posts",
+            url: `/${domain}/blog/posts`,
         },
         {
             type: "main-link",
             label: "تواصل معنا",
-            url: "/site/contact-us",
+            url: `/${domain}/site/contact-us`,
         },
 
         {
@@ -59,12 +60,12 @@ function MobileMenu(props) {
                 {
                     type: "shop-links",
                     label: "المقارنات",
-                    url: "/shop/compare",
+                    url: `/${domain}/shop/compare`,
                 },
                 {
                     type: "shop-links",
                     label: "المفضله",
-                    url: "/shop/wishlist",
+                    url: `/${domain}/shop/wishlist`,
                 },
             ],
         },
@@ -74,13 +75,13 @@ function MobileMenu(props) {
             label: "حسابي",
             url: "",
             children: [
-                
+
                 {
                     type: "account",
                     label: "لوحة التحكم",
-                    url: "/account/dashboard",
+                    url: `/${domain}/account/dashboard`,
                 },
-                
+
             ],
         },
     ];

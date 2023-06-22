@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 
 function PostCard(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { post, layout } = props;
     const cardClasses = classNames(
         'post-card',
@@ -26,23 +27,23 @@ function PostCard(props) {
     return (
         <div className={cardClasses}>
             <div className="post-card__image">
-                <Link to={`/blog/post/${post?.id}`}>
+                <Link to={`/${domain}/blog/post/${post?.id}`}>
                     <img src={post?.image} alt="img" />
                 </Link>
             </div>
             <div className="post-card__info">
                 <div className="post-card__category">
-                    <Link to="/">{post?.postCategory?.name}</Link>
+                    <Link to={`/${domain}`}>{post?.postCategory?.name}</Link>
                 </div>
                 <div className="post-card__name">
-                    <Link to={`/blog/post/${post?.id}`}>{post?.title}</Link>
+                    <Link to={`/${domain}/blog/post/${post?.id}`}>{post?.title}</Link>
                 </div>
                 <div className="post-card__date">{moment(post?.created_at).format('MMMM.DD.YYYY')}</div>
                 <div className="post-card__content">
                     {post?.page_desc}
                 </div>
                 <div className="post-card__read-more">
-                    <Link to={`/blog/post/${post?.id}`} className="btn btn-secondary btn-sm">إقرأ المزيد</Link>
+                    <Link to={`/${domain}/blog/post/${post?.id}`} className="btn btn-secondary btn-sm">إقرأ المزيد</Link>
                 </div>
             </div>
         </div>

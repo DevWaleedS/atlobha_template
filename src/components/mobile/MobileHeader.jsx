@@ -40,9 +40,10 @@ class MobileHeader extends Component {
     };
 
     render() {
+        const domain = window.location.pathname.split('/')[1];
         const { openMobileMenu, wishlist, cart, fetchedData } = this.props;
         const { searchOpen } = this.state;
-   
+
         const searchClasses = classNames("mobile-header__search", {
             "mobile-header__search--open": searchOpen,
         });
@@ -55,7 +56,7 @@ class MobileHeader extends Component {
                             <button type="button" className="mobile-header__menu-button" onClick={openMobileMenu}>
                                 <Menu18x14Svg />
                             </button>
-                            <Link to="/" className="mobile-header__logo">
+                            <Link to={`/${domain || fetchedData?.domain}`} className="mobile-header__logo">
                                 <img className="img-fluid" src={fetchedData?.logo} alt="logo" />
                             </Link>
                             <Search
@@ -72,13 +73,13 @@ class MobileHeader extends Component {
                                 />
                                 <Indicator
                                     className="indicator--mobile d-sm-flex d-none"
-                                    url="/shop/wishlist"
+                                    url={`/${domain || fetchedData?.domain}/shop/wishlist`}
                                     value={wishlist?.length}
                                     icon={<Heart20Svg />}
                                 />
                                 <Indicator
                                     className="indicator--mobile"
-                                    url="/shop/cart"
+                                    url={`/${domain || fetchedData?.domain}/shop/cart`}
                                     value={cart?.qty}
                                     icon={<Cart20Svg />}
                                 />

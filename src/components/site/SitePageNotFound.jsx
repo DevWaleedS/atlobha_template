@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import theme from '../../data/theme';
 
 function SitePageNotFound() {
+    const domain = window.location.pathname.split('/')[1];
     return (
         <div className="block">
             <Helmet>
@@ -39,7 +40,7 @@ function SitePageNotFound() {
                             او يمكنك الذهاب الى الصفحة الرئيسية
                         </p>
 
-                        <Link to="/" className="btn btn-secondary btn-sm">الصفحة الرئيسية</Link>
+                        <Link to={`/${domain}`} className="btn btn-secondary btn-sm">الصفحة الرئيسية</Link>
                     </div>
                 </div>
             </div>

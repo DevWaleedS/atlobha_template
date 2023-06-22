@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import BlockHeader from "../shared/BlockHeader";
 
 export default function BlockCategories(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { title, layout, categories } = props;
 
     const categoriesList = categories?.map((category, index) => {
@@ -16,7 +17,7 @@ export default function BlockCategories(props) {
 
         const subcategories = category?.subcategory?.map((sub, subIndex) => (
             <li key={subIndex}>
-                <Link to={`/shop/products-by-category/${sub?.id}`}>{sub?.name}</Link>
+                <Link to={`/${domain}/shop/products-by-category/${sub?.id}`}>{sub?.name}</Link>
             </li>
         ));
 
@@ -24,15 +25,15 @@ export default function BlockCategories(props) {
             <div key={index} className={classes}>
                 <div className=" category-card__body">
                     <div className=" category-card__image">
-                        <Link to={`/shop/products-by-category/${category?.id}`}><img src={category?.icon} alt="icon" /></Link>
+                        <Link to={`/${domain}/shop/products-by-category/${category?.id}`}><img src={category?.icon} alt="icon" /></Link>
                     </div>
                     <div className=" category-card__content">
                         <div className=" category-card__name">
-                            <Link to={`/shop/products-by-category/${category?.id}`}>{category?.name}</Link>
+                            <Link to={`/${domain}/shop/products-by-category/${category?.id}`}>{category?.name}</Link>
                         </div>
                         <ul className="category-card__links">{subcategories}</ul>
                         <div className="category-card__all">
-                            <Link to="/shop/products">عرض الكل</Link>
+                            <Link to={`/${domain}/shop/products`}>عرض الكل</Link>
                         </div>
                         <div className="category-card__products">
                             {`${category?.products} Products`}

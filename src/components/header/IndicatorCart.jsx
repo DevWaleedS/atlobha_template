@@ -15,6 +15,7 @@ import { cartRemoveItem,fetchCartData,cartRemoveItemLocal } from '../../store/ca
 import { useEffect } from 'react';
 
 function IndicatorCart(props) {
+    const domain = window.location.pathname.split('/')[1];
     const token = localStorage.getItem('token');
     const { cart, cartRemoveItem,fetchCartData,cartRemoveItemLocal } = props;
     let dropdown;
@@ -59,7 +60,7 @@ function IndicatorCart(props) {
         if (item?.product?.cover) {
             image = (
                 <div className="product-image dropcart__product-image">
-                    <Link to={`/shop/products/${item?.product?.id}`} className="product-image__body">
+                    <Link to={`/${domain}/shop/product/${item?.product?.id}`} className="product-image__body">
                         <img className="product-image__img" src={item?.product?.cover} alt="" />
                     </Link>
                 </div>
@@ -103,7 +104,7 @@ function IndicatorCart(props) {
                 {image}
                 <div className="dropcart__product-info">
                     <div className="dropcart__product-name">
-                        <Link to={`/shop/products/${item?.product?.id}`}>{item?.product?.name}</Link>
+                        <Link to={`/${domain}/shop/product/${item?.product?.id}`}>{item?.product?.name}</Link>
                     </div>
                     {options}
                     <div className="dropcart__product-meta">
@@ -137,8 +138,8 @@ function IndicatorCart(props) {
                 </div>
 
                 <div className="dropcart__buttons">
-                    <Link className="btn btn-secondary" to="/shop/cart">سلة التسوق</Link>
-                    <Link className="btn btn-primary" to="/shop/checkout">الدفع</Link>
+                    <Link className="btn btn-secondary" to={`/${domain}/shop/cart`}>سلة التسوق</Link>
+                    <Link className="btn btn-primary" to={`/${domain}/shop/checkout`}>الدفع</Link>
                 </div>
             </div>
         );
@@ -153,7 +154,7 @@ function IndicatorCart(props) {
     }
 
     return (
-        <Indicator url="/shop/cart" dropdown={dropdown} value={cart?.qty} icon={<Cart20Svg />} />
+        <Indicator url={`/${domain}/shop/cart`} dropdown={dropdown} value={cart?.qty} icon={<Cart20Svg />} />
     );
 }
 

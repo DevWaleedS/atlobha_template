@@ -1,30 +1,31 @@
+const domain = window.location.pathname.split('/')[1];
 export default [
     {
         title: "الرئيسية",
-        url: "/",
+        url: `/${domain}`,
     },
 
     {
         title: "المنتجات",
-        url: "/shop/products",
+        url: `/${domain}/shop/products`,
     },
     {
         title: "المقالات",
-        url: "/blog/posts",
+        url: `/${domain}/blog/posts`,
     },
     {
         title: "تواصل معنا",
-        url: "/site/contact-us",
+        url: `/${domain}/site/contact-us`,
     },
 
     {
         title: "الصفحات",
-        url: "/",
+        url: `/${domain}`,
         submenu: {
             type: "menu",
             menu: [
-                { title: "تواصل معنا", url: "/site/contact-us" },
-                { title: "تواصل معنا Alt", url: "/site/contact-us-alt" },
+                { title: "تواصل معنا", url: `/${domain}/site/contact-us` },
+                { title: "تواصل معنا Alt", url: `/${domain}/site/contact-us-alt` },
             ],
         },
     },

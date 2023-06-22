@@ -1,9 +1,7 @@
 // react
 import React, { useEffect, useState } from 'react';
-
 // third-party
 import { Helmet } from 'react-helmet-async';
-import useFetch from '../../hooks/useFetch';
 
 // blocks
 import BlockBanner from '../blocks/BlockBanner';
@@ -19,8 +17,7 @@ import BlockSlideShow from '../blocks/BlockSlideShow';
 // import categories from '../../data/shopBlockCategories';
 import theme from '../../data/theme';
 
-function HomePageOne() {
-    const { fetchedData, loading } = useFetch('https://backend.atlbha.com/api/indexStore/1');
+function HomePageOne({fetchedData,loading}) {
     const [activeNewId, setActiveNewId] = useState(0);
     const [activeMoreSalesId, setActiveMoreSalesId] = useState(0);
     const [newProducts, setNewProducts] = useState([]);

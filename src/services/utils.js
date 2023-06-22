@@ -1,11 +1,12 @@
+const domain = window.location.pathname.split('/')[1];
 export const url = {
-    home: () => '/',
+    home: () => `/${domain}`,
 
-    catalog: () => '/shop/products',
+    catalog: () => `/${domain}/shop/products`,
 
-    category: (category) => `/shop/catalog/${category.slug}`,
+    category: (category) => `/${domain}/shop/catalog/${category.slug}`,
 
-    product: (product) => `/shop/products/${product?.id}`,
+    product: (product) => `/${domain}/shop/product/${product?.id}`,
 };
 
 export function getCategoryParents(category) {

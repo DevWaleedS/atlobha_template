@@ -16,8 +16,9 @@ import BlockLoader from '../blocks/BlockLoader';
 import theme from '../../data/theme';
 
 export default function BlogPagePost(props) {
-    let { id } = useParams();
-    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postdetail/${id}?id=1`);
+    const domain = window.location.pathname.split('/')[1];
+    let { id,name } = useParams();
+    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postdetail/${id}?domain=${name}`);
     const { layout, sidebarPosition } = props;
 
     let content;
@@ -59,8 +60,8 @@ export default function BlogPagePost(props) {
     }
 
     const breadcrumbs = [
-        { title: 'الرئيسية', url: '' },
-        { title: 'المقالات', url: '/blog/posts' },
+        { title: 'الرئيسية', url: `/${domain}` },
+        { title: 'المقالات', url: `/${domain}/blog/posts` },
         { title: 'اخر مقال', url: '' },
     ];
 

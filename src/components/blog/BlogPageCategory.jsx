@@ -18,8 +18,9 @@ import BlockLoader from '../blocks/BlockLoader';
 import theme from '../../data/theme';
 
 function BlogPageCategory(props) {
-    let { id } = useParams();
-    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postByCategory/${id}?id=1`);
+    const domain = window.location.pathname.split('/')[1];
+    let { id,name } = useParams();
+    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postByCategory/${id}?domain=${name}`);
     const [search, setSearch] = useState('');
     const posts = fetchedData?.data?.posts?.filter((post) => post?.title?.includes(search));
     const { layout, sidebarPosition } = props;
@@ -35,8 +36,8 @@ function BlogPageCategory(props) {
     }
 
     const breadcrumb = [
-        { title: 'الرئيسية', url: '/' },
-        { title: 'المقالات', url: '/blog/posts' },
+        { title: 'الرئيسية', url: `/${domain}` },
+        { title: 'المقالات', url: `/${domain}/blog/posts` },
         { title: categoryName?.[0]?.name || '', url: '' },
     ];
     let sidebarStart;

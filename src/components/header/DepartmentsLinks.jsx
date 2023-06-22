@@ -12,6 +12,7 @@ import { ArrowRoundedRight6x9Svg } from '../../svg';
 // import departments from '../../data/headerDepartments';
 
 function DepartmentsLinks({ fetchedData }) {
+    const domain = window.location.pathname.split('/')[1];
     const linksList = fetchedData?.category?.map((department, index) => {
         let arrow = null;
         let submenu = null;
@@ -33,7 +34,7 @@ function DepartmentsLinks({ fetchedData }) {
 
         return (
             <li key={index} className={`departments__item ${itemClass}`}>
-                <Link to={`/shop/products-by-category/${department?.id}`}>
+                <Link to={`/${domain}/shop/products-by-category/${department?.id}`}>
                     {department?.name}
                     {arrow}
                 </Link>

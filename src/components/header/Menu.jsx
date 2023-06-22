@@ -11,6 +11,7 @@ import { ArrowRoundedRight6x9Svg } from "../../svg";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Menu(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { layout, withIcons, items, onClick } = props;
     const renderLink = (item, content) => {
         let link;
@@ -22,7 +23,7 @@ function Menu(props) {
                 </AppLink>
             );
         } else {
-            link = <Link to={`/site/SitePages/${item?.id}`}>{item?.name}</Link>;
+            link = <Link to={`/${domain}/site/SitePages/${item?.id}`}>{item?.name}</Link>;
         }
 
         return link;

@@ -1,11 +1,3 @@
-// import React from "react";
-// import useFetch from "../hooks/useFetch";
-
-// export const PagesLinks = () => {
-//     const { fetchedData } = useFetch("https://backend.atlbha.com/api/indexStore/1");
-//     console.log(fetchedData?.data?.pages);
-// };
-
 export default [
     {
         type: "link",

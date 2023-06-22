@@ -7,19 +7,20 @@ import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 
 function WidgetPosts(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { posts } = props;
     // const postImage = (post) => post?.image.replace(/\.jpg$/, '-thumbnail.jpg');
 
     const postsList = posts.map((post) => (
         <div key={post.id} className="widget-posts__item">
             <div className="widget-posts__image">
-                <Link to={`/blog/post/${post?.id}`}>
+                <Link to={`/${domain}/blog/post/${post?.id}`}>
                     <img src={post?.image} alt="" />
                 </Link>
             </div>
             <div className="widget-posts__info">
                 <div className="widget-posts__name">
-                    <Link to={`/blog/post/${post?.id}`}>{post?.title}</Link>
+                    <Link to={`/${domain}/blog/post/${post?.id}`}>{post?.title}</Link>
                 </div>
                 <div className="widget-posts__date">{moment(post?.created_at).format('MMMM.DD.YYYY')}</div>
             </div>

@@ -62,6 +62,7 @@ class ShopPageCart extends Component {
     }
 
     renderItems() {
+        const domain = window.location.pathname.split('/')[1];
         const { cart, cartRemoveItem,cartRemoveItemLocal,token } = this.props;
 
         return cart?.items?.map((item) => {
@@ -71,7 +72,7 @@ class ShopPageCart extends Component {
             if (item?.product?.cover) {
                 image = (
                     <div className="product-image">
-                        <Link to={`/shop/products/${item?.product?.id}`} className="product-image__body">
+                        <Link to={`/${domain}/shop/product/${item?.product?.id}`} className="product-image__body">
                             <img className="product-image__img" src={item?.product?.cover} alt="" />
                         </Link>
                     </div>
@@ -128,7 +129,7 @@ class ShopPageCart extends Component {
                         {image}
                     </td>
                     <td className="cart-table__column cart-table__column--product">
-                        <Link to={`/shop/products/${item?.product?.id}`} className="cart-table__product-name">
+                        <Link to={`/${domain}/shop/product/${item?.product?.id}`} className="cart-table__product-name">
                             {item?.product?.name}
                         </Link>
                         {options}
@@ -195,6 +196,7 @@ class ShopPageCart extends Component {
     }
 
     renderCart() {
+        const domain = window.location.pathname.split('/')[1];
         const { cart, cartUpdateQuantities } = this.props;
         const { quantities } = this.state;
 
@@ -240,7 +242,7 @@ class ShopPageCart extends Component {
                             <button type="submit" className="btn btn-primary">تطبيق الكوبون</button>
                         </form>
                         <div className="cart__buttons">
-                            <Link to="/" className="btn btn-light">الاستمرار في التسوق</Link>
+                            <Link to={`/${domain}`} className="btn btn-light">الاستمرار في التسوق</Link>
                             {updateCartButton}
                         </div>
                     </div>
@@ -259,7 +261,7 @@ class ShopPageCart extends Component {
                                             </tr>
                                         </tfoot>
                                     </table>
-                                    <Link to="/shop/checkout" className="btn btn-primary btn-xl btn-block cart__checkout-button">
+                                    <Link to={`/${domain}/shop/checkout`} className="btn btn-primary btn-xl btn-block cart__checkout-button">
                                         الاستمرار الى الدفع
                                     </Link>
                                 </div>
@@ -272,9 +274,10 @@ class ShopPageCart extends Component {
     }
 
     render() {
+        const domain = window.location.pathname.split('/')[1];
         const { cart } = this.props;
         const breadcrumb = [
-            { title: 'الرئيسية', url: '/' },
+            { title: 'الرئيسية', url: `/${domain}` },
             { title: 'سلة التسوق', url: '' },
         ];
 
@@ -289,7 +292,7 @@ class ShopPageCart extends Component {
                         <div className="block-empty__body">
                             <div className="block-empty__message">سلة التسوق الخاصة بك فارغة!</div>
                             <div className="block-empty__actions">
-                                <Link to="/" className="btn btn-primary btn-sm">استمرار</Link>
+                                <Link to={`/${domain}`} className="btn btn-primary btn-sm">استمرار</Link>
                             </div>
                         </div>
                     </div>
