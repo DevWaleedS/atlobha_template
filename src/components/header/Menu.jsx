@@ -23,7 +23,14 @@ function Menu(props) {
                 </AppLink>
             );
         } else {
-            link = <Link to={`/${domain}/site/SitePages/${item?.id}`}>{item?.name}</Link>;
+            if(item?.type === "links"){
+                link = <Link to={`/${domain}/site/SitePages/${item?.id}`}>{item?.name}</Link>;
+            }
+            else
+            {
+                link = <Link to={`/${domain}/shop/products-by-category/${item?.id}`}>{item?.name}</Link>;
+            }
+
         }
 
         return link;

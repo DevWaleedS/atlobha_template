@@ -10,6 +10,7 @@ import Collapse from "../shared/Collapse";
 import { ArrowRoundedDown12x7Svg } from "../../svg";
 
 function MobileLinks(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { links, level, onItemClick } = props;
 
     const handleItemClick = (item) => {
@@ -52,7 +53,7 @@ function MobileLinks(props) {
 
                         if (link.type === "link") {
                             linkOrButton = (
-                                <AppLink to={`/site/SitePages/${link?.url}`} className="mobile-links__item-link">
+                                <AppLink to={`/${domain}/site/SitePages/${link?.url}`} className="mobile-links__item-link">
                                     {link.label}
                                 </AppLink>
                             );
