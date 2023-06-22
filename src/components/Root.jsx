@@ -20,8 +20,6 @@ import { localeChange } from '../store/locale';
 
 // pages
 import Layout from './Layout';
-import HomePageOne from './home/HomePageOne';
-// import HomePageTwo from './home/HomePageTwo';
 
 class Root extends Component {
     componentDidMount() {
@@ -35,16 +33,19 @@ class Root extends Component {
                 }
             });
             preloader.classList.add('site-preloader__fade');
-        }, 500);
+        }, 1000);
+
     }
 
     shouldUpdateScroll = (prevRouterProps, { location }) => (
         prevRouterProps && location.pathname !== prevRouterProps.location.pathname
     );
 
+
     render() {
         const { locale } = this.props;
         const { messages } = languages[locale];
+
 
         return (
             <IntlProvider locale="ar" messages={messages}>
@@ -54,12 +55,12 @@ class Root extends Component {
                         <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
                             <Switch>
                                 <Route
-                                    path="/"
+                                    path="/:name"
                                     render={(props) => (
-                                        <Layout {...props} headerLayout="default" homeComponent={HomePageOne} />
+                                        <Layout {...props} headerLayout="default" />
                                     )}
                                 />
-                                <Redirect to="/" />
+                                <Redirect to="/:name" />
                             </Switch>
                         </ScrollContext>
                     </HelmetProvider>

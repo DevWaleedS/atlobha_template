@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 // third-party
+import { useParams } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 import useFetch from '../../hooks/useFetch';
@@ -17,7 +18,9 @@ import BlockLoader from '../blocks/BlockLoader';
 import theme from '../../data/theme';
 
 function BlogPosts(props) {
-    const { fetchedData, loading } = useFetch('https://backend.atlbha.com/api/postStore/1');
+    let { name } = useParams();
+    const domain = window.location.pathname.split('/')[1];
+    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/postStore/${name}`);
     const [search, setSearch] = useState('');
     const { layout, sidebarPosition } = props;
     const posts = fetchedData?.data?.posts?.filter((post) => post?.title?.includes(search));
@@ -32,8 +35,8 @@ function BlogPosts(props) {
     }
 
     const breadcrumb = [
-        { title: 'الرئيسية', url: '/' },
-        { title: 'المقالات', url: '/blog/posts' },
+        { title: 'الرئيسية', url:  `/${domain}` },
+        { title: 'المقالات', url: `/${domain}/blog/posts` },
     ];
     let sidebarStart;
     let sidebarEnd;

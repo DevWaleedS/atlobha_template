@@ -16,6 +16,7 @@ import NavLinks from './NavLinks';
 import { Heart20Svg, LogoSmallSvg } from '../../svg';
 
 function NavPanel(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { layout, wishlist, fetchedData } = props;
     let logo = null;
     let departments = null;
@@ -24,7 +25,7 @@ function NavPanel(props) {
     if (layout === 'compact') {
         logo = (
             <div className="nav-panel__logo">
-                <Link to="/"><LogoSmallSvg /></Link>
+                <Link to={`/${domain || fetchedData?.domain}`}><LogoSmallSvg /></Link>
             </div>
         );
 
@@ -53,7 +54,7 @@ function NavPanel(props) {
                     <div className="nav-panel__indicators">
                         {searchIndicator}
 
-                        <Indicator url="/shop/wishlist" value={wishlist.length} icon={<Heart20Svg />} />
+                        <Indicator url={`/${domain || fetchedData?.domain}/shop/wishlist`} value={wishlist.length} icon={<Heart20Svg />} />
 
                         <CartIndicator />
 

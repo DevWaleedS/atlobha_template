@@ -14,6 +14,7 @@ import moment from 'moment/moment';
 // import comments from '../../data/blogPostComments';
 
 export default function BlogPost(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { layout, data } = props;
 
     const postClasses = classNames('post__content typography', {
@@ -23,13 +24,13 @@ export default function BlogPost(props) {
     const relatedPostsList = data?.relatedPosts?.slice(0, 2).map((relatedPost) => (
         <div key={relatedPost?.id} className="related-posts__item post-card post-card--layout--related">
             <div className="post-card__image">
-                <Link to={`/blog/post/${relatedPost?.id}`}>
+                <Link to={`/${domain}/blog/post/${relatedPost?.id}`}>
                     <img src={relatedPost?.image} alt="" width={"100%"} />
                 </Link>
             </div>
             <div className="post-card__info">
                 <div className="post-card__name">
-                    <Link to={`/blog/post/${relatedPost?.id}`}>{relatedPost?.title}</Link>
+                    <Link to={`/${domain}/blog/post/${relatedPost?.id}`}>{relatedPost?.title}</Link>
                 </div>
                 <div className="post-card__date">{moment(relatedPost?.created_at).format('MMMM.DD.YYYY')}</div>
             </div>

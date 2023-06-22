@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 
 // application
 import Currency from '../shared/Currency';
-import { url } from '../../services/utils';
 
 function WidgetProducts(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { title, products } = props;
     const productsList = products.map((product) => {
         let image;
@@ -19,7 +19,7 @@ function WidgetProducts(props) {
             image = (
                 <div className="widget-products__image">
                     <div className="product-image">
-                        <Link to={`/shop/products/${product?.id}`} className="product-image__body">
+                        <Link to={`/${domain}/shop/product/${product?.id}`} className="product-image__body">
                             <img className="product-image__img" src={product?.cover} alt="" />
                         </Link>
                     </div>
@@ -44,7 +44,7 @@ function WidgetProducts(props) {
                 {image}
                 <div className="widget-products__info">
                     <div className="widget-products__name">
-                        <Link to={`/shop/products/${product?.id}`}>{product?.name}</Link>
+                        <Link to={`/${domain}/shop/product/${product?.id}`}>{product?.name}</Link>
                     </div>
                     <div className="widget-products__prices">
                         {price}

@@ -18,6 +18,7 @@ import { quickviewOpen } from '../../store/quickview';
 import { wishlistAddItem } from '../../store/wishlist';
 
 function ProductCard(props) {
+    const domain = window.location.pathname.split('/')[1];
     const token = localStorage.getItem('token');
     const {
         product,
@@ -59,7 +60,7 @@ function ProductCard(props) {
     if (product?.cover) {
         image = (
             <div className="product-card__image product-image">
-                <Link to={`/shop/products/${product?.id}`} className="product-image__body">
+                <Link to={`/${domain}/shop/product/${product?.id}`} className="product-image__body">
                     <img className="product-image__img" src={product?.cover} alt="product_image" />
                 </Link>
             </div>
@@ -110,7 +111,7 @@ function ProductCard(props) {
             {image}
             <div className="product-card__info">
                 <div className="product-card__name">
-                    <Link to={`/shop/products/${product?.id}`}>{product.name}</Link>
+                    <Link to={`/${domain}/shop/product/${product?.id}`}>{product.name}</Link>
                     <div className="buttons">
                         <AsyncAction
                             action={() => wishlistAddItem(product)}

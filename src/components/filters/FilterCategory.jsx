@@ -11,8 +11,8 @@ import { ArrowRoundedLeft6x9Svg } from '../../svg';
 import { getCategoryParents } from '../../services/utils';
 
 function FilterCategory(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { data,activeCategory } = props;
-
     const categoriesList = data?.items?.map((category) => {
         const itemClasses = classNames('filter-categories__item', {
             'filter-categories__item--current': Number(activeCategory) === category?.id,
@@ -23,15 +23,15 @@ function FilterCategory(props) {
                 {getCategoryParents(category).map((parent) => (
                     <li key={parent?.id} className="filter-categories__item filter-categories__item--parent">
                         <ArrowRoundedLeft6x9Svg className="filter-categories__arrow" />
-                        <Link to={`/shop/products-by-category/${parent?.id}`}>{parent?.name}1</Link>
+                        <Link to={`/${domain}/shop/products-by-category/${parent?.id}`}>{parent?.name}1</Link>
                     </li>
                 ))}
                 <li className={itemClasses}>
-                    <Link to={`/shop/products-by-category/${category?.id}`}>{category?.name}</Link>
+                    <Link to={`/${domain}/shop/products-by-category/${category?.id}`}>{category?.name}</Link>
                 </li>
                 {category?.s && category?.subcategory?.map((child) => (
                     <li key={child.id} className="filter-categories__item filter-categories__item--child">
-                        <Link to={`/shop/products-by-category/${child?.id}`}>{child?.name}</Link>
+                        <Link to={`/${domain}/shop/products-by-category/${child?.id}`}>{child?.name}</Link>
                     </li>
                 ))}
             </Fragment>
@@ -42,7 +42,7 @@ function FilterCategory(props) {
         categoriesList.unshift(
             <li key="[shop]" className="filter-categories__item filter-categories__item--parent">
                 <ArrowRoundedLeft6x9Svg className="filter-categories__arrow" />
-                <Link to={"/shop/products"}>كل المنتجات</Link>
+                <Link to={`/${domain}/shop/products`}>كل المنتجات</Link>
             </li>,
         );
     }

@@ -11,6 +11,7 @@ import NavPanel from "./NavPanel";
 import Search from "./Search";
 
 function Header(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { layout, fetchedData } = props;
     let bannerSection;
 
@@ -18,7 +19,7 @@ function Header(props) {
         bannerSection = (
             <div className="site-header__middle container">
                 <div className="site-header__logo">
-                    <Link to="/">
+                    <Link to={`/${domain || fetchedData?.domain}`}>
                         <img src={fetchedData?.logo} alt="logo" width="100%" height="100%" />
                     </Link>
                 </div>

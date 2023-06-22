@@ -20,10 +20,11 @@ import { wishlistRemoveItem } from '../../store/wishlist';
 import theme from '../../data/theme';
 
 function ShopPageWishlist(props) {
+    const domain = window.location.pathname.split('/')[1];
     const token = localStorage.getItem('token');
     const { wishlist, cartAddItem, wishlistRemoveItem, cartAddItemLocal } = props;
     const breadcrumb = [
-        { title: 'الرئيسية', url: '/' },
+        { title: 'الرئيسية', url: `/${domain}` },
         { title: 'المفضلة', url: '' },
     ];
 
@@ -34,7 +35,7 @@ function ShopPageWishlist(props) {
             let image;
             image = (
                 <div className="product-image">
-                    <Link to={`/shop/products/${item?.id}`} className="product-image__body">
+                    <Link to={`/${domain}/shop/product/${item?.id}`} className="product-image__body">
                         <img className="product-image__img" src={item?.cover} alt="" />
                     </Link>
                 </div>
@@ -62,7 +63,7 @@ function ShopPageWishlist(props) {
                         {image}
                     </td>
                     <td className="wishlist__column wishlist__column--product">
-                        <Link to={`/shop/products/${item?.id}`} className="wishlist__product-name">{item?.name}</Link>
+                        <Link to={`/${domain}/shop/product/${item?.id}`} className="wishlist__product-name">{item?.name}</Link>
                         <div className="wishlist__product-rating">
                             <Rating value={Number(item?.productRating)} />
                             <div className="wishlist__product-rating-legend">{`${item?.productRatingCount} تقييم`}</div>
@@ -131,7 +132,7 @@ function ShopPageWishlist(props) {
                     <div className="block-empty__body">
                         <div className="block-empty__message">قائمة المفضلة فارغة!</div>
                         <div className="block-empty__actions">
-                            <Link to="/" className="btn btn-primary btn-sm">استمرار</Link>
+                            <Link to={`/${domain}`} className="btn btn-primary btn-sm">استمرار</Link>
                         </div>
                     </div>
                 </div>

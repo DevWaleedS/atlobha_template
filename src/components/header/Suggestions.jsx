@@ -11,9 +11,9 @@ import AsyncAction from '../shared/AsyncAction';
 import Currency from '../shared/Currency';
 import { Cart16Svg } from '../../svg';
 import { cartAddItem, cartAddItemLocal } from '../../store/cart';
-import { url } from '../../services/utils';
 
 function Suggestions(props) {
+    const domain = window.location.pathname.split('/')[1];
     const token = localStorage.getItem('token');
     const {
         context,
@@ -34,7 +34,7 @@ function Suggestions(props) {
                 </div>
             )}
             <div className="suggestions__item-info">
-                <Link className="suggestions__item-name" to={`/shop/products/${product?.id}`}>
+                <Link className="suggestions__item-name" to={`/${domain}/shop/product/${product?.id}`}>
                     {product?.name}
                 </Link>
                 <div className="suggestions__item-meta">SKU: 83690/32</div>

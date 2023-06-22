@@ -10,6 +10,7 @@ import Collapse from '../shared/Collapse';
 import { ArrowRoundedRight6x9Svg } from '../../svg';
 
 function WidgetCategories(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { categories, location } = props;
     const categoriesList = categories?.map((category) => {
         const renderCategory = ({ toggle, setItemRef, setContentRef }) => {
@@ -23,7 +24,7 @@ function WidgetCategories(props) {
                     <div className="widget-categories__subs" ref={setContentRef}>
                         <ul>
                             {category.children.map((sub) => (
-                                <li key={sub.id}><Link to={`/blog/posts-by-category/${sub?.id}`}>{sub.name}</Link></li>
+                                <li key={sub.id}><Link to={`/${domain}/blog/posts-by-category/${sub?.id}`}>{sub.name}</Link></li>
                             ))}
                         </ul>
                     </div>
@@ -33,7 +34,7 @@ function WidgetCategories(props) {
             return (
                 <li className="widget-categories__item" ref={setItemRef}>
                     <div className="widget-categories__row">
-                        <Link to={`/blog/posts-by-category/${category?.id}`}>
+                        <Link to={`/${domain}/blog/posts-by-category/${category?.id}`}>
                             <ArrowRoundedRight6x9Svg className="widget-categories__arrow" />
                             {category?.name}
                         </Link>

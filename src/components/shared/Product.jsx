@@ -32,6 +32,7 @@ class Product extends Component {
     };
 
     render() {
+        const domain = window.location.pathname.split('/')[1];
         const { product, layout, wishlistAddItem, compareAddItem, cartAddItem, cartAddItemLocal, token } = this.props;
         const { quantity } = this.state;
         let prices;
@@ -99,9 +100,9 @@ class Product extends Component {
                                 <Rating value={Number(product?.productRating)} />
                             </div>
                             <div className="product__rating-legend">
-                                <Link to="/">{`${product?.productRatingCount} تقييم`}</Link>
+                                <Link to={`/${domain}`}>{`${product?.productRatingCount} تقييم`}</Link>
                                 <span>/</span>
-                                <Link to="/">اكتب تقييماً</Link>
+                                <Link to={`/${domain}`}>اكتب تقييماً</Link>
                             </div>
                         </div>
                         <div className="product__description">{product?.description}</div>

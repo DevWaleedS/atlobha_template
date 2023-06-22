@@ -24,22 +24,23 @@ import AccountPagePassword from './AccountPagePassword';
 import AccountPageProfile from './AccountPageProfile';
 
 export default function AccountLayout(props) {
+    const domain = window.location.pathname.split('/')[1];
     const { match, location } = props;
 
     const breadcrumb = [
-        { title: 'الرئيسية', url: '' },
+        { title: 'الرئيسية', url: `/${domain}` },
         { title: 'حسابي', url: '' },
     ];
 
     const links = [
-        { title: 'لوحة التحكم', url: 'dashboard' },
-        { title: 'تعديل الملف الشخصي', url: 'profile' },
-        { title: 'تاريخ الطلب', url: 'orders' },
-        { title: 'تفاصيل الطلب', url: 'orders/5' },
-        { title: 'العناوين', url: 'addresses' },
-        { title: 'تعديل عنوان', url: 'addresses/5' },
-        { title: 'كلمة المرور', url: 'password' },
-        { title: 'تسجيل الخروج', url: 'login' },
+        { title: 'لوحة التحكم', url: `/${domain}/dashboard` },
+        { title: 'تعديل الملف الشخصي', url: `/${domain}/profile` },
+        { title: 'تاريخ الطلب', url: `/${domain}/orders` },
+        { title: 'تفاصيل الطلب', url: `/${domain}/orders/5` },
+        { title: 'العناوين', url: `/${domain}/addresses` },
+        { title: 'تعديل عنوان', url: `/${domain}/addresses/5` },
+        { title: 'كلمة المرور', url: `/${domain}/password` },
+        { title: 'تسجيل الخروج', url: `/${domain}/login` },
     ].map((link) => {
         const url = `${match.url}/${link.url}`;
         const isActive = matchPath(location.pathname, { path: url, exact: true });

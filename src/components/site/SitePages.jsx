@@ -13,13 +13,13 @@ import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function SitePages() {
-    const { id } = useParams();
-    const { fetchedData } = useFetch(`https://backend.atlbha.com/api/storPage/${id}?id=1`);
+    const { id,name } = useParams();
+    const { fetchedData } = useFetch(`https://backend.atlbha.com/api/storPage/${id}?domain=${name}`);
     const [sitePage, seTSitePage] = useState();
 
     const breadcrumb = [
         { title: "الرئيسية", url: "" },
-        { title: sitePage?.title, url: `/site/SitePages/${sitePage?.id}` },
+        { title: sitePage?.title, url: `${name}/site/SitePages/${sitePage?.id}` },
     ];
 
     useEffect(() => {

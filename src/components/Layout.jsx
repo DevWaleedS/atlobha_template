@@ -1,6 +1,7 @@
 // react
 import React from "react";
 // third-party
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet-async";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -30,9 +31,9 @@ import ShopPageProduct from "./shop/ShopPageProduct";
 import ShopPageTrackOrder from "./shop/ShopPageTrackOrder";
 import SitePageContactUs from "./site/SitePageContactUs";
 import SitePageContactUsAlt from "./site/SitePageContactUsAlt";
-
 import SitePageNotFound from "./site/SitePageNotFound";
-
+import StoreNotFound from "./site/StoreNotFound";
+import HomePageOne from './home/HomePageOne';
 // import SitePageComponents from './site/SitePageComponents';
 
 // data stubs
@@ -68,9 +69,14 @@ const productLayouts = [
 ));
 
 function Layout(props) {
-    const { match, headerLayout, homeComponent } = props;
-    const { fetchedData } = useFetch("https://backend.atlbha.com/api/indexStore/1");
+    let { name } = useParams();
+    const { match, headerLayout } = props;
+    const { fetchedData, loading } = useFetch(`https://backend.atlbha.com/api/indexStore/${name}`);
     const token = localStorage.getItem('token');
+
+    if (fetchedData?.success === false && fetchedData?.data === null) {
+        return <StoreNotFound title={fetchedData?.message?.ar} />
+    }
 
     return (
         <React.Fragment>
@@ -83,7 +89,7 @@ function Layout(props) {
 
             <Quickview />
 
-            <MobileMenu fetchedData={fetchedData?.data}/>
+            <MobileMenu fetchedData={fetchedData?.data} />
 
             <div className="site">
                 <header className="site__header d-lg-none">
@@ -99,22 +105,25 @@ function Layout(props) {
                         {/*
                         // Home
                         */}
-                        <Route exact path={`${match.path}`} component={homeComponent} />
+                        <Route
+                            exact
+                            path={`${match.path}`}
+                            render={() => <HomePageOne fetchedData={fetchedData} loading={loading} />}
+                        />
 
                         {/*
                         // Shop
                         */}
-                        <Redirect exact from="/shop" to="/shop/products" />
+                        <Redirect exact from={`/${name}/shop`} to={`/${name}/shop/products`} />
                         <Route
-                            exact
-                            path="/shop/products"
+                            path={`/${name}/shop/products`}
                             render={(props) => (
                                 <ShopPageCategory {...props} columns={3} viewMode="grid" sidebarPosition="start" />
                             )}
                         />
                         <Route
                             exact
-                            path="/shop/products-by-category/:id"
+                            path="/:name/shop/products-by-category/:id"
                             render={(props) => (
                                 <ShopPageCategory
                                     {...props}
@@ -130,83 +139,83 @@ function Layout(props) {
 
                         <Route
                             exact
-                            path="/shop/products/:id"
+                            path="/:name/shop/product/:id"
                             render={(props) => (
-                                <ShopPageProduct {...props} layout="standard" productSlug={props.match.params.id} />
+                                <ShopPageProduct {...props} layout="standard" productSlug={props.match.params.id} storeName={props.match.params.name} />
                             )}
                         />
                         {/* Following product layouts only for demonstration. */}
                         {productLayouts}
 
-                        <Route exact path="/shop/cart" render={() => (<PageCart token={token}/>)} />
-                        <Route exact path="/shop/checkout" render={() => (<PageCheckout token={token} />)} />
-                        <Route exact path="/shop/checkout/success" component={ShopPageOrderSuccess} />
-                        <Route exact path="/shop/wishlist" component={PageWishlist} />
-                        <Route exact path="/shop/compare" component={PageCompare} />
-                        <Route exact path="/shop/track-order" component={ShopPageTrackOrder} />
+                        <Route exact path="/:name/shop/cart" render={() => (<PageCart token={token} />)} />
+                        <Route exact path="/:name/shop/checkout" render={() => (<PageCheckout token={token} />)} />
+                        <Route exact path="/:name/shop/checkout/success" component={ShopPageOrderSuccess} />
+                        <Route exact path="/:name/shop/wishlist" component={PageWishlist} />
+                        <Route exact path="/:name/shop/compare" component={PageCompare} />
+                        <Route exact path="/:name/shop/track-order" component={ShopPageTrackOrder} />
 
                         {/*
                         // Blog
                         */}
-                        <Redirect exact from="/blog" to="/blog/posts" />
+                        <Redirect exact from="/:name/blog" to="/:name/blog/posts" />
                         <Route
                             exact
-                            path="/blog/posts"
+                            path="/:name/blog/posts"
                             render={(props) => <BlogPosts {...props} layout="classic" sidebarPosition="end" />}
                         />
                         <Route
                             exact
-                            path="/blog/posts-by-category/:id"
+                            path="/:name/blog/posts-by-category/:id"
                             render={(props) => <BlogPageCategory {...props} layout="classic" sidebarPosition="end" />}
                         />
                         <Route
                             exact
-                            path="/blog/category-grid"
+                            path="/:name/blog/category-grid"
                             render={(props) => <BlogPageCategory {...props} layout="grid" sidebarPosition="end" />}
                         />
                         <Route
                             exact
-                            path="/blog/category-list"
+                            path="/:name/blog/category-list"
                             render={(props) => <BlogPageCategory {...props} layout="list" sidebarPosition="end" />}
                         />
                         <Route
                             exact
-                            path="/blog/category-left-sidebar"
+                            path="/:name/blog/category-left-sidebar"
                             render={(props) => <BlogPageCategory {...props} layout="classic" sidebarPosition="start" />}
                         />
                         <Route
                             exact
-                            path="/blog/post/:id"
+                            path="/:name/blog/post/:id"
                             render={(props) => <BlogPagePost {...props} layout="classic" sidebarPosition="end" />}
                         />
                         <Route
                             exact
-                            path="/blog/post-full"
+                            path="/:name/blog/post-full"
                             render={(props) => <BlogPagePost {...props} layout="full" />}
                         />
-                        <Route exact path={"/site/SitePages/:id"} component={SitePages} />
+                        <Route exact path={"/:name/site/SitePages/:id"} component={SitePages} />
 
                         {/*
                         // Account
                         */}
-                        <Route exact path="/account/login" component={AccountPageLogin} />
-                        <Route path="/account" component={AccountLayout} />
+                        <Route exact path="/:name/account/login" component={AccountPageLogin} />
+                        <Route path="/:name/account" component={AccountLayout} />
 
                         {/*
 
                          // about us page
                          // Pages dropdown menu
                         */}
-                        <Redirect exact from="/site" to="/" />
+                        <Redirect exact from="/:name/site" to="/:name" />
                         {/*
                          // page that will come form api
                         */}
-                        <Route exact path={"/site/SitePages/:id"} component={SitePages} />
+                        <Route exact path={":name/site/SitePages/:id"} component={SitePages} />
                         {/*
                          // contact us pages
                         */}
-                        <Route exact path="/site/contact-us" component={SitePageContactUs} />
-                        <Route exact path="/site/contact-us-alt" component={SitePageContactUsAlt} />
+                        <Route exact path="/:name/site/contact-us" component={SitePageContactUs} />
+                        <Route exact path="/:name/site/contact-us-alt" component={SitePageContactUsAlt} />
                         {/*
                         // Page Not Found
                         */}
@@ -228,10 +237,6 @@ Layout.propTypes = {
      * one of ['classic', 'compact']
      */
     headerLayout: PropTypes.oneOf(["default", "compact"]),
-    /**
-     * home component
-     */
-    homeComponent: PropTypes.elementType.isRequired,
 };
 
 Layout.defaultProps = {

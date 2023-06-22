@@ -13,7 +13,8 @@ import Indicator from './Indicator';
 import { Person20Svg } from '../../svg';
 
 function IndicatorAccount(props) {
-    const { fetchCartData,resetCartLocal,addLocalCartToDB,cart } = props;
+    const domain = window.location.pathname.split('/')[1];
+    const { resetCartLocal,addLocalCartToDB,cart } = props;
     const token = localStorage.getItem('token');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,7 +35,7 @@ function IndicatorAccount(props) {
             if (res?.data?.success === true && res?.data?.data?.status === 200) {
                 toast.success(res?.data?.message?.ar, { theme: 'colored' });
                 localStorage.setItem('token', res?.data?.data?.token);
-                history.push('/');
+                history.push(`/${domain}`);
                 setDisabledLogin(false);
                 addLocalCartToDB(cart);
             } else {
@@ -56,7 +57,7 @@ function IndicatorAccount(props) {
         resetCartLocal();
         localStorage.removeItem("token");
         toast.success('تم تسجيل الخروج بنجاح', { theme: 'colored' });
-        history.push('/');
+        history.push(`/${domain}`);
     }
 
     const dropdown = (
@@ -97,14 +98,14 @@ function IndicatorAccount(props) {
                                     }}
                                 />
                                 <span className="text-danger" style={{ fontSize: '0.8rem' }}>{passwordError && passwordError}</span>
-                                <Link to="/account/login" className="account-menu__form-forgot-link">نسيت كلمة المرور?</Link>
+                                <Link to={`/${domain}/account/login`} className="account-menu__form-forgot-link">نسيت كلمة المرور?</Link>
                             </div>
                         </div>
                         <div className="form-group account-menu__form-button">
                             <button type="button" disabled={disabledLogin} onClick={Login} className="btn btn-primary btn-sm">تسجيل الدخول</button>
                         </div>
                         <div className="account-menu__form-link">
-                            <Link to="/account/login">إنشاء حساب جديد</Link>
+                            <Link to={`/${domain}/account/login`}>إنشاء حساب جديد</Link>
                         </div>
                     </form>
                 )
@@ -123,10 +124,10 @@ function IndicatorAccount(props) {
                         </Link>
                         <div className="account-menu__divider" />
                         <ul className="account-menu__links">
-                            <li><Link to="/account/profile">تعديل الملف الشخصي</Link></li>
-                            <li><Link to="/account/orders">الطلبات</Link></li>
-                            <li><Link to="/account/addresses">العناوين</Link></li>
-                            <li><Link to="/account/password">كلمة المرور</Link></li>
+                            <li><Link to={`/${domain}/account/profile`}>تعديل الملف الشخصي</Link></li>
+                            <li><Link to={`/${domain}/account/orders`}>الطلبات</Link></li>
+                            <li><Link to={`/${domain}/account/addresses`}>العناوين</Link></li>
+                            <li><Link to={`/${domain}/account/password`}>كلمة المرور</Link></li>
                         </ul>
                         <div className="account-menu__divider" />
                         <ul className="account-menu__links">
@@ -139,7 +140,7 @@ function IndicatorAccount(props) {
     );
 
     return (
-        <Indicator url="/account" dropdown={dropdown} icon={<Person20Svg />} />
+        <Indicator url={`/${domain}/account`} dropdown={dropdown} icon={<Person20Svg />} />
     );
 }
 const mapStateToProps = (state) => ({

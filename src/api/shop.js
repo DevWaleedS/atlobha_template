@@ -121,6 +121,7 @@ const shopApi = {
      * @return {Promise<object>}
      */
     getProductsList: async (options = {}, filters = {}) => {
+        const domain = window.location.pathname.split('/')[1];
         const price_from = filters?.price?.slice(0,filters?.price?.indexOf("-"));
         const price_to =  filters?.price?.slice(Number(filters?.price?.indexOf("-")) + 1,filters?.price?.length);
         /**
@@ -141,7 +142,7 @@ const shopApi = {
         //     params[`filter_${slug}`] = filters[slug];
         // });
         //
-        const response = await fetch(`https://backend.atlbha.com/api/storeProductCategory?store_id=1${options?.limit? `&limit=${options?.limit}`:'' }${options?.sort? `&sort=${options?.sort}`:'' }${options?.page? `&page=${options?.page}`:'' }${filters?.category? `&filter_category=${filters?.category}`:'' }${price_from? `&price_from=${Number(price_from)}`:'' }${price_to? `&price_to=${Number(price_to)}`:'' }`);
+        const response = await fetch(`https://backend.atlbha.com/api/storeProductCategory?domain=${domain}${options?.limit? `&limit=${options?.limit}`:'' }${options?.sort? `&sort=${options?.sort}`:'' }${options?.page? `&page=${options?.page}`:'' }${filters?.category? `&filter_category=${filters?.category}`:'' }${price_from? `&price_from=${Number(price_from)}`:'' }${price_to? `&price_to=${Number(price_to)}`:'' }`);
         return await response.json();
 
         // This is for demonstration purposes only. Remove it and use the code above.
@@ -283,6 +284,7 @@ const shopApi = {
      * @return {Promise<Array<object>>}
      */
     getSuggestions: async (query, options = {}) => {
+        const domain = window.location.pathname.split('/')[1];
         /**
          * This is what your API endpoint might look like:
          *
@@ -293,7 +295,7 @@ const shopApi = {
          * - limit    = options.limit
          * - category = options.category
          */
-        const response = await fetch(`https://backend.atlbha.com/api/productSearch?store_id=1&query=${query}${options?.category ? `&category=${options?.category}` : ''}`);
+        const response = await fetch(`https://backend.atlbha.com/api/productSearch?domain=${domain}&query=${query}${options?.category ? `&category=${options?.category}` : ''}`);
         return await response.json();
 
         // This is for demonstration purposes only. Remove it and use the code above.

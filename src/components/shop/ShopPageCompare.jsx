@@ -19,10 +19,11 @@ import { compareRemoveItem } from '../../store/compare';
 import theme from '../../data/theme';
 
 function ShopPageCompare(props) {
+    const domain = window.location.pathname.split('/')[1];
     const token = localStorage.getItem('token');
     const { products, compareRemoveItem, cartAddItem, cartAddItemLocal } = props;
     const breadcrumb = [
-        { title: 'الرئيسية', url: '' },
+        { title: 'الرئيسية', url: `/${domain}` },
         { title: 'المقارنة', url: '' },
     ];
 
@@ -57,7 +58,7 @@ function ShopPageCompare(props) {
 
             return (
                 <td key={product.id}>
-                    <Link to={`/shop/products/${product?.id}`} className="compare-table__product-link">
+                    <Link to={`/${domain}/shop/product/${product?.id}`} className="compare-table__product-link">
                         {image}
                         <div className="compare-table__product-name">{product?.name}</div>
                     </Link>
@@ -201,7 +202,7 @@ function ShopPageCompare(props) {
                     <div className="block-empty__body">
                         <div className="block-empty__message">لم تقم باختيار أي منتجات للمقارنة!</div>
                         <div className="block-empty__actions">
-                            <Link to="/" className="btn btn-primary btn-sm">استمرار</Link>
+                            <Link to={`/${domain}`} className="btn btn-primary btn-sm">استمرار</Link>
                         </div>
                     </div>
                 </div>

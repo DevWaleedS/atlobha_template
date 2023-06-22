@@ -140,15 +140,15 @@ class ShopPageCheckout extends Component {
     }
 
     render() {
+        const domain = window.location.pathname.split('/')[1];
         const { cart, token } = this.props;
-
         if (cart.items.length < 1) {
             return <Redirect to="cart" />;
         }
 
         const breadcrumb = [
-            { title: 'الرئيسية', url: '' },
-            { title: 'سلة التسوق', url: '/shop/cart' },
+            { title: 'الرئيسية', url: `/${domain}` },
+            { title: 'سلة التسوق', url: `/${domain}/shop/cart` },
             { title: 'الدفع', url: '' },
         ];
 
@@ -170,7 +170,7 @@ class ShopPageCheckout extends Component {
                                         <div className="col-12 mb-3">
                                             <div className="alert alert-primary alert-lg">
                                                 عميل غير مسجل الدخول?
-                                                <Link to="/account/login">اضغط هنا لتسجيل الدخول</Link>
+                                                <Link to={`/${domain}/account/login`}>اضغط هنا لتسجيل الدخول</Link>
                                             </div>
                                         </div>
                                     )
